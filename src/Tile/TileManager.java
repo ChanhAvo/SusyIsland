@@ -11,7 +11,8 @@ import java.io.IOException;
 
 public class TileManager {
     GamePanel gp;
-    Tile[] tile ;
+    public Tile[] tile ;
+    public int mapTileNum[][];
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -29,11 +30,14 @@ public class TileManager {
             fis = new FileInputStream(file);
             tile[1] = new Tile();
             tile[1].image = ImageIO.read(fis);
+            tile[1].collision = true;
 
             file = new File("res/Tiles/water.png");
             fis = new FileInputStream(file);
             tile[2] = new Tile();
             tile[2].image = ImageIO.read(fis);
+            tile[2].collision = true;
+
         //    tile[0] = new Tile();
         //    tile[0].image = ImageIO.read(getClass().getResourceAsStream("/Tiles/sand.png"));
 
