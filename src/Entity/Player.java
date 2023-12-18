@@ -23,7 +23,7 @@ public class Player extends Entity {
         solidArea.x = 0;
         solidArea.y = 0;
         solidArea.width = 0;
-        solidArea.height = 700;
+        solidArea.height = 300;
 
         getPlayerImage();
         setDefaultValues();
