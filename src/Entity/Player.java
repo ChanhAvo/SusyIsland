@@ -18,12 +18,14 @@ public class Player extends Entity {
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
-        getPlayerImage();
+        
         setDefaultValues();
+        getPlayerImage();
+
     }
     public void setDefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = (16 * gp.tileSize) / 2;
+        worldY = (12 * gp.tileSize) / 3;
         speed = 4;
         direction = "down";
     }
@@ -56,19 +58,19 @@ public class Player extends Entity {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||keyH.rightPressed == true ){
             if(keyH.upPressed){
                 direction = "up";
-                y -= speed;
+                worldY -= speed;
             }
             else if (keyH.downPressed){
                 direction = "down";
-                y += speed;
+                worldY += speed;
             }
             else if (keyH.leftPressed){
                 direction = "left";
-                x -= speed;
+                worldX -= speed;
             }
             else if (keyH.rightPressed){
                 direction = "right";
-                x += speed;
+                worldX += speed;
             }
             spriteCounter++;
             if(spriteCounter > 12){
@@ -84,6 +86,9 @@ public class Player extends Entity {
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;
+
+        int playerX = (gp.screenWidth - (16 * gp.tileSize)) / 2 + worldX - (gp.tileSize / 2);
+        int playerY = (gp.screenHeight - (12 * gp.tileSize)) / 2 + worldY - (gp.tileSize / 2);
 
         switch (direction) {
             case "up":
@@ -124,7 +129,7 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, x,y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, playerX, playerY, gp.tileSize, gp.tileSize, null);
 
     }
 }
