@@ -47,7 +47,6 @@ public class TileManager {
             loadTileImage("res/Tiles/sand.png", 0);
             loadTileImage("res/Tiles/sand_with_water.png", 1);
             loadTileImage("res/Tiles/water.png", 2);
-            tiles[1].collision = true;
             tiles[2].collision = true;
         } catch (IOException e) {
             e.printStackTrace();
