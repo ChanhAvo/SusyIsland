@@ -15,15 +15,31 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
+    public final int screenX;
+    public final int screenY;
+
     public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
-        getPlayerImage();
+
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 32;
+        solidArea.height = 32;
+        
         setDefaultValues();
+        getPlayerImage();
+
     }
     public void setDefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = 9 * gp.tileSize;
+        worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
     }
@@ -56,19 +72,40 @@ public class Player extends Entity {
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||keyH.rightPressed == true ){
             if(keyH.upPressed){
                 direction = "up";
-                y -= speed;
             }
             else if (keyH.downPressed){
                 direction = "down";
-                y += speed;
             }
             else if (keyH.leftPressed){
                 direction = "left";
-                x -= speed;
             }
             else if (keyH.rightPressed){
                 direction = "right";
-                x += speed;
+            }
+
+            //Check tile collision
+            collisionOn = false;
+            gp.cDetection.checkTile(this);
+
+            //Check object collision
+            int objIndex = gp.cDetection.checkObject(this, true);
+
+            //If collision is false, player can move
+            if(!collisionOn) {
+                switch(direction) {
+                    case "up":
+                        worldY -= speed;
+                        break;
+                    case "down":
+                        worldY += speed;
+                        break;
+                    case "left":
+                        worldX -= speed;
+                        break;
+                    case "right":
+                        worldX += speed;
+                        break;
+                }
             }
             spriteCounter++;
             if(spriteCounter > 12){
@@ -84,6 +121,9 @@ public class Player extends Entity {
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;
+
+//        int playerX = (gp.screenWidth - (16 * gp.tileSize)) / 2 + worldX - (gp.tileSize / 2);
+//        int playerY = (gp.screenHeight - (12 * gp.tileSize)) / 2 + worldY - (gp.tileSize / 2);
 
         switch (direction) {
             case "up":
@@ -123,8 +163,24 @@ public class Player extends Entity {
                 }
                 break;
         }
+        int x = screenX;
+        int y = screenY;
+        if(screenX > worldX){
+            x = worldX;
+        }
+        if(screenY > worldY){
+            y = worldY;
+        }
+        int rightOffset = gp.screenWidth - screenX;
+        if(rightOffset > gp.worldWidth - worldX){
+            x = gp.screenWidth - (gp.worldWidth - worldX);
+        }
+        int bottomOffset = gp.screenHeight - screenY;
+        if(bottomOffset > gp.worldHeight - worldY){
+            y = gp.screenHeight - (gp.worldHeight - worldY);
+        }
 
-        g2.drawImage(image, x,y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
 
     }
 }
