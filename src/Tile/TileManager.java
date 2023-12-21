@@ -24,29 +24,10 @@ public class TileManager {
 
     public void getTileManager() {
 
-        //try (InputStream fileTile01 = new FileInputStream("res/Tiles/sand.png");
-             //InputStream fileTile02 = new FileInputStream("res/Tiles/sand_with_water.png");
-             //InputStream fileTile03 = new FileInputStream("res/Tiles/water.png")) {
-
-            //tile[0] = new Tile();
-            //tile[0].image = ImageIO.read(fileTile01);
         setup(0, "sand", false);
         setup(1, "sand_with_water", true);
         setup(2, "water", true);
 
-
-            //tile[1] = new Tile();
-            //tile[1].image = ImageIO.read(fileTile02);
-            //tile[1].collision = true;
-
-            //tile[2] = new Tile();
-            //tile[2].image = ImageIO.read(fileTile03);
-            //tile[2].collision = true;
-
-
-        //} catch (IOException e) {
-            //e.printStackTrace();
-        //}
     }
 
     public void setup(int index, String imagePath, boolean collision) {
