@@ -2,8 +2,6 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
-import Controls.UtilityTool;
-import Tile.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -11,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.awt.*;
 import java.io.*;
 import java.util.Objects;
+import Controls.UtilityTool;
 
 public class Player extends Entity {
 
@@ -186,7 +185,7 @@ public class Player extends Entity {
             y = gp.screenHeight - (gp.worldHeight - worldY);
         }
 
-        g2.drawImage(image, screenX, screenY, null);
+        g2.drawImage(image, x, y, null);
 
     }
 }

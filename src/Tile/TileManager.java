@@ -3,8 +3,6 @@ import Controls.GamePanel;
 import java.awt.*;
 import java.io.*;
 import javax.imageio.ImageIO;
-import java.io.File;
-import java.io.FileInputStream;
 import Controls.UtilityTool;
 
 public class TileManager {
@@ -115,13 +113,13 @@ public class TileManager {
                     worldY + gp.tileSize > gp.player.worldY - gp.player.screenY &&
                     worldY - gp.tileSize< gp.player.worldY + gp.player.screenY) {
                 if (tile[tileNum] != null && tile[tileNum].image != null) {
-                    g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                    g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
                 }
             }else if(gp.player.screenX > gp.player.worldX ||
                     gp.player.screenY > gp.player.worldY ||
                     rightOffset > gp.worldWidth - gp.player.worldX ||
                     bottomOffset > gp.worldHeight - gp.player.worldY){
-                g2.drawImage(tile[tileNum].image, screenX, screenY, null);
+                g2.drawImage(tile[tileNum].image, screenX, screenY, gp.tileSize, gp.tileSize, null);
             }
             worldCol++;
             if(worldCol == gp.maxWorldCol) {
