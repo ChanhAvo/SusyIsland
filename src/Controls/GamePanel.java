@@ -4,13 +4,13 @@ import java.awt.*;
 import javax.swing.JPanel;
 import Entity.Player;
 import Tile.TileManager;
+import Object.SuperObject;
 
 public class GamePanel extends JPanel implements Runnable {
 
     //Screen settings
     final int originalTileSize = 16; // 16x16 tiles
     final int scale = 4;
-
     public final int tileSize = originalTileSize * scale; // 64x64 tiles
     public final int maxScreenCol = 16;
     public final int maxScreenRow = 12;
@@ -18,8 +18,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 704 pixels
 
     //WORLD SETTING
-    public final int maxWorldCol = 16;
-    public final int maxWorldRow = 12;
+    public final int maxWorldCol = 20;
+    public final int maxWorldRow = 20;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -27,10 +27,11 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler();
-    Sound sound = new Sound();
     Thread gameThread;
     public CollisionDetection cDetection = new CollisionDetection(this);
+    public AssetSetter aSetter = new AssetSetter(this);
     public Player player = new Player (this, keyH);
+    public SuperObject obj[] = new SuperObject[10];
 
 //    //Player's default position
 //    int playerX = 100;
@@ -43,9 +44,10 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
-        playMusic(0);
     }
-
+    public void setupGame(){
+        aSetter.setObject();
+    }
     public void startGameThread(){
 
         gameThread = new Thread(this);
@@ -84,45 +86,24 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update(){
+
         player.update();
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-
-        //debug
-        long drawStart = 0;
-        if(keyH.checkDrawTime == true) {
-            drawStart = System.nanoTime();
-        }
-
+        //TILE
         tileM.draw(g2);
+        //OBJECT
+        for(int i = 0; i < obj.length; i++){
+            if(obj[i] != null){
+                obj[i].draw(g2,this);
+            }
+        }
+        //PLAYER
         player.draw(g2);
 
-        //debug
-        if(keyH.checkDrawTime == true) {
-            long drawEnd = System.nanoTime();
-            long passed = drawEnd - drawStart;
-            g2.setColor(Color.white);
-            g2.drawString("Draw Time:" + passed, 10, 400);
-            System.out.println("Draw Time: " + passed);
-        }
-
-
         g2.dispose();
-    }
-    public void playMusic(int i) {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
-
-    }
-    public void stopMusic(){
-        sound.stop();
-    }
-    public void playSE(int i){
-        sound.setFile(i);
-        sound.play();
     }
 }

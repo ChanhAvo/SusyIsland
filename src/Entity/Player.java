@@ -30,6 +30,8 @@ public class Player extends Entity {
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
 
@@ -38,8 +40,8 @@ public class Player extends Entity {
 
     }
     public void setDefaultValues(){
-        worldX = 100;
-        worldY = 100;
+        worldX = 9 * gp.tileSize;
+        worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
     }
@@ -91,6 +93,9 @@ public class Player extends Entity {
             collisionOn = false;
             gp.cDetection.checkTile(this);
 
+            //Check object collision
+            int objIndex = gp.cDetection.checkObject(this, true);
+
             //If collision is false, player can move
             if(!collisionOn) {
                 switch(direction) {
@@ -123,8 +128,8 @@ public class Player extends Entity {
     public void draw(Graphics2D g2){
         BufferedImage image = null;
 
-        int playerX = (gp.screenWidth - (16 * gp.tileSize)) / 2 + worldX - (gp.tileSize / 2);
-        int playerY = (gp.screenHeight - (12 * gp.tileSize)) / 2 + worldY - (gp.tileSize / 2);
+//        int playerX = (gp.screenWidth - (16 * gp.tileSize)) / 2 + worldX - (gp.tileSize / 2);
+//        int playerY = (gp.screenHeight - (12 * gp.tileSize)) / 2 + worldY - (gp.tileSize / 2);
 
         switch (direction) {
             case "up":
@@ -163,6 +168,22 @@ public class Player extends Entity {
                     image = right2;
                 }
                 break;
+        }
+        int x = screenX;
+        int y = screenY;
+        if(screenX > worldX){
+            x = worldX;
+        }
+        if(screenY > worldY){
+            y = worldY;
+        }
+        int rightOffset = gp.screenWidth - screenX;
+        if(rightOffset > gp.worldWidth - worldX){
+            x = gp.screenWidth - (gp.worldWidth - worldX);
+        }
+        int bottomOffset = gp.screenHeight - screenY;
+        if(bottomOffset > gp.worldHeight - worldY){
+            y = gp.screenHeight - (gp.worldHeight - worldY);
         }
 
         g2.drawImage(image, screenX, screenY, null);
