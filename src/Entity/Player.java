@@ -2,6 +2,8 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
+import Controls.UtilityTool;
+import Tile.Tile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,50 +17,84 @@ public class Player extends Entity {
     GamePanel gp;
     KeyHandler keyH;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
+    public final int screenX;
+    public final int screenY;
+
+    public Player(GamePanel gp, KeyHandler keyH){
         this.gp = gp;
         this.keyH = keyH;
 
-        solidArea = new Rectangle();
-        solidArea.x = 7;
-        solidArea.y = 54;
-        solidArea.width = 35;
-        solidArea.height = 35;
+        screenX = gp.screenWidth/2 - (gp.tileSize/2);
+        screenY = gp.screenHeight/2 - (gp.tileSize/2);
 
-        getPlayerImage();
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+
         setDefaultValues();
+        getPlayerImage();
+
     }
     public void setDefaultValues(){
-        x = 100;
-        y = 100;
+        worldX = 100;
+        worldY = 100;
         speed = 4;
         direction = "down";
     }
     public void getPlayerImage(){
-        try
-                (InputStream inputStream01 = new FileInputStream(new File("res/Player/left1.png"));
-                 InputStream inputStream02 = new FileInputStream(new File("res/Player/left2.png"));
-                 InputStream inputStream03 = new FileInputStream(new File("res/Player/right1.png"));
-                 InputStream inputStream04 = new FileInputStream(new File("res/Player/right2.png"));
-                 InputStream inputStream05 = new FileInputStream(new File("res/Player/down1.png"));
-                 InputStream inputStream06 = new FileInputStream(new File("res/Player/down2.png"));
-                 InputStream inputStream07 = new FileInputStream(new File("res/Player/up1.png"));
-                 InputStream inputStream08 = new FileInputStream(new File("res/Player/up2.png"))){
+        //try
+                //(InputStream inputStream01 = new FileInputStream(new File("res/Player/left1.png"));
+                 //InputStream inputStream02 = new FileInputStream(new File("res/Player/left2.png"));
+                 //InputStream inputStream03 = new FileInputStream(new File("res/Player/right1.png"));
+                 ///InputStream inputStream04 = new FileInputStream(new File("res/Player/right2.png"));
+                 //InputStream inputStream05 = new FileInputStream(new File("res/Player/down1.png"));
+                 //InputStream inputStream06 = new FileInputStream(new File("res/Player/down2.png"));
+                 //InputStream inputStream07 = new FileInputStream(new File("res/Player/up1.png"));
+                 //InputStream inputStream08 = new FileInputStream(new File("res/Player/up2.png"))){
 
-            left1 = ImageIO.read(inputStream01);
-            left2 = ImageIO.read(inputStream02);
-            right1 = ImageIO.read(inputStream03);
-            right2 = ImageIO.read(inputStream04);
-            down1 = ImageIO.read(inputStream05);
-            down2 = ImageIO.read(inputStream06);
-            up1 = ImageIO.read(inputStream07);
-            up2 = ImageIO.read(inputStream08);
+            //left1 = ImageIO.read(inputStream01);
+            //left2 = ImageIO.read(inputStream02);
+            //right1 = ImageIO.read(inputStream03);
+            //right2 = ImageIO.read(inputStream04);
+            //down1 = ImageIO.read(inputStream05);
+            //down2 = ImageIO.read(inputStream06);
+            //up1 = ImageIO.read(inputStream07);
+            //up2 = ImageIO.read(inputStream08);
 
 
-        } catch (IOException e) {
+        //} catch (IOException e) {
+            //e.printStackTrace();
+        //}
+
+        left1 = setup("left1");
+        left2 = setup("left2");
+        right1 = setup("right1");
+        right2 = setup("right2");
+        down1 = setup("down1");
+        down2 = setup("down2");
+        up1 = setup("up1");
+        up2 = setup("up2");
+    }
+
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        String filePath = "res/Player/" + imageName + ".png";
+        File imageFile = new File(filePath);
+
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
+            image = ImageIO.read(imageFile);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch(IOException e) {
             e.printStackTrace();
         }
+        return image;
     }
+
     public void update(){
         if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||keyH.rightPressed == true ){
             if(keyH.upPressed){
@@ -79,23 +115,22 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //If collision is false, player can move
-            if(collisionOn == false) {
+            if(!collisionOn) {
                 switch(direction) {
                     case "up":
-                        y -= speed;
+                        worldY -= speed;
                         break;
                     case "down":
-                        y += speed;
+                        worldY += speed;
                         break;
                     case "left":
-                        x -= speed;
+                        worldX -= speed;
                         break;
                     case "right":
-                        x += speed;
+                        worldX += speed;
                         break;
                 }
             }
-
             spriteCounter++;
             if(spriteCounter > 12){
                 if(spriteNum == 1){
@@ -110,6 +145,9 @@ public class Player extends Entity {
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;
+
+        int playerX = (gp.screenWidth - (16 * gp.tileSize)) / 2 + worldX - (gp.tileSize / 2);
+        int playerY = (gp.screenHeight - (12 * gp.tileSize)) / 2 + worldY - (gp.tileSize / 2);
 
         switch (direction) {
             case "up":
@@ -150,7 +188,7 @@ public class Player extends Entity {
                 break;
         }
 
-        g2.drawImage(image, x,y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, screenX, screenY, null);
 
     }
 }
