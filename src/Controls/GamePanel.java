@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import Entity.Player;
 import Tile.TileManager;
 import Object.SuperObject;
+import Entity.Entity;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -30,13 +31,12 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     public CollisionDetection cDetection = new CollisionDetection(this);
     public AssetSetter aSetter = new AssetSetter(this);
+
+    //ENTITY AND OBJECT
     public Player player = new Player (this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[] = new Entity[10];
 
-//    //Player's default position
-//    int playerX = 100;
-//    int playerY = 100;
-//    int playerSpeed = 3;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension (screenWidth, screenHeight));
@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void setupGame(){
         aSetter.setObject();
+        aSetter.setNPC();
     }
     public void startGameThread(){
 
@@ -88,11 +89,18 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
 
         player.update();
+
+        for (int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                npc[i].update();
+            }
+        }
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        int playerY = player.worldY;
         //TILE
         tileM.draw(g2);
         //OBJECT
@@ -101,9 +109,20 @@ public class GamePanel extends JPanel implements Runnable {
                 obj[i].draw(g2,this);
             }
         }
-        //PLAYER
-        player.draw(g2);
-
+        //NPC
+        for(int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                int npcY = npc[i].worldY;
+                if(playerY < npcY){
+                    player.draw(g2);
+                    npc[i].draw(g2);
+                }
+                else{
+                    npc[i].draw(g2);
+                    player.draw(g2);
+                }
+            }
+        }
         g2.dispose();
     }
 }

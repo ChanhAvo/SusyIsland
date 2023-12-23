@@ -12,14 +12,14 @@ import java.util.Objects;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyH;
-
     public final int screenX;
     public final int screenY;
+    int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
-        this.gp = gp;
+
+        super(gp);
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -47,21 +47,29 @@ public class Player extends Entity {
         try
                 (InputStream inputStream01 = new FileInputStream(new File("res/Player/left1.png"));
                  InputStream inputStream02 = new FileInputStream(new File("res/Player/left2.png"));
-                 InputStream inputStream03 = new FileInputStream(new File("res/Player/right1.png"));
-                 InputStream inputStream04 = new FileInputStream(new File("res/Player/right2.png"));
-                 InputStream inputStream05 = new FileInputStream(new File("res/Player/down1.png"));
-                 InputStream inputStream06 = new FileInputStream(new File("res/Player/down2.png"));
-                 InputStream inputStream07 = new FileInputStream(new File("res/Player/up1.png"));
-                 InputStream inputStream08 = new FileInputStream(new File("res/Player/up2.png"))){
+                 InputStream inputStream03 = new FileInputStream(new File("res/Player/stand2.png"));
+                 InputStream inputStream04 = new FileInputStream(new File("res/Player/right1.png"));
+                 InputStream inputStream05 = new FileInputStream(new File("res/Player/right2.png"));
+                 InputStream inputStream06 = new FileInputStream(new File("res/Player/stand3.png"));
+                 InputStream inputStream07 = new FileInputStream(new File("res/Player/down1.png"));
+                 InputStream inputStream08 = new FileInputStream(new File("res/Player/down2.png"));
+                 InputStream inputStream09 = new FileInputStream(new File("res/Player/stand1.png"));
+                 InputStream inputStream10 = new FileInputStream(new File("res/Player/up1.png"));
+                 InputStream inputStream11 = new FileInputStream(new File("res/Player/up2.png"));
+                 InputStream inputStream12 = new FileInputStream(new File("res/Player/stand4.png"))){
 
             left1 = ImageIO.read(inputStream01);
             left2 = ImageIO.read(inputStream02);
-            right1 = ImageIO.read(inputStream03);
-            right2 = ImageIO.read(inputStream04);
-            down1 = ImageIO.read(inputStream05);
-            down2 = ImageIO.read(inputStream06);
-            up1 = ImageIO.read(inputStream07);
-            up2 = ImageIO.read(inputStream08);
+            left3 = ImageIO.read(inputStream03);
+            right1 = ImageIO.read(inputStream04);
+            right2 = ImageIO.read(inputStream05);
+            right3 = ImageIO.read(inputStream06);
+            down1 = ImageIO.read(inputStream07);
+            down2 = ImageIO.read(inputStream08);
+            down3 = ImageIO.read(inputStream09);
+            up1 = ImageIO.read(inputStream10);
+            up2 = ImageIO.read(inputStream11);
+            up3 = ImageIO.read(inputStream12);
 
 
         } catch (IOException e) {
@@ -90,6 +98,10 @@ public class Player extends Entity {
             //Check object collision
             int objIndex = gp.cDetection.checkObject(this, true);
 
+            //Check NPC collision
+            int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
+            interactNPC(npcIndex);
+
             //If collision is false, player can move
             if(!collisionOn) {
                 switch(direction) {
@@ -108,15 +120,27 @@ public class Player extends Entity {
                 }
             }
             spriteCounter++;
-            if(spriteCounter > 12){
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                }
-                else if(spriteNum == 2){
-                    spriteNum = 1;
-                }
+            if(spriteCounter < 12) {
+                spriteNum = 1;
+            }
+            if(spriteCounter > 12 && spriteCounter < 24) {
+                spriteNum = 2;
+            }
+            if(spriteCounter > 24) {
                 spriteCounter = 0;
             }
+        }
+        else {
+            standCounter++;
+            if(standCounter == 24) {
+                spriteNum = 3;
+                standCounter = 0;
+            }
+        }
+    }
+    public void interactNPC(int i) {
+        if(i != 999){
+            System.out.println("hit npc");
         }
     }
     public void draw(Graphics2D g2){
@@ -127,12 +151,15 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                image = up1;
+                image = up3;
                 if(spriteNum == 1){
                     image = up1;
                 }
-                if(spriteNum == 1){
+                if(spriteNum == 2){
                     image = up2;
+                }
+                if(spriteNum == 3){
+                    image = up3;
                 }
                 break;
             case "down":
@@ -143,6 +170,9 @@ public class Player extends Entity {
                 if(spriteNum == 2){
                     image = down2;
                 }
+                if(spriteNum == 3){
+                    image = down3;
+                }
                 break;
             case "left":
                 image = left1;
@@ -152,6 +182,9 @@ public class Player extends Entity {
                 if(spriteNum == 2){
                     image = left2;
                 }
+                if(spriteNum == 3){
+                    image = left3;
+                }
                 break;
             case "right":
                 image = right1;
@@ -160,6 +193,9 @@ public class Player extends Entity {
                 }
                 if (spriteNum == 2){
                     image = right2;
+                }
+                if(spriteNum == 3){
+                    image = right3;
                 }
                 break;
         }
