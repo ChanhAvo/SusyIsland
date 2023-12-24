@@ -20,8 +20,22 @@ public class Entity {
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
 
+    //CHARACTER ATTRIBUTES
+    public int level;
+    public int strength;
+    public int dexterity;
+    public int fishing;
+    public int exp;
+    public int nextLevelExp;
+    public int coin;
+    public Entity currentRod;
+    public Entity currentBait;
+    // ITEM ATTRIBUTES
+    public int fishingValue;
+    public int baitingValue;
 
     public Entity(GamePanel gp){
+
         this.gp = gp;
     }
 
