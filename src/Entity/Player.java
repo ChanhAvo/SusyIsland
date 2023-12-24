@@ -8,7 +8,8 @@ import java.awt.image.BufferedImage;
 
 import java.awt.*;
 import java.io.*;
-import java.util.Objects;
+import Object.OBJ_Bait;
+import Object.OBJ_Rod;
 
 public class Player extends Entity {
 
@@ -36,12 +37,32 @@ public class Player extends Entity {
         setDefaultValues();
         getPlayerImage();
 
+
     }
     public void setDefaultValues(){
         worldX = 9 * gp.tileSize;
         worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
+
+    // PLAYER STATUS
+        level = 1;
+    //  maxLife = 3; anh Bảo làm phần tym thì bỏ cái cmt phần này của em nha
+    // life = maxLife;
+        strength = 1; //the more strength he has, the more fishing he caught
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 100;
+        currentRod = new OBJ_Rod(gp);
+        currentBait = new OBJ_Bait(gp);
+        fishing = getFishing(); // the total fishing value is decided by strengt and rob
+
+
+
+    }
+    public int getFishing(){
+        return fishing = strength * currentRod.fishingValue;
     }
     public void getPlayerImage(){
         try
