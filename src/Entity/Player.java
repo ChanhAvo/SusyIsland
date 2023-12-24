@@ -2,14 +2,16 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
-
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-
-import java.awt.*;
-import java.io.*;
 import Object.OBJ_Bait;
 import Object.OBJ_Rod;
+
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Player extends Entity {
 
@@ -57,8 +59,6 @@ public class Player extends Entity {
         currentRod = new OBJ_Rod(gp);
         currentBait = new OBJ_Bait(gp);
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
-
-
 
     }
     public int getFishing(){

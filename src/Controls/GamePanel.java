@@ -1,11 +1,12 @@
 package Controls;
 
-import java.awt.*;
-import javax.swing.JPanel;
-import Entity.Player;
-import Tile.TileManager;
-import Object.SuperObject;
 import Entity.Entity;
+import Entity.Player;
+import Object.SuperObject;
+import Tile.TileManager;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -34,6 +35,10 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionDetection cDetection = new CollisionDetection(this);
     public AssetSetter aSetter = new AssetSetter(this);
     Thread gameThread;
+    // GAME STATE
+    public int gameState;
+    public final int playState = 1;
+    public final int pauseState = 2;
 
     //ENTITY AND OBJECT
     public Player player = new Player (this, keyH);
@@ -52,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         playMusic(0);
+        gameState = playState;
     }
     public void startGameThread(){
 
@@ -91,14 +97,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
     public void update(){
-
-        player.update();
-
+        if(gameState == playState) {
+            player.update();
+        }
+        if (gameState == pauseState) {
+            //nothing
+        }
         for (int i = 0; i < npc.length; i++){
             if(npc[i] != null){
                 npc[i].update();
             }
         }
+
     }
     public void playMusic(int i) {
         sound.setFile(i);
