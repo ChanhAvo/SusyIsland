@@ -14,7 +14,7 @@ public class OBJ_Rod extends Entity {
     public OBJ_Rod(GamePanel gp) {
         super(gp);
         String name = "Rod";
-        down1 = setup("/Objects/rod.png", gp.tileSize, gp.tileSize);
+        down1 = setup("/Objects/rod", gp.tileSize, gp.tileSize);
         fishingValue = 1;
     }
 

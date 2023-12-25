@@ -65,6 +65,12 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
             }
+            if (code == KeyEvent.VK_C){
+                gp.gameState = gp.characterState;
+            }
+            if (code == KeyEvent.VK_E) {
+                gp.gameState = gp.inventoryState;
+            }
         }
         //PAUSE STATE
         else if(gp.gameState == gp.pauseState){
@@ -76,6 +82,40 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.dialogueState){
             if(code == KeyEvent.VK_ENTER){
                 gp.gameState = gp.playState;
+            }
+        }
+        //CHARACTER STATE
+        else if(gp.gameState == gp.characterState){
+            if(code == KeyEvent.VK_C){
+                gp.gameState = gp.playState;
+            }
+        }
+        //INVENTORY
+        else if(gp.gameState == gp.inventoryState){
+            if(code == KeyEvent.VK_E){
+                gp.gameState = gp.playState;
+            }
+            if(code == KeyEvent.VK_W){
+                if(gp.ui.slotRow != 0 ){
+                    gp.ui.slotRow--;
+                }
+
+            }
+            if(code == KeyEvent.VK_A){
+                if(gp.ui.slotCol != 0){
+                    gp.ui.slotCol--;
+                }
+            }
+            if(code == KeyEvent.VK_S){
+                if(gp.ui.slotRow != 3){
+                    gp.ui.slotRow++;
+                }
+
+            }
+            if(code == KeyEvent.VK_D){
+                if(gp.ui.slotCol != 4){
+                    gp.ui.slotCol++;
+                }
             }
         }
     }

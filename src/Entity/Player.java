@@ -2,13 +2,17 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
+import Object.OBJ_Bait;
+import Object.OBJ_Rod;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-
 import java.awt.*;
-import java.io.*;
-import java.util.Objects;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class Player extends Entity {
 
@@ -16,6 +20,8 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyH){
 
@@ -35,13 +41,41 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
-
+        setItems();
     }
     public void setDefaultValues(){
         worldX = 9 * gp.tileSize;
         worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
+
+        // PLAYER STATUS
+        level = 1;
+//      maxLife = 6 cái này khi nào Anh Bảo làm về char life thì bỏ cmt
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 100;
+        currentRod = new OBJ_Rod(gp);
+        currentBait = new OBJ_Bait(gp);
+        fishing = getFishing(); // the total fishing value is decided by strengt and rob
+
+    }
+    public void setItems(){
+        inventory.add(currentRod);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+
+    }
+    public int getFishing(){
+        return fishing = strength * currentRod.fishingValue;
     }
     public void getPlayerImage(){
         try
