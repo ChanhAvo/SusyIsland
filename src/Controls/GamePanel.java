@@ -5,6 +5,7 @@ import javax.swing.JPanel;
 import Entity.Player;
 import Tile.TileManager;
 import Object.SuperObject;
+import Entity.Entity;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -30,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     TileManager tileM = new TileManager(this);
     KeyHandler keyH = new KeyHandler(this);
     Sound sound = new Sound();
+
     public CollisionDetection cDetection = new CollisionDetection(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI(this);
@@ -38,16 +40,12 @@ public class GamePanel extends JPanel implements Runnable {
     // ENTITY & OBJECTS
     public Player player = new Player (this, keyH);
     public SuperObject obj[] = new SuperObject[10];
+    public Entity npc[] = new Entity[10];
 
     // GAME STATE
     public int gameState;
     public final int playState = 1;
     public final int pauseState = 2;
-
-//    //Player's default position
-//    int playerX = 100;
-//    int playerY = 100;
-//    int playerSpeed = 3;
 
     public GamePanel(){
         this.setPreferredSize(new Dimension (screenWidth, screenHeight));
@@ -58,6 +56,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
     public void setupGame(){
         aSetter.setObject();
+        aSetter.setNPC();
         playMusic(0);
         gameState = playState;
     }
@@ -105,11 +104,31 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == pauseState) {
             //nothing
         }
+
+        for (int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                npc[i].update();
+            }
+        }
+    }
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+    public void stopMusic(){
+        sound.stop();
+    }
+    public void playSE(int i) {
+        sound.setFile(i);
+        sound.play();
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+        int playerY = player.worldY;
 
         //Debug
         long drawStart = 0;
@@ -140,19 +159,21 @@ public class GamePanel extends JPanel implements Runnable {
             System.out.println("Draw Time: " + passed);
         }
 
-        g2.dispose();
-    }
-    public void playMusic(int i){
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
-    }
-    public void stopMusic(){
-        sound.stop();
-    }
-    public void playSE(int i){
-        sound.setFile(i);
-        sound.play();
+        //NPC
+        for(int i = 0; i < npc.length; i++){
+            if(npc[i] != null){
+                int npcY = npc[i].worldY;
+                if(playerY < npcY){
+                    player.draw(g2);
+                    npc[i].draw(g2);
+                }
+                else{
+                    npc[i].draw(g2);
+                    player.draw(g2);
+                }
+            }
+        }
 
+        g2.dispose();
     }
 }

@@ -13,14 +13,15 @@ import Controls.UtilityTool;
 
 public class Player extends Entity {
 
-    GamePanel gp;
     KeyHandler keyH;
 
     public final int screenX;
     public final int screenY;
+    int standCounter = 0;
 
     public Player(GamePanel gp, KeyHandler keyH){
-        this.gp = gp;
+
+        super(gp);
         this.keyH = keyH;
 
         screenX = gp.screenWidth/2 - (gp.tileSize/2);
@@ -95,6 +96,10 @@ public class Player extends Entity {
             //Check object collision
             int objIndex = gp.cDetection.checkObject(this, true);
 
+            //Check NPC collision
+            int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
+            interactNPC(npcIndex);
+
             //If collision is false, player can move
             if(!collisionOn) {
                 switch(direction) {
@@ -113,15 +118,28 @@ public class Player extends Entity {
                 }
             }
             spriteCounter++;
-            if(spriteCounter > 12){
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                }
-                else if(spriteNum == 2){
-                    spriteNum = 1;
-                }
+            if(spriteCounter < 12) {
+                spriteNum = 1;
+            }
+            if(spriteCounter > 12 && spriteCounter < 24) {
+                spriteNum = 2;
+            }
+            if(spriteCounter > 24) {
                 spriteCounter = 0;
             }
+        }
+        else {
+            standCounter++;
+            if(standCounter == 24) {
+                spriteNum = 3;
+                standCounter = 0;
+            }
+        }
+    }
+
+    public void interactNPC(int i) {
+        if(i != 999){
+            System.out.println("hit npc");
         }
     }
     public void draw(Graphics2D g2){
@@ -132,12 +150,15 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                image = up1;
+                image = up3;
                 if(spriteNum == 1){
                     image = up1;
                 }
-                if(spriteNum == 1){
+                if(spriteNum == 2){
                     image = up2;
+                }
+                if(spriteNum == 3){
+                    image = up3;
                 }
                 break;
             case "down":
@@ -148,6 +169,9 @@ public class Player extends Entity {
                 if(spriteNum == 2){
                     image = down2;
                 }
+                if(spriteNum == 3){
+                    image = down3;
+                }
                 break;
             case "left":
                 image = left1;
@@ -157,6 +181,9 @@ public class Player extends Entity {
                 if(spriteNum == 2){
                     image = left2;
                 }
+                if(spriteNum == 3){
+                    image = left3;
+                }
                 break;
             case "right":
                 image = right1;
@@ -165,6 +192,9 @@ public class Player extends Entity {
                 }
                 if (spriteNum == 2){
                     image = right2;
+                }
+                if(spriteNum == 3){
+                    image = right3;
                 }
                 break;
         }
