@@ -2,20 +2,17 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
-import Object.OBJ_Bait;
-import Object.OBJ_Rod;
 
 import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+
+import java.awt.*;
+import java.io.*;
+import java.util.Objects;
 
 public class Player extends Entity {
 
-    KeyHandler keyH;
+    public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
@@ -35,10 +32,9 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
-        
+
         setDefaultValues();
         getPlayerImage();
-
 
     }
     public void setDefaultValues(){
@@ -46,23 +42,6 @@ public class Player extends Entity {
         worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
-
-    // PLAYER STATUS
-        level = 1;
-    //  maxLife = 3; anh Bảo làm phần tym thì bỏ cái cmt phần này của em nha
-    // life = maxLife;
-        strength = 1; //the more strength he has, the more fishing he caught
-        dexterity = 1;
-        exp = 0;
-        nextLevelExp = 5;
-        coin = 100;
-        currentRod = new OBJ_Rod(gp);
-        currentBait = new OBJ_Bait(gp);
-        fishing = getFishing(); // the total fishing value is decided by strengt and rob
-
-    }
-    public int getFishing(){
-        return fishing = strength * currentRod.fishingValue;
     }
     public void getPlayerImage(){
         try
@@ -98,7 +77,12 @@ public class Player extends Entity {
         }
     }
     public void update(){
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||keyH.rightPressed == true ){
+        if(keyH.upPressed == true ||
+                keyH.downPressed == true ||
+                keyH.leftPressed == true ||
+                keyH.rightPressed == true ||
+                keyH.enterPressed == true){
+
             if(keyH.upPressed){
                 direction = "up";
             }
@@ -124,7 +108,7 @@ public class Player extends Entity {
             interactNPC(npcIndex);
 
             //If collision is false, player can move
-            if(!collisionOn) {
+            if(!collisionOn && !keyH.enterPressed) {
                 switch(direction) {
                     case "up":
                         worldY -= speed;
@@ -140,6 +124,8 @@ public class Player extends Entity {
                         break;
                 }
             }
+            gp.keyH.enterPressed = false;
+
             spriteCounter++;
             if(spriteCounter < 12) {
                 spriteNum = 1;
@@ -161,8 +147,13 @@ public class Player extends Entity {
     }
     public void interactNPC(int i) {
         if(i != 999){
-            System.out.println("hit npc");
+
+            if(gp.keyH.enterPressed == true){
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;

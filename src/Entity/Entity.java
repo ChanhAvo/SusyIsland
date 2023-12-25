@@ -18,7 +18,9 @@ public class Entity {
     public Rectangle solidArea = new Rectangle (0,0 , 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
-//    public int actionLockCounter = 0;
+    //    public int actionLockCounter = 0;
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
     //CHARACTER ATTRIBUTES
     public int level;
@@ -40,6 +42,9 @@ public class Entity {
     }
 
     public void setAction(){}
+    public void speak(){
+
+    }
     public void update(){
         setAction();
         collisionOn = false;

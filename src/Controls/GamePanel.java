@@ -29,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
     // SYSTEM
     TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    public KeyHandler keyH = new KeyHandler(this);
     Sound sound = new Sound();
 
     public CollisionDetection cDetection = new CollisionDetection(this);
@@ -44,9 +44,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     //GAME STATE
     public int gameState;
+    public final int titleState = 0;
     public final int playState = 1;
     public final int pauseState = 2;
-    public final int characterState = 4;
+    public final int dialogueState = 3;
 
 
 
@@ -61,7 +62,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         playMusic(0);
-        gameState = playState;
+        gameState = titleState;
     }
     public void startGameThread(){
 
@@ -136,30 +137,39 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
         int playerY = player.worldY;
-        //TILE
-        tileM.draw(g2);
-        //OBJECT
-        for(int i = 0; i < obj.length; i++){
-            if(obj[i] != null){
-                obj[i].draw(g2,this);
-            }
+
+        //TITLE SCREEN
+        if(gameState == titleState){
+            ui.draw(g2);
+
         }
-        //NPC
-        for(int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
-                int npcY = npc[i].worldY;
-                if(playerY < npcY){
-                    player.draw(g2);
-                    npc[i].draw(g2);
-                }
-                else{
-                    npc[i].draw(g2);
-                    player.draw(g2);
+        //OTHERS
+        else{
+            //TILE
+            tileM.draw(g2);
+            //OBJECT
+            for(int i = 0; i < obj.length; i++){
+                if(obj[i] != null){
+                    obj[i].draw(g2,this);
                 }
             }
+            //NPC & PLAYER
+            for(int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    int npcY = npc[i].worldY;
+                    if(playerY < npcY){
+                        player.draw(g2);
+                        npc[i].draw(g2);
+                    }
+                    else{
+                        npc[i].draw(g2);
+                        player.draw(g2);
+                    }
+                }
+            }
+            //UI
+            ui.draw(g2);
         }
-        //UI
-        ui.draw(g2);
         g2.dispose();
     }
 }

@@ -26,6 +26,7 @@ public class NPC_Merchant extends Entity {
         solidArea.height = 32;
 
         getNPCImage();
+        setDialogue();
     }
     public void getNPCImage(){
         try (InputStream inputStream01 = new FileInputStream(new File("res/NPC/npc.png"));
@@ -48,5 +49,19 @@ public class NPC_Merchant extends Entity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void setDialogue(){
+        dialogues[0] = "Hello, welcome to my small shop!";
+        dialogues[1] = "I have some good stuffs here.";
+        dialogues[2] = "You have anything for me?";
+    }
+    public void speak(){
+
+        if(dialogues[dialogueIndex] == null){
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
+
     }
 }
