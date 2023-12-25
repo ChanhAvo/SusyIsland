@@ -100,16 +100,21 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
         if(gameState == playState) {
             player.update();
-        }
-        if (gameState == pauseState) {
-            //nothing
-        }
 
-        for (int i = 0; i < npc.length; i++){
-            if(npc[i] != null){
-                npc[i].update();
+            for (int i = 0; i < npc.length; i++){
+                if(npc[i] != null){
+                    npc[i].update();
+                }
             }
         }
+        if(gameState == pauseState){
+            //nothing
+        }
+//        for (int i = 0; i < npc.length; i++){
+//            if(npc[i] != null){
+//                npc[i].update();
+//            }
+//        }
     }
 
     public void playMusic(int i) {
@@ -144,11 +149,6 @@ public class GamePanel extends JPanel implements Runnable {
                 obj[i].draw(g2,this);
             }
         }
-        //PLAYER
-        player.draw(g2);
-
-        //UI
-        ui.draw(g2);
 
         //Debug
         if(keyH.checkDrawTime == true) {
@@ -158,6 +158,9 @@ public class GamePanel extends JPanel implements Runnable {
             g2.drawString("Draw Time: " + passed, 10, 400);
             System.out.println("Draw Time: " + passed);
         }
+
+        //PLAYER (add)
+        player.draw(g2);
 
         //NPC
         for(int i = 0; i < npc.length; i++){
@@ -174,6 +177,8 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
 
+        //UI
+        ui.draw(g2);
         g2.dispose();
     }
 }

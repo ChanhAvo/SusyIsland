@@ -60,5 +60,4 @@ public class UI {
         int x = gp.screenWidth/2 - length/2;
         return x;
     }
-
 }

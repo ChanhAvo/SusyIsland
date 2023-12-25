@@ -55,6 +55,11 @@ public class Player extends Entity {
         down2 = setup("down2");
         up1 = setup("up1");
         up2 = setup("up2");
+        down3 = setup("stand1");
+        left3 = setup("stand2");
+        right3 = setup("stand3");
+        up3 = setup("stand4");
+
     }
 
     public BufferedImage setup(String imageName) {
