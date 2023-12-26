@@ -8,7 +8,7 @@ public class AssetSetter {
         this.gp = gp;
     }
     public void setObject(){
-        gp.obj[0] = new OBJ_Shop();
+        gp.obj[0] = new OBJ_Shop(gp);
         gp.obj[0].worldX = 13 * gp.tileSize;
         gp.obj[0].worldY = 5 * gp.tileSize;
     }

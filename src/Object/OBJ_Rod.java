@@ -13,12 +13,8 @@ public class OBJ_Rod extends Entity {
 
     public OBJ_Rod(GamePanel gp) {
         super(gp);
-        String name = "Rod";
-        down1 = setup("/Objects/rod", gp.tileSize, gp.tileSize);
+        name = "Rod";
+        down1 = setup("/Objects/rod");
         fishingValue = 1;
-    }
-
-    public BufferedImage setup(String path, int tileSize, int tileSize1) {
-        return null;
     }
 }

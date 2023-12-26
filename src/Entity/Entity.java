@@ -1,9 +1,15 @@
 package Entity;
 
 import Controls.GamePanel;
+import Controls.UtilityTool;
 
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.Objects;
 
 public class Entity {
 
@@ -12,13 +18,17 @@ public class Entity {
     public int speed;
 
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3;
-    public String direction;
+    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle (0,0 , 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
 //    public int actionLockCounter = 0;
+    public BufferedImage image, image2, image3;
+    public String name;
+    public String imagePath;
+    public boolean collision = false;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
 
@@ -111,6 +121,9 @@ public class Entity {
                 if(spriteNum == 2) {
                     image = up2;
                 }
+                if(spriteNum == 3){
+                    image = up3;
+                }
                 break;
             case "down":
                 if(spriteNum == 1) {
@@ -118,6 +131,9 @@ public class Entity {
                 }
                 if(spriteNum == 2) {
                     image = down2;
+                }
+                if(spriteNum == 3){
+                    image = down3;
                 }
                 break;
             case "left":
@@ -127,6 +143,9 @@ public class Entity {
                 if(spriteNum == 2) {
                     image = left2;
                 }
+                if(spriteNum == 3){
+                    image = left3;
+                }
                 break;
             case "right":
                 if(spriteNum == 1) {
@@ -134,6 +153,9 @@ public class Entity {
                 }
                 if(spriteNum == 2) {
                     image = right2;
+                }
+                if(spriteNum == 3){
+                    image = right3;
                 }
                 break;
         }
@@ -151,5 +173,20 @@ public class Entity {
                 bottomOffset > gp.worldHeight - gp.player.worldY) {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
+    }
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        String imagePath =  "res/" + imageName + ".png";
+
+        try (FileInputStream fis = new FileInputStream(new File(imagePath))) {
+            image = ImageIO.read(fis);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 }
