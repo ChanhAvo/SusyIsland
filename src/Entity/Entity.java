@@ -19,6 +19,8 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
 //    public int actionLockCounter = 0;
+    String dialogues[] = new String[20];
+    int dialogueIndex = 0;
 
     //CHARACTER ATTRIBUTES
     public int level;
@@ -33,6 +35,8 @@ public class Entity {
     // ITEM ATTRIBUTES
     public int fishingValue;
     public int baitingValue;
+    public int maxLife;
+    public int life;
 
     public Entity(GamePanel gp){
 
@@ -40,6 +44,9 @@ public class Entity {
     }
 
     public void setAction(){}
+    public void speak(){
+
+    }
     public void update(){
         setAction();
         collisionOn = false;

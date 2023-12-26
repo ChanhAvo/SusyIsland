@@ -13,8 +13,7 @@ import Controls.UtilityTool;
 
 public class Player extends Entity {
 
-    KeyHandler keyH;
-
+    public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
@@ -44,6 +43,10 @@ public class Player extends Entity {
         worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
+
+        //PLAYER STATUS
+        maxLife = 20;
+        life = maxLife;
     }
     public void getPlayerImage() {
 
@@ -80,7 +83,12 @@ public class Player extends Entity {
     }
 
     public void update(){
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||keyH.rightPressed == true ){
+        if(keyH.upPressed == true ||
+                keyH.downPressed == true ||
+                keyH.leftPressed == true ||
+                keyH.rightPressed == true ||
+                keyH.enterPressed == true){
+
             if(keyH.upPressed){
                 direction = "up";
             }
@@ -106,7 +114,7 @@ public class Player extends Entity {
             interactNPC(npcIndex);
 
             //If collision is false, player can move
-            if(!collisionOn) {
+            if(!collisionOn && !keyH.enterPressed) {
                 switch(direction) {
                     case "up":
                         worldY -= speed;
@@ -122,6 +130,8 @@ public class Player extends Entity {
                         break;
                 }
             }
+            gp.keyH.enterPressed = false;
+
             spriteCounter++;
             if(spriteCounter < 12) {
                 spriteNum = 1;
@@ -144,8 +154,13 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if(i != 999){
-            System.out.println("hit npc");
+
+            if(gp.keyH.enterPressed == true){
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
+            }
         }
+        gp.keyH.enterPressed = false;
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;
