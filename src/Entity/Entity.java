@@ -1,9 +1,12 @@
 package Entity;
 
 import Controls.GamePanel;
+import Controls.UtilityTool;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Entity {
 
@@ -12,12 +15,16 @@ public class Entity {
     public int speed;
 
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3, bait;
-    public String direction;
+    public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle (0,0 , 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
+    public BufferedImage image;
+    public String name;
+    public String imagePath;
+    public boolean collision = false;
     //    public int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
@@ -151,5 +158,16 @@ public class Entity {
                 bottomOffset > gp.worldHeight - gp.player.worldY) {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
+    }
+    public BufferedImage setup(String path) {
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = uTool.scaleImage(image,gp.tileSize, gp.tileSize);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return image;
     }
 }
