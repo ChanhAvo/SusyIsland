@@ -6,11 +6,13 @@ import Controls.UtilityTool;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Entity {
 
-    GamePanel gp;
+    public GamePanel gp;
     public int worldX, worldY;
     public int speed;
 
@@ -21,11 +23,11 @@ public class Entity {
     public Rectangle solidArea = new Rectangle (0,0 , 48, 48);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
-    public BufferedImage image;
+    //    public int actionLockCounter = 0;
+    public BufferedImage image, image2, image3;
     public String name;
     public String imagePath;
     public boolean collision = false;
-    //    public int actionLockCounter = 0;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
 
@@ -41,8 +43,7 @@ public class Entity {
     public Entity currentBait;
     // ITEM ATTRIBUTES
     public int fishingValue;
-    public int baitingValue;
-
+    public String description = "";
     public Entity(GamePanel gp){
 
         this.gp = gp;
@@ -118,6 +119,9 @@ public class Entity {
                 if(spriteNum == 2) {
                     image = up2;
                 }
+                if(spriteNum == 3){
+                    image = up3;
+                }
                 break;
             case "down":
                 if(spriteNum == 1) {
@@ -125,6 +129,9 @@ public class Entity {
                 }
                 if(spriteNum == 2) {
                     image = down2;
+                }
+                if(spriteNum == 3){
+                    image = down3;
                 }
                 break;
             case "left":
@@ -134,6 +141,9 @@ public class Entity {
                 if(spriteNum == 2) {
                     image = left2;
                 }
+                if(spriteNum == 3){
+                    image = left3;
+                }
                 break;
             case "right":
                 if(spriteNum == 1) {
@@ -141,6 +151,9 @@ public class Entity {
                 }
                 if(spriteNum == 2) {
                     image = right2;
+                }
+                if(spriteNum == 3){
+                    image = right3;
                 }
                 break;
         }
@@ -159,13 +172,17 @@ public class Entity {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
-    public BufferedImage setup(String path) {
+    public BufferedImage setup(String imageName) {
+
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
-            image = uTool.scaleImage(image,gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
+        String imagePath =  "res/" + imageName + ".png";
+
+        try (FileInputStream fis = new FileInputStream(new File(imagePath))) {
+            image = ImageIO.read(fis);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch(IOException e) {
             e.printStackTrace();
         }
         return image;

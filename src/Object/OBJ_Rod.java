@@ -13,5 +13,6 @@ public class OBJ_Rod extends Entity {
         name = "Rod";
         down1 = setup("/Objects/rod");
         fishingValue = 1;
+        description = "[" + name + "]\n a normal rod";
     }
-}
+ }

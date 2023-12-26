@@ -2,6 +2,7 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
+import Controls.UtilityTool;
 import Object.OBJ_Bait;
 import Object.OBJ_Rod;
 
@@ -11,7 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 
 public class Player extends Entity {
@@ -23,13 +23,13 @@ public class Player extends Entity {
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
 
-    public Player(GamePanel gp, KeyHandler keyH){
+    public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp);
         this.keyH = keyH;
 
-        screenX = gp.screenWidth/2 - (gp.tileSize/2);
-        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         solidArea = new Rectangle();
         solidArea.x = 8;
@@ -43,6 +43,8 @@ public class Player extends Entity {
         getPlayerImage();
         setItems();
     }
+
+
     public void setDefaultValues(){
         worldX = 9 * gp.tileSize;
         worldY = 9 * gp.tileSize;
@@ -72,43 +74,46 @@ public class Player extends Entity {
         inventory.add(currentBait);
         inventory.add(currentBait);
         inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
 
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
     }
-    public void getPlayerImage(){
-        try
-                (InputStream inputStream01 = new FileInputStream(new File("res/Player/left1.png"));
-                 InputStream inputStream02 = new FileInputStream(new File("res/Player/left2.png"));
-                 InputStream inputStream03 = new FileInputStream(new File("res/Player/stand2.png"));
-                 InputStream inputStream04 = new FileInputStream(new File("res/Player/right1.png"));
-                 InputStream inputStream05 = new FileInputStream(new File("res/Player/right2.png"));
-                 InputStream inputStream06 = new FileInputStream(new File("res/Player/stand3.png"));
-                 InputStream inputStream07 = new FileInputStream(new File("res/Player/down1.png"));
-                 InputStream inputStream08 = new FileInputStream(new File("res/Player/down2.png"));
-                 InputStream inputStream09 = new FileInputStream(new File("res/Player/stand1.png"));
-                 InputStream inputStream10 = new FileInputStream(new File("res/Player/up1.png"));
-                 InputStream inputStream11 = new FileInputStream(new File("res/Player/up2.png"));
-                 InputStream inputStream12 = new FileInputStream(new File("res/Player/stand4.png"))){
 
-            left1 = ImageIO.read(inputStream01);
-            left2 = ImageIO.read(inputStream02);
-            left3 = ImageIO.read(inputStream03);
-            right1 = ImageIO.read(inputStream04);
-            right2 = ImageIO.read(inputStream05);
-            right3 = ImageIO.read(inputStream06);
-            down1 = ImageIO.read(inputStream07);
-            down2 = ImageIO.read(inputStream08);
-            down3 = ImageIO.read(inputStream09);
-            up1 = ImageIO.read(inputStream10);
-            up2 = ImageIO.read(inputStream11);
-            up3 = ImageIO.read(inputStream12);
+    public void getPlayerImage() {
 
+        left1 = setup("left1");
+        left2 = setup("left2");
+        right1 = setup("right1");
+        right2 = setup("right2");
+        down1 = setup("down1");
+        down2 = setup("down2");
+        up1 = setup("up1");
+        up2 = setup("up2");
+        down3 = setup("stand1");
+        left3 = setup("stand2");
+        right3 = setup("stand3");
+        up3 = setup("stand4");
 
-        } catch (IOException e) {
+    }
+
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        String filePath = "res/Player/" + imageName + ".png";
+        File imageFile = new File(filePath);
+
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
+            image = ImageIO.read(imageFile);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch(IOException e) {
             e.printStackTrace();
         }
+        return image;
     }
     public void update(){
         if(keyH.upPressed == true ||

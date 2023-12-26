@@ -8,9 +8,7 @@ public class OBJ_Shop extends Entity {
     public OBJ_Shop(GamePanel gp){
         super(gp);
         name = "Shop";
-        down1 = setup("/res/Items/table");
+        down1 = setup("/Items/table");
         collision = true;
     }
-
-
 }
