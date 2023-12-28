@@ -9,7 +9,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Random;
-
+import Object.OBJ_Bait;
+import Object.OBJ_Rod;
 public class NPC_Merchant extends Entity {
 
     public NPC_Merchant(GamePanel gp){
@@ -27,6 +28,7 @@ public class NPC_Merchant extends Entity {
 
         getNPCImage();
         setDialogue();
+        setItems();
     }
     public void getNPCImage(){
         try (InputStream inputStream01 = new FileInputStream(new File("res/NPC/npc.png"));
@@ -52,16 +54,15 @@ public class NPC_Merchant extends Entity {
     }
     public void setDialogue(){
         dialogues[0] = "Hello, welcome to my small shop!";
-        dialogues[1] = "I have some good stuffs here.";
-        dialogues[2] = "You have anything for me?";
+    }
+    public void setItems(){
+
+        inventory.add(new OBJ_Bait(gp));
+        inventory.add(new OBJ_Rod(gp));
     }
     public void speak(){
-
-        if(dialogues[dialogueIndex] == null){
-            dialogueIndex = 0;
-        }
-        gp.ui.currentDialogue = dialogues[dialogueIndex];
-        dialogueIndex++;
-
+        super.speak();
+        gp.gameState = gp.tradeState;
+        gp.ui.npc = this;
     }
 }

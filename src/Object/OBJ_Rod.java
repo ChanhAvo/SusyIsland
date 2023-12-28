@@ -14,5 +14,6 @@ public class OBJ_Rod extends Entity {
         down1 = setup("/Objects/rod");
         fishingValue = 1;
         description = "[" + name + "]\n a normal rod";
+        price = 150;
     }
  }

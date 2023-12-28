@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Entity {
 
@@ -42,16 +43,23 @@ public class Entity {
     public Entity currentRod;
     public Entity currentBait;
     // ITEM ATTRIBUTES
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
     public int fishingValue;
     public String description = "";
+    public int price;
+    public int useCost;
     public Entity(GamePanel gp){
-
         this.gp = gp;
     }
 
     public void setAction(){}
     public void speak(){
-
+        if(dialogues[dialogueIndex] == null){
+            dialogueIndex = 0;
+        }
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
     }
     public void update(){
         setAction();

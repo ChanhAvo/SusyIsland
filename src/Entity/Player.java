@@ -20,8 +20,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -66,17 +65,10 @@ public class Player extends Entity {
     }
     public void setItems(){
         inventory.add(currentRod);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
 
+        for (int i = 0; i < 9; i++){
+            inventory.add(currentBait);
+        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
@@ -146,6 +138,9 @@ public class Player extends Entity {
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
 
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
                 switch(direction) {
@@ -186,6 +181,7 @@ public class Player extends Entity {
     }
     public void interactNPC(int i) {
         if(i != 999){
+            System.out.println("hit");
 
             if(gp.keyH.enterPressed == true){
                 gp.gameState = gp.dialogueState;

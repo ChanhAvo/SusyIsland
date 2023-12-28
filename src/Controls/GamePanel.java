@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable {
     public CollisionDetection cDetection = new CollisionDetection(this);
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI (this);
+    public EventHandler eHandler = new EventHandler (this);
     Thread gameThread;
 
     //ENTITY AND OBJECT
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int dialogueState = 3;
     public final int characterState = 4;
     public final int inventoryState = 5;
+    public final int tradeState = 6;
 
 
 
@@ -119,11 +121,6 @@ public class GamePanel extends JPanel implements Runnable {
         if(gameState == pauseState){
             //nothing
         }
-//        for (int i = 0; i < npc.length; i++){
-//            if(npc[i] != null){
-//                npc[i].update();
-//            }
-//        }
     }
     public void playMusic(int i) {
         sound.setFile(i);
@@ -141,7 +138,6 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        int playerY = player.worldY;
 
         //TITLE SCREEN
         if(gameState == titleState){
@@ -169,10 +165,10 @@ public class GamePanel extends JPanel implements Runnable {
                 @Override
                 public int compare(Entity e1, Entity e2) {
                     int result = Integer.compare(e1.worldY, e2.worldY);
-                    return 0;
+                    return result;
                 }
             });
-//DRAW ENTITY
+            //DRAW ENTITY
             for(int i = 0; i < entityList.size(); i++){
                 entityList.get(i).draw(g2);
             }

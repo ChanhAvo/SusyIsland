@@ -29,6 +29,7 @@ public class TileManager {
         setup(3, "clam", true);
         setup(4, "cockle", true);
         setup(5, "coral", true);
+        setup(6,"shop",true);
 
     }
 
