@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import Object.OBJ_Heart;
 import Object.OBJ_Coin_Bronze;
 
 
@@ -18,6 +19,7 @@ public class UI {
     Font customFont;
     BufferedImage coin;
     BufferedImage house;
+    BufferedImage heart_full, heart_half, heart_blank;
     public String currentDialogue = "";
     public int commandNum = 0;
     public int playerSlotCol = 0;
@@ -29,10 +31,17 @@ public class UI {
 
     public UI(GamePanel gp){
         this.gp = gp;
+        customFont = new Font("VT323", Font.PLAIN,40);
         loadFont();
         getMenuImage();
         Entity bronzeCoin = new OBJ_Coin_Bronze(gp);
         coin = bronzeCoin.down1;
+
+        //CREATE HUD OBJECT
+        SuperObject heart = new OBJ_Heart(gp);
+        heart_full = heart.image;
+        heart_half = heart.image2;
+        heart_blank = heart.image3;
     }
     public void loadFont() {
         try (InputStream fontStream = getClass().getResourceAsStream("/Background/VT323-Regular.ttf")) {
@@ -52,6 +61,8 @@ public class UI {
     }
     public void draw(Graphics2D g2 ){
         this.g2 = g2;
+        g2.setFont(customFont);
+        g2.setColor(Color.white);
 
         //TITLE STATE
         if(gp.gameState == gp.titleState){
@@ -59,30 +70,66 @@ public class UI {
         }
         //PLAY STATE
         if (gp.gameState == gp.playState){
-
+            drawPlayerLife();
         }
         //PAUSE STATE
         if(gp.gameState == gp.pauseState){
+            drawPlayerLife();
             drawPauseScreen();
         }
         //DIALOGUE STATE
         if(gp.gameState == gp.dialogueState){
+            drawPlayerLife();
             drawDialogueScreen();
         }
         // CHARACTER STATE
         if(gp.gameState == gp.characterState) {
+            drawPlayerLife();
             drawCharacterScreen();
 
         }
         //INVENTORY
         if(gp.gameState == gp.inventoryState) {
+            drawPlayerLife();
             drawInventory(gp.player,true);
         }
         //TRADE STATE
         if(gp.gameState == gp.tradeState) {
+            drawPlayerLife();
             drawTradeScreen();
         }
 
+    }
+    public void drawPlayerLife() {
+
+        gp.player.life = 7;
+
+        int x = gp.tileSize / 2;
+        int y = gp.tileSize / 2;
+        int i = 0;
+
+        //DRAW MAX LIFE
+        while(i < gp.player.maxLife/2) {
+            g2.drawImage(heart_blank, x, y, null);
+            i++;
+            x += gp.tileSize;
+        }
+
+        //RESET
+        x = gp.tileSize / 2;
+        y = gp.tileSize / 2;
+        i = 0;
+
+        //DRAW CURRENT LIFE
+        while(i < gp.player.life) {
+            g2.drawImage(heart_half, x, y, null);
+            i++;
+            if(i < gp.player.life) {
+                g2.drawImage(heart_full, x, y, null);
+            }
+            i++;
+            x += gp.tileSize;
+        }
     }
     public void drawTitleScreen() {
         //TITLE IMAGE

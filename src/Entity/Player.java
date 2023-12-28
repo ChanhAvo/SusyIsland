@@ -13,6 +13,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import Controls.UtilityTool;
+import java.io.*;
+
 
 public class Player extends Entity {
 
@@ -52,7 +56,8 @@ public class Player extends Entity {
 
         // PLAYER STATUS
         level = 1;
-//      maxLife = 6 cái này khi nào Anh Bảo làm về char life thì bỏ cmt
+        maxLife = 20;
+        life = maxLife;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -88,7 +93,6 @@ public class Player extends Entity {
         left3 = setup("stand2");
         right3 = setup("stand3");
         up3 = setup("stand4");
-
     }
 
     public BufferedImage setup(String imageName) {
@@ -107,6 +111,7 @@ public class Player extends Entity {
         }
         return image;
     }
+
     public void update(){
         if(keyH.upPressed == true ||
                 keyH.downPressed == true ||
@@ -179,6 +184,7 @@ public class Player extends Entity {
             }
         }
     }
+
     public void interactNPC(int i) {
         if(i != 999){
             System.out.println("hit");
@@ -263,7 +269,7 @@ public class Player extends Entity {
             y = gp.screenHeight - (gp.worldHeight - worldY);
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, null);
 
     }
 }

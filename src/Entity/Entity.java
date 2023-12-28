@@ -46,10 +46,15 @@ public class Entity {
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
     public int fishingValue;
+    public int baitingValue;
+    public int maxLife;
+    public int life;
+
     public String description = "";
     public int price;
     public int useCost;
     public Entity(GamePanel gp){
+
         this.gp = gp;
     }
 

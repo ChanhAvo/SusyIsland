@@ -6,10 +6,11 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
-
+    boolean checkDrawTime = false;
     public KeyHandler(GamePanel gp){
         this.gp = gp;
     }
+
     @Override
     public void keyTyped(KeyEvent e) {
 

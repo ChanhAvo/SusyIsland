@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     //FPS
     int FPS = 60;
+
     // SYSTEM
     TileManager tileM = new TileManager(this);
     public KeyHandler keyH = new KeyHandler(this);
@@ -40,7 +41,7 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eHandler = new EventHandler (this);
     Thread gameThread;
 
-    //ENTITY AND OBJECT
+    // ENTITY & OBJECTS
     public Player player = new Player (this, keyH);
     public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
@@ -122,6 +123,7 @@ public class GamePanel extends JPanel implements Runnable {
             //nothing
         }
     }
+
     public void playMusic(int i) {
         sound.setFile(i);
         sound.play();
