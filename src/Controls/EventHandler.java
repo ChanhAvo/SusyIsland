@@ -16,17 +16,20 @@ public class EventHandler {
         this.gp = gp;
 
         eventRect = new Rectangle();
-        eventRect.x = 23;
-        eventRect.y = 23;
-        eventRect.width = 2;
-        eventRect.height = 2;
+        eventRect.x = 64;
+        eventRect.y = 64;
+        eventRect.width = 32;
+        eventRect.height = 32;
         eventRectDefaultX = eventRect.x;
         eventRectDefaultY = eventRect.y;
 
 
     }
     public void checkEvent(){
-
+        if(hit(12,5,"up") == true ){
+            System.out.println("hit shop");
+            speak(gp.npc[0]);
+        }
     }
 
     public boolean hit (int eventCol, int eventRow, String reqDirection){

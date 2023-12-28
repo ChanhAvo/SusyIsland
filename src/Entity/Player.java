@@ -137,7 +137,7 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //Check object collision
-            int objIndex = gp.cDetection.checkObject(this, true);
+            //int objIndex = gp.cDetection.checkObject(this, true);
 
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
@@ -145,6 +145,8 @@ public class Player extends Entity {
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
@@ -187,14 +189,11 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if(i != 999){
-            System.out.println("hit");
-
             if(gp.keyH.enterPressed == true){
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;

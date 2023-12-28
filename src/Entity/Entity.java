@@ -58,7 +58,7 @@ public class Entity {
         this.gp = gp;
     }
 
-    public void setAction(){}
+    //public void setAction(){}
     public void speak(){
         if(dialogues[dialogueIndex] == null){
             dialogueIndex = 0;
@@ -67,7 +67,7 @@ public class Entity {
         dialogueIndex++;
     }
     public void update(){
-        setAction();
+        //setAction();
         collisionOn = false;
         gp.cDetection.checkTile(this);
         gp.cDetection.checkObject(this, false);

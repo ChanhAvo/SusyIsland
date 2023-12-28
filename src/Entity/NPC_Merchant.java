@@ -53,7 +53,7 @@ public class NPC_Merchant extends Entity {
         }
     }
     public void setDialogue(){
-        dialogues[0] = "Hello, welcome to my small shop!";
+        dialogues[0] = "Hello, welcome to my small shop!\nI have some good stuffs here\nYou have anything?";
     }
     public void setItems(){
 

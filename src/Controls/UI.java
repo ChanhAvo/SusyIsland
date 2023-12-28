@@ -38,10 +38,10 @@ public class UI {
         coin = bronzeCoin.down1;
 
         //CREATE HUD OBJECT
-        SuperObject heart = new OBJ_Heart(gp);
-        heart_full = heart.image;
-        heart_half = heart.image2;
-        heart_blank = heart.image3;
+        Entity heart = new OBJ_Heart(gp);
+        heart_full = heart.down1;
+        heart_half = heart.down2;
+        heart_blank = heart.down3;
     }
     public void loadFont() {
         try (InputStream fontStream = getClass().getResourceAsStream("/Background/VT323-Regular.ttf")) {
@@ -194,7 +194,12 @@ public class UI {
         g2.setFont(customFont.deriveFont(Font.PLAIN, 40f));
         x += gp.tileSize;
         y += gp.tileSize;
-        g2.drawString(currentDialogue, x, y);
+
+        //LINE BREAK
+        for(String line : currentDialogue.split("\n")){
+            g2.drawString(line, x, y);
+            y += 40;
+        }
     }
     //CHARACTER STATE
     public void drawCharacterScreen(){
