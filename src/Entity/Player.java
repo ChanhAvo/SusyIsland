@@ -2,28 +2,37 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
+import Controls.UtilityTool;
+import Object.OBJ_Bait;
+import Object.OBJ_Rod;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-
 import java.awt.*;
-import java.io.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
+import Controls.UtilityTool;
+import java.io.*;
+
 
 public class Player extends Entity {
 
-    GamePanel gp;
-    KeyHandler keyH;
-
+    public KeyHandler keyH;
     public final int screenX;
     public final int screenY;
+    int standCounter = 0;
 
-    public Player(GamePanel gp, KeyHandler keyH){
-        this.gp = gp;
+
+    public Player(GamePanel gp, KeyHandler keyH) {
+
+        super(gp);
         this.keyH = keyH;
 
-        screenX = gp.screenWidth/2 - (gp.tileSize/2);
-        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         solidArea = new Rectangle();
         solidArea.x = 8;
@@ -32,44 +41,84 @@ public class Player extends Entity {
         solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
-        
+
         setDefaultValues();
         getPlayerImage();
-
+        setItems();
     }
+
+
     public void setDefaultValues(){
         worldX = 9 * gp.tileSize;
         worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
+
+        // PLAYER STATUS
+        level = 1;
+        maxLife = 20;
+        life = maxLife;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 100;
+        currentRod = new OBJ_Rod(gp);
+        currentBait = new OBJ_Bait(gp);
+        fishing = getFishing(); // the total fishing value is decided by strengt and rob
+
     }
-    public void getPlayerImage(){
-        try
-                (InputStream inputStream01 = new FileInputStream(new File("res/Player/left1.png"));
-                 InputStream inputStream02 = new FileInputStream(new File("res/Player/left2.png"));
-                 InputStream inputStream03 = new FileInputStream(new File("res/Player/right1.png"));
-                 InputStream inputStream04 = new FileInputStream(new File("res/Player/right2.png"));
-                 InputStream inputStream05 = new FileInputStream(new File("res/Player/down1.png"));
-                 InputStream inputStream06 = new FileInputStream(new File("res/Player/down2.png"));
-                 InputStream inputStream07 = new FileInputStream(new File("res/Player/up1.png"));
-                 InputStream inputStream08 = new FileInputStream(new File("res/Player/up2.png"))){
+    public void setItems(){
+        inventory.add(currentRod);
 
-            left1 = ImageIO.read(inputStream01);
-            left2 = ImageIO.read(inputStream02);
-            right1 = ImageIO.read(inputStream03);
-            right2 = ImageIO.read(inputStream04);
-            down1 = ImageIO.read(inputStream05);
-            down2 = ImageIO.read(inputStream06);
-            up1 = ImageIO.read(inputStream07);
-            up2 = ImageIO.read(inputStream08);
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
+        for (int i = 0; i < 9; i++){
+            inventory.add(currentBait);
         }
     }
+    public int getFishing(){
+        return fishing = strength * currentRod.fishingValue;
+    }
+
+    public void getPlayerImage() {
+
+        left1 = setup("left1");
+        left2 = setup("left2");
+        right1 = setup("right1");
+        right2 = setup("right2");
+        down1 = setup("down1");
+        down2 = setup("down2");
+        up1 = setup("up1");
+        up2 = setup("up2");
+        down3 = setup("stand1");
+        left3 = setup("stand2");
+        right3 = setup("stand3");
+        up3 = setup("stand4");
+    }
+
+    public BufferedImage setup(String imageName) {
+
+        UtilityTool uTool = new UtilityTool();
+        BufferedImage image = null;
+        String filePath = "res/Player/" + imageName + ".png";
+        File imageFile = new File(filePath);
+
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
+            image = ImageIO.read(imageFile);
+            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+        return image;
+    }
+
     public void update(){
-        if(keyH.upPressed == true || keyH.downPressed == true || keyH.leftPressed == true ||keyH.rightPressed == true ){
+        if(keyH.upPressed == true ||
+                keyH.downPressed == true ||
+                keyH.leftPressed == true ||
+                keyH.rightPressed == true ||
+                keyH.enterPressed == true){
+
             if(keyH.upPressed){
                 direction = "up";
             }
@@ -88,10 +137,19 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //Check object collision
-            int objIndex = gp.cDetection.checkObject(this, true);
+            //int objIndex = gp.cDetection.checkObject(this, true);
+
+            //Check NPC collision
+            int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
+            interactNPC(npcIndex);
+
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
-            if(!collisionOn) {
+            if(!collisionOn && !keyH.enterPressed) {
                 switch(direction) {
                     case "up":
                         worldY -= speed;
@@ -107,15 +165,33 @@ public class Player extends Entity {
                         break;
                 }
             }
+            gp.keyH.enterPressed = false;
+
             spriteCounter++;
-            if(spriteCounter > 12){
-                if(spriteNum == 1){
-                    spriteNum = 2;
-                }
-                else if(spriteNum == 2){
-                    spriteNum = 1;
-                }
+            if(spriteCounter < 12) {
+                spriteNum = 1;
+            }
+            if(spriteCounter > 12 && spriteCounter < 24) {
+                spriteNum = 2;
+            }
+            if(spriteCounter > 24) {
                 spriteCounter = 0;
+            }
+        }
+        else {
+            standCounter++;
+            if(standCounter == 24) {
+                spriteNum = 3;
+                standCounter = 0;
+            }
+        }
+    }
+
+    public void interactNPC(int i) {
+        if(i != 999){
+            if(gp.keyH.enterPressed == true){
+                gp.gameState = gp.dialogueState;
+                gp.npc[i].speak();
             }
         }
     }
@@ -127,12 +203,15 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                image = up1;
+                image = up3;
                 if(spriteNum == 1){
                     image = up1;
                 }
-                if(spriteNum == 1){
+                if(spriteNum == 2){
                     image = up2;
+                }
+                if(spriteNum == 3){
+                    image = up3;
                 }
                 break;
             case "down":
@@ -143,6 +222,9 @@ public class Player extends Entity {
                 if(spriteNum == 2){
                     image = down2;
                 }
+                if(spriteNum == 3){
+                    image = down3;
+                }
                 break;
             case "left":
                 image = left1;
@@ -152,6 +234,9 @@ public class Player extends Entity {
                 if(spriteNum == 2){
                     image = left2;
                 }
+                if(spriteNum == 3){
+                    image = left3;
+                }
                 break;
             case "right":
                 image = right1;
@@ -160,6 +245,9 @@ public class Player extends Entity {
                 }
                 if (spriteNum == 2){
                     image = right2;
+                }
+                if(spriteNum == 3){
+                    image = right3;
                 }
                 break;
         }
@@ -180,7 +268,7 @@ public class Player extends Entity {
             y = gp.screenHeight - (gp.worldHeight - worldY);
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, null);
 
     }
 }

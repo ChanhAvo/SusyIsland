@@ -1,8 +1,12 @@
 package Tile;
+
 import Controls.GamePanel;
+import Controls.UtilityTool;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
-import javax.imageio.ImageIO;
+import Controls.UtilityTool;
 
 public class TileManager {
     GamePanel gp;
@@ -12,7 +16,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[3];
+        tile = new Tile[10];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Maps/worldmap.txt");
@@ -20,27 +24,34 @@ public class TileManager {
 
     public void getTileManager() {
 
-        try (InputStream fileTile01 = new FileInputStream("res/Tiles/sand.png");
-             InputStream fileTile02 = new FileInputStream("res/Tiles/sand_with_water.png");
-             InputStream fileTile03 = new FileInputStream("res/Tiles/water.png")) {
+        setup(0, "sand", false);
+        setup(1, "sand_with_water", true);
+        setup(2, "water", true);
+        setup(3, "clam", true);
+        setup(4, "cockle", true);
+        setup(5, "coral", true);
+        setup(6,"shop",true);
 
-            tile[0] = new Tile();
-            tile[0].image = ImageIO.read(fileTile01);
+    }
 
+    public void setup(int index, String imagePath, boolean collision) {
 
-            tile[1] = new Tile();
-            tile[1].image = ImageIO.read(fileTile02);
-            tile[1].collision = true;
+        UtilityTool uTool = new UtilityTool();
+        String filePath = "res/Tiles/" + imagePath + ".png";
+        File imageFile = new File(filePath);
 
-            tile[2] = new Tile();
-            tile[2].image = ImageIO.read(fileTile03);
-            tile[2].collision = true;
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
 
+            tile[index] = new Tile();
+            tile[index].image = ImageIO.read(fis);
+            tile[index].image = uTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
+            tile[index].collision = collision;
 
-        } catch (IOException e) {
+        } catch(IOException e) {
             e.printStackTrace();
         }
     }
+
     public void loadMap(String filePath) {
         try (InputStream is = new FileInputStream(filePath);
              BufferedReader br = new BufferedReader(new InputStreamReader(is))) {
