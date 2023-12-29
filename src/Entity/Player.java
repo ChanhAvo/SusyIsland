@@ -13,6 +13,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
+import Controls.UtilityTool;
+import java.io.*;
+
 
 public class Player extends Entity {
 
@@ -20,8 +24,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
+
 
     public Player(GamePanel gp, KeyHandler keyH) {
 
@@ -53,7 +56,8 @@ public class Player extends Entity {
 
         // PLAYER STATUS
         level = 1;
-//      maxLife = 6 cái này khi nào Anh Bảo làm về char life thì bỏ cmt
+        maxLife = 20;
+        life = maxLife;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -66,17 +70,10 @@ public class Player extends Entity {
     }
     public void setItems(){
         inventory.add(currentRod);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
 
+        for (int i = 0; i < 9; i++){
+            inventory.add(currentBait);
+        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
@@ -96,7 +93,6 @@ public class Player extends Entity {
         left3 = setup("stand2");
         right3 = setup("stand3");
         up3 = setup("stand4");
-
     }
 
     public BufferedImage setup(String imageName) {
@@ -115,6 +111,7 @@ public class Player extends Entity {
         }
         return image;
     }
+
     public void update(){
         if(keyH.upPressed == true ||
                 keyH.downPressed == true ||
@@ -140,11 +137,16 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //Check object collision
-            int objIndex = gp.cDetection.checkObject(this, true);
+            //int objIndex = gp.cDetection.checkObject(this, true);
 
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
+
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
@@ -184,15 +186,14 @@ public class Player extends Entity {
             }
         }
     }
+
     public void interactNPC(int i) {
         if(i != 999){
-
             if(gp.keyH.enterPressed == true){
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;
@@ -267,7 +268,7 @@ public class Player extends Entity {
             y = gp.screenHeight - (gp.worldHeight - worldY);
         }
 
-        g2.drawImage(image, x, y, gp.tileSize, gp.tileSize, null);
+        g2.drawImage(image, x, y, null);
 
     }
 }

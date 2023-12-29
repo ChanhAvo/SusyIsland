@@ -6,6 +6,7 @@ import Controls.UtilityTool;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
+import Controls.UtilityTool;
 
 public class TileManager {
     GamePanel gp;
@@ -29,6 +30,7 @@ public class TileManager {
         setup(3, "clam", true);
         setup(4, "cockle", true);
         setup(5, "coral", true);
+        setup(6,"shop",true);
 
     }
 

@@ -6,10 +6,11 @@ public class KeyHandler implements KeyListener {
 
     GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
-
+    boolean checkDrawTime = false;
     public KeyHandler(GamePanel gp){
         this.gp = gp;
     }
+
     @Override
     public void keyTyped(KeyEvent e) {
 
@@ -92,33 +93,93 @@ public class KeyHandler implements KeyListener {
         }
         //INVENTORY
         else if(gp.gameState == gp.inventoryState){
-            if(code == KeyEvent.VK_E){
-                gp.gameState = gp.playState;
+            playerInventory(code);
+        }
+        //TRADE STATE
+        else if(gp.gameState == gp.tradeState){
+            if(code == KeyEvent.VK_ENTER){
+                enterPressed = true;
             }
-            if(code == KeyEvent.VK_W){
-                if(gp.ui.slotRow != 0 ){
-                    gp.ui.slotRow--;
+            if(gp.ui.subState == 0){
+                if(code == KeyEvent.VK_W){
+                    gp.ui.commandNum--;
+                    if(gp.ui.commandNum < 0){
+                        gp.ui.commandNum = 2;
+                    }
                 }
-
-            }
-            if(code == KeyEvent.VK_A){
-                if(gp.ui.slotCol != 0){
-                    gp.ui.slotCol--;
+                if(code == KeyEvent.VK_S){
+                    gp.ui.commandNum++;
+                    if(gp.ui.commandNum > 2){
+                        gp.ui.commandNum = 0;
+                    }
                 }
             }
-            if(code == KeyEvent.VK_S){
-                if(gp.ui.slotRow != 3){
-                    gp.ui.slotRow++;
+            if(gp.ui.subState == 1){
+                npcInventory(code);
+                if(code == KeyEvent.VK_ESCAPE){
+                    gp.ui.subState = 0;
                 }
-
             }
-            if(code == KeyEvent.VK_D){
-                if(gp.ui.slotCol != 4){
-                    gp.ui.slotCol++;
+            if(gp.ui.subState == 2){
+                playerInventory(code);
+                if(code == KeyEvent.VK_ESCAPE){
+                    gp.ui.subState = 0;
                 }
             }
         }
     }
+    public void npcInventory(int code){
+        if(code == KeyEvent.VK_W){
+            if(gp.ui.npcSlotRow != 0 ){
+                gp.ui.npcSlotRow--;
+            }
+
+        }
+        if(code == KeyEvent.VK_A){
+            if(gp.ui.npcSlotCol != 0){
+                gp.ui.npcSlotCol--;
+            }
+        }
+        if(code == KeyEvent.VK_S){
+            if(gp.ui.npcSlotRow != 3){
+                gp.ui.npcSlotRow++;
+            }
+
+        }
+        if(code == KeyEvent.VK_D){
+            if(gp.ui.npcSlotCol != 4){
+                gp.ui.npcSlotCol++;
+            }
+        }
+    }
+    public void playerInventory(int code){
+        if(code == KeyEvent.VK_E){
+            gp.gameState = gp.playState;
+        }
+        if(code == KeyEvent.VK_W){
+            if(gp.ui.playerSlotRow != 0 ){
+                gp.ui.playerSlotRow--;
+            }
+
+        }
+        if(code == KeyEvent.VK_A){
+            if(gp.ui.playerSlotCol != 0){
+                gp.ui.playerSlotCol--;
+            }
+        }
+        if(code == KeyEvent.VK_S){
+            if(gp.ui.playerSlotRow != 3){
+                gp.ui.playerSlotRow++;
+            }
+
+        }
+        if(code == KeyEvent.VK_D){
+            if(gp.ui.playerSlotCol != 4){
+                gp.ui.playerSlotCol++;
+            }
+        }
+    }
+
 
     @Override
     public void keyReleased(KeyEvent e) {
