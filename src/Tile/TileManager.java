@@ -1,9 +1,11 @@
 package Tile;
 
 import Controls.GamePanel;
+import Controls.UtilityTool;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
-import javax.imageio.ImageIO;
 import Controls.UtilityTool;
 
 public class TileManager {
@@ -14,7 +16,7 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[3];
+        tile = new Tile[10];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
         loadMap("res/Maps/worldmap.txt");
@@ -25,6 +27,10 @@ public class TileManager {
         setup(0, "sand", false);
         setup(1, "sand_with_water", true);
         setup(2, "water", true);
+        setup(3, "clam", true);
+        setup(4, "cockle", true);
+        setup(5, "coral", true);
+        setup(6,"shop",true);
 
     }
 

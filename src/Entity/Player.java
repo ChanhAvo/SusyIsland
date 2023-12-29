@@ -2,14 +2,21 @@ package Entity;
 
 import Controls.GamePanel;
 import Controls.KeyHandler;
+import Controls.UtilityTool;
+import Object.OBJ_Bait;
+import Object.OBJ_Rod;
 
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-
 import java.awt.*;
-import java.io.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import Controls.UtilityTool;
+import java.io.*;
+
 
 public class Player extends Entity {
 
@@ -18,13 +25,14 @@ public class Player extends Entity {
     public final int screenY;
     int standCounter = 0;
 
-    public Player(GamePanel gp, KeyHandler keyH){
+
+    public Player(GamePanel gp, KeyHandler keyH) {
 
         super(gp);
         this.keyH = keyH;
 
-        screenX = gp.screenWidth/2 - (gp.tileSize/2);
-        screenY = gp.screenHeight/2 - (gp.tileSize/2);
+        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
+        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
         solidArea = new Rectangle();
         solidArea.x = 8;
@@ -36,18 +44,41 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
-
+        setItems();
     }
+
+
     public void setDefaultValues(){
         worldX = 9 * gp.tileSize;
         worldY = 9 * gp.tileSize;
         speed = 4;
         direction = "down";
 
-        //PLAYER STATUS
+        // PLAYER STATUS
+        level = 1;
         maxLife = 20;
         life = maxLife;
+        strength = 1;
+        dexterity = 1;
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 100;
+        currentRod = new OBJ_Rod(gp);
+        currentBait = new OBJ_Bait(gp);
+        fishing = getFishing(); // the total fishing value is decided by strengt and rob
+
     }
+    public void setItems(){
+        inventory.add(currentRod);
+
+        for (int i = 0; i < 9; i++){
+            inventory.add(currentBait);
+        }
+    }
+    public int getFishing(){
+        return fishing = strength * currentRod.fishingValue;
+    }
+
     public void getPlayerImage() {
 
         left1 = setup("left1");
@@ -62,7 +93,6 @@ public class Player extends Entity {
         left3 = setup("stand2");
         right3 = setup("stand3");
         up3 = setup("stand4");
-
     }
 
     public BufferedImage setup(String imageName) {
@@ -107,11 +137,16 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //Check object collision
-            int objIndex = gp.cDetection.checkObject(this, true);
+            //int objIndex = gp.cDetection.checkObject(this, true);
 
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
+
+            //CHECK EVENT
+            gp.eHandler.checkEvent();
+
+            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
@@ -154,13 +189,11 @@ public class Player extends Entity {
 
     public void interactNPC(int i) {
         if(i != 999){
-
             if(gp.keyH.enterPressed == true){
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
         }
-        gp.keyH.enterPressed = false;
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;
