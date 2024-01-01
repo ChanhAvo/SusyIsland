@@ -72,7 +72,7 @@ public class Entity {
         gp.cDetection.checkTile(this);
         gp.cDetection.checkObject(this, false);
         gp.cDetection.checkPlayer(this);
-
+//        gp.cDetection.checkCoconut(this,false);
         //If collision is false, player can move
         if(!collisionOn) {
             switch(direction) {

@@ -1,6 +1,6 @@
 package Controls;
+import Object.OBJ_Coconut;
 import Entity.NPC_Merchant;
-import Object.OBJ_Table;
 public class AssetSetter {
     GamePanel gp;
 
@@ -8,12 +8,21 @@ public class AssetSetter {
         this.gp = gp;
     }
     public void setObject(){
-
-        gp.obj[0] = new OBJ_Table(gp);
-        gp.obj[0].worldX = 3 * gp.tileSize;
-        gp.obj[0].worldY = 2 * gp.tileSize;
+        int i = 0;
+        gp.obj[i] = new OBJ_Coconut(gp);
+        gp.obj[i].worldX = 9 * gp.tileSize;
+        gp.obj[i].worldY = 5 * gp.tileSize;
+        i++;
+        gp.obj[i] = new OBJ_Coconut(gp);
+        gp.obj[i].worldX = 10 * gp.tileSize;
+        gp.obj[i].worldY = 6 * gp.tileSize;
+        i++;
+        gp.obj[i] = new OBJ_Coconut(gp);
+        gp.obj[i].worldX = 14 * gp.tileSize;
+        gp.obj[i].worldY = 8 * gp.tileSize;
 
     }
+
     public void setNPC(){
 
         gp.npc[0] = new NPC_Merchant(gp);

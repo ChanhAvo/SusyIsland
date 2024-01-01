@@ -12,10 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import Controls.UtilityTool;
-import java.io.*;
 
 
 public class Player extends Entity {
@@ -137,11 +133,14 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //Check object collision
-            //int objIndex = gp.cDetection.checkObject(this, true);
-
+            int objIndex = gp.cDetection.checkObject(this, true);
+            pickUpObject(objIndex);
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
+            //Check coconut collision
+//            int coconutIndex = gp.cDetection.checkCoconut(this, true);
+//            pickUpObject(coconutIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -193,6 +192,20 @@ public class Player extends Entity {
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
+        }
+    }
+    public void pickUpObject(int i){
+        if (i != 999) {
+
+            String text;
+            if(inventory.size() != maxInventorySize){
+                inventory.add(gp.obj[i]);
+                text = "Got a " + gp.obj[i].name + "!";
+            } else {
+                text = "You cannot carry any more!";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[i] = null;
         }
     }
     public void draw(Graphics2D g2){
