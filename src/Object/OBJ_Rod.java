@@ -10,6 +10,7 @@ public class OBJ_Rod extends Entity {
 
     public OBJ_Rod(GamePanel gp) {
         super(gp);
+        type = type_rod;
         name = "Rod";
         down1 = setup("/Objects/rod");
         fishingValue = 1;

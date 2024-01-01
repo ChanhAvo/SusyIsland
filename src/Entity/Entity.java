@@ -33,6 +33,7 @@ public class Entity {
     int dialogueIndex = 0;
 
     //CHARACTER ATTRIBUTES
+
     public int level;
     public int strength;
     public int dexterity;
@@ -53,6 +54,16 @@ public class Entity {
     public String description = "";
     public int price;
     public int useCost;
+    //type
+    public int type;
+    public final int type_player = 0;
+    public final int type_npc = 1;
+    public final int type_rod = 2;
+    public final int type_bait = 3;
+    public final int type_consumable = 6;
+
+
+
     public Entity(GamePanel gp){
 
         this.gp = gp;
@@ -101,6 +112,19 @@ public class Entity {
             spriteCounter = 0;
         }
 
+    }
+    public void selectItem() {
+        int itemIndex = gp.ui.getItemIndexOnSlot(20,20);
+        if(itemIndex < inventory.size()){
+            Entity selectedItem = inventory.get(itemIndex);
+            if(selectedItem.type == type_rod || selectedItem.type == type_bait) {
+                currentRod = selectedItem;
+
+            }
+            if(selectedItem.type == type_consumable){
+
+            }
+        }
     }
     public void draw(Graphics g2){
 

@@ -31,10 +31,6 @@ public class EventHandler {
             System.out.println("hit shop");
             speak(gp.npc[0]);
         }
-        if(hit(9,5,"up") == true){
-            healingCoconut(gp.dialogueState);
-
-        }
     }
 
     public boolean hit (int eventCol, int eventRow, String reqDirection){
@@ -62,12 +58,5 @@ public class EventHandler {
             entity.speak();
         }
     }
-    public void healingCoconut(int gameState){
-        if(gp.keyH.enterPressed == true) {
-            gp.gameState = gameState;
-            gp.ui.currentDialogue = "You drink the coconut water.\nYour life has been recovered.";
-            gp.player.life = gp.player.maxLife;
-        }
-        gp.keyH.enterPressed = false;
-    }
+
 }
