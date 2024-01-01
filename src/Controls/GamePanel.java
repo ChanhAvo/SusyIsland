@@ -158,7 +158,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             for (int i = 0; i < obj.length; i++) {
-                if (npc[i] != null) {
+                if (obj[i] != null) {
                     entityList.add(obj[i]);
                 }
             }

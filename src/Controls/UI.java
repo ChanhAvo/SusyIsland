@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import Object.OBJ_Heart;
 import Object.OBJ_Coin_Bronze;
+import java.util.ArrayList;
 
 
 public class UI {
@@ -21,6 +22,8 @@ public class UI {
     BufferedImage house;
     BufferedImage heart_full, heart_half, heart_blank;
     public String currentDialogue = "";
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public int commandNum = 0;
     public int playerSlotCol = 0;
     public int playerSlotRow = 0;
@@ -42,6 +45,10 @@ public class UI {
         heart_full = heart.down1;
         heart_half = heart.down2;
         heart_blank = heart.down3;
+    }
+    public void addMessage(String text) {
+        message.add(text);
+        messageCounter.add(0);
     }
     public void loadFont() {
         try (InputStream fontStream = getClass().getResourceAsStream("/Background/VT323-Regular.ttf")) {
@@ -71,6 +78,7 @@ public class UI {
         //PLAY STATE
         if (gp.gameState == gp.playState){
             drawPlayerLife();
+            drawMessage();
         }
         //PAUSE STATE
         if(gp.gameState == gp.pauseState){
@@ -129,6 +137,27 @@ public class UI {
             }
             i++;
             x += gp.tileSize;
+        }
+    }
+    public void drawMessage() {
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize*4;
+        g2.setFont(customFont.deriveFont(Font.BOLD, 32f));
+
+        for(int i = 0; i < message.size(); i++){
+            if(message.get(i) != null){
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1; //messageCounter++
+                messageCounter.set(i, counter); //set counter to the array
+                messageY += 50;
+
+                if(messageCounter.get(i) > 180){
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
         }
     }
     public void drawTitleScreen() {
