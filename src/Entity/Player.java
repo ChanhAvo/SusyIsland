@@ -5,7 +5,7 @@ import Controls.KeyHandler;
 import Controls.UtilityTool;
 import Object.OBJ_Bait;
 import Object.OBJ_Rod;
-
+import Object.OBJ_Coconut;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -53,7 +53,7 @@ public class Player extends Entity {
         // PLAYER STATUS
         level = 1;
         maxLife = 20;
-        life = maxLife;
+        life = 7;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -61,15 +61,17 @@ public class Player extends Entity {
         coin = 100;
         currentRod = new OBJ_Rod(gp);
         currentBait = new OBJ_Bait(gp);
+        currentCoconut = new OBJ_Coconut(gp);
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
 
     }
     public void setItems(){
         inventory.add(currentRod);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
+        inventory.add(currentBait);
 
-        for (int i = 0; i < 9; i++){
-            inventory.add(currentBait);
-        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
@@ -77,21 +79,21 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
-        left1 = setup("left1");
-        left2 = setup("left2");
-        right1 = setup("right1");
-        right2 = setup("right2");
-        down1 = setup("down1");
-        down2 = setup("down2");
-        up1 = setup("up1");
-        up2 = setup("up2");
-        down3 = setup("stand1");
-        left3 = setup("stand2");
-        right3 = setup("stand3");
-        up3 = setup("stand4");
+        left1 = setup("left1", gp.tileSize, gp.tileSize);
+        left2 = setup("left2", gp.tileSize, gp.tileSize);
+        right1 = setup("right1", gp.tileSize, gp.tileSize);
+        right2 = setup("right2", gp.tileSize, gp.tileSize);
+        down1 = setup("down1", gp.tileSize, gp.tileSize);
+        down2 = setup("down2", gp.tileSize, gp.tileSize);
+        up1 = setup("up1", gp.tileSize, gp.tileSize);
+        up2 = setup("up2", gp.tileSize, gp.tileSize);
+        down3 = setup("stand1", gp.tileSize, gp.tileSize);
+        left3 = setup("stand2", gp.tileSize, gp.tileSize);
+        right3 = setup("stand3", gp.tileSize, gp.tileSize);
+        up3 = setup("stand4", gp.tileSize, gp.tileSize);
     }
 
-    public BufferedImage setup(String imageName) {
+    public BufferedImage setup(String imageName, int tileSize, int size) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -206,6 +208,25 @@ public class Player extends Entity {
             }
             gp.ui.addMessage(text);
             gp.obj[i] = null;
+        }
+    }
+    public void selectItem() {
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
+        if(itemIndex < inventory.size()){
+            Entity selectedItem = inventory.get(itemIndex);
+            if(selectedItem.type == type_rod || selectedItem.type == type_bait) {
+                currentRod = selectedItem;
+
+            }
+            if(selectedItem.type == type_consumable){
+                selectedItem.use(this);
+                inventory.remove(itemIndex);
+//                if(selectedItem.drink)
+                currentCoconut = selectedItem;
+                gp.player.life = gp.player.maxLife;
+
+            }
+
         }
     }
     public void draw(Graphics2D g2){

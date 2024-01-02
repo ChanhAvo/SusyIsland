@@ -110,7 +110,7 @@ public class UI {
     }
     public void drawPlayerLife() {
 
-        gp.player.life = 7;
+        //gp.player.life = 7;
 
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
@@ -338,12 +338,6 @@ public class UI {
 
         //Draw player's items
         for(int i = 0; i < entity.inventory.size(); i++) {
-            // equip cursor
-            if(gp.player.inventory.get(i) == gp.player.currentRod){
-                g2.setColor(new Color(240,190,90));
-                g2.fillRoundRect(slotX, slotY,gp.tileSize, gp.tileSize,10,10);
-
-            }
             g2.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
             slotX += slotSize;
 

@@ -22,6 +22,7 @@ public class Entity {
     public int spriteCounter = 0;
     public int spriteNum = 1;
     public Rectangle solidArea = new Rectangle (0,0 , 48, 48);
+    public Rectangle fishingArea = new Rectangle (0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     //    public int actionLockCounter = 0;
@@ -33,6 +34,8 @@ public class Entity {
     int dialogueIndex = 0;
 
     //CHARACTER ATTRIBUTES
+    public int maxLife;
+    public int life;
 
     public int level;
     public int strength;
@@ -43,13 +46,13 @@ public class Entity {
     public int coin;
     public Entity currentRod;
     public Entity currentBait;
+    public Entity currentCoconut;
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
     public int fishingValue;
     public int baitingValue;
-    public int maxLife;
-    public int life;
+
 
     public String description = "";
     public int price;
@@ -60,7 +63,7 @@ public class Entity {
     public final int type_npc = 1;
     public final int type_rod = 2;
     public final int type_bait = 3;
-    public final int type_consumable = 6;
+    public final int type_consumable =4;
 
 
 
@@ -76,6 +79,9 @@ public class Entity {
         }
         gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
+    }
+    public void use(Entity entity){
+
     }
     public void update(){
         //setAction();
@@ -113,19 +119,7 @@ public class Entity {
         }
 
     }
-    public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexOnSlot(20,20);
-        if(itemIndex < inventory.size()){
-            Entity selectedItem = inventory.get(itemIndex);
-            if(selectedItem.type == type_rod || selectedItem.type == type_bait) {
-                currentRod = selectedItem;
 
-            }
-            if(selectedItem.type == type_consumable){
-
-            }
-        }
-    }
     public void draw(Graphics g2){
 
         BufferedImage image = null;
@@ -209,7 +203,7 @@ public class Entity {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
-    public BufferedImage setup(String imageName) {
+    public BufferedImage setup(String imageName, int tileSize, int size) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
