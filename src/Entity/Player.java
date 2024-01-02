@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Objects;
+import Controls.UtilityTool;
+import java.io.*;
 
 
 public class Player extends Entity {
@@ -45,15 +49,15 @@ public class Player extends Entity {
 
 
     public void setDefaultValues(){
-        worldX = 9 * gp.tileSize;
-        worldY = 9 * gp.tileSize;
+        worldX =  gp.tileSize;
+        worldY =  gp.tileSize;
         speed = 4;
-        direction = "down";
+        direction = "right";
 
         // PLAYER STATUS
         level = 1;
         maxLife = 20;
-        life = 7;
+        life = maxLife;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -67,11 +71,10 @@ public class Player extends Entity {
     }
     public void setItems(){
         inventory.add(currentRod);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
-        inventory.add(currentBait);
 
+        for (int i = 0; i < 9; i++){
+            inventory.add(currentBait);
+        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
@@ -137,6 +140,7 @@ public class Player extends Entity {
             //Check object collision
             int objIndex = gp.cDetection.checkObject(this, true);
             pickUpObject(objIndex);
+
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);

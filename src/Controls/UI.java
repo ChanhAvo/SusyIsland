@@ -169,7 +169,7 @@ public class UI {
 
         //TITLE NAME
         g2.setFont(customFont.deriveFont(Font.BOLD, 150f));
-        String text = "SUSY FISHY";
+        String text = "SUSY ISLAND";
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3;
         //SHADOW
@@ -390,7 +390,7 @@ public class UI {
         }
         gp.keyH.enterPressed = false;
     }
-    public void trade_select(){
+    public void trade_select() {
         drawDialogueScreen();
 
         //DRAW WINDOW
@@ -476,7 +476,7 @@ public class UI {
                 else if(gp.player.inventory.size() == gp.player.maxInventorySize){
                     subState = 0;
                     gp.gameState = gp.dialogueState;
-                    currentDialogue = "Not space to add this item";
+                    currentDialogue = "No space to add this item";
                 }
                 else{
                     gp.player.coin -= npc.inventory.get(itemIndex).price;

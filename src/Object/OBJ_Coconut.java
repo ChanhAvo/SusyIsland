@@ -14,6 +14,8 @@ public class OBJ_Coconut extends Entity{
         name = "Coconut";
         down1 = setup("/Objects/coconut",gp.tileSize, gp.tileSize);
         description = "Fresh Coconut for healing ";
+        collision = true;
+        price = 100;
 
     }
     public void use(Entity entity){
