@@ -10,9 +10,9 @@ public class OBJ_Heart extends Entity{
 
         super(gp);
         name = "Heart";
-        down1 = setup("/Objects/full");
-        down2 = setup("/Objects/half");
-        down3 = setup("/Objects/die");
+        down1 = setup("/Objects/full", gp.tileSize, gp.tileSize);
+        down2 = setup("/Objects/half", gp.tileSize, gp.tileSize);
+        down3 = setup("/Objects/die", gp.tileSize, gp.tileSize);
     }
 
 }

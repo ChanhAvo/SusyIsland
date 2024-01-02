@@ -90,6 +90,7 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_C){
                 gp.gameState = gp.playState;
             }
+
         }
         //INVENTORY
         else if(gp.gameState == gp.inventoryState){
@@ -177,6 +178,12 @@ public class KeyHandler implements KeyListener {
             if(gp.ui.playerSlotCol != 4){
                 gp.ui.playerSlotCol++;
             }
+        }
+        if(code == KeyEvent.VK_N){
+            gp.player.selectItem();
+//            if(selectedItem.type == type_consumable){
+//                gp.player.life = gp.player.maxLife;
+
         }
     }
 
