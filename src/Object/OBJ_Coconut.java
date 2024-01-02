@@ -12,7 +12,7 @@ public class OBJ_Coconut extends Entity{
         type = type_consumable;
 //        boolean drink = true;
         name = "Coconut";
-        down1 = setup("/Objects/coconut",gp.tileSize, gp.tileSize);
+        down1 = setup("/Objects/coconut");
         description = "Fresh Coconut for healing ";
         collision = true;
         price = 100;

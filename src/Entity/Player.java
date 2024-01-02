@@ -12,10 +12,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import Controls.UtilityTool;
-import java.io.*;
 
 
 public class Player extends Entity {
@@ -82,21 +78,21 @@ public class Player extends Entity {
 
     public void getPlayerImage() {
 
-        left1 = setup("left1", gp.tileSize, gp.tileSize);
-        left2 = setup("left2", gp.tileSize, gp.tileSize);
-        right1 = setup("right1", gp.tileSize, gp.tileSize);
-        right2 = setup("right2", gp.tileSize, gp.tileSize);
-        down1 = setup("down1", gp.tileSize, gp.tileSize);
-        down2 = setup("down2", gp.tileSize, gp.tileSize);
-        up1 = setup("up1", gp.tileSize, gp.tileSize);
-        up2 = setup("up2", gp.tileSize, gp.tileSize);
-        down3 = setup("stand1", gp.tileSize, gp.tileSize);
-        left3 = setup("stand2", gp.tileSize, gp.tileSize);
-        right3 = setup("stand3", gp.tileSize, gp.tileSize);
-        up3 = setup("stand4", gp.tileSize, gp.tileSize);
+        left1 = setup("left1");
+        left2 = setup("left2");
+        right1 = setup("right1");
+        right2 = setup("right2");
+        down1 = setup("down1");
+        down2 = setup("down2");
+        up1 = setup("up1");
+        up2 = setup("up2");
+        down3 = setup("stand1");
+        left3 = setup("stand2");
+        right3 = setup("stand3");
+        up3 = setup("stand4");
     }
 
-    public BufferedImage setup(String imageName, int tileSize, int size) {
+    public BufferedImage setup(String imageName) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;

@@ -52,8 +52,8 @@ public class Entity {
     public final int maxInventorySize = 20;
     public int fishingValue;
     public int baitingValue;
-    public int maxLife;
-    public int life;
+    public int actionLockCounter;
+
 
     public String description = "";
     public int price;
@@ -73,7 +73,7 @@ public class Entity {
         this.gp = gp;
     }
 
-    //public void setAction(){}
+    public void setAction(){}
     public void speak(){
         if(dialogues[dialogueIndex] == null){
             dialogueIndex = 0;
@@ -204,13 +204,14 @@ public class Entity {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
-    public BufferedImage setup(String imageName, int tileSize, int size) {
+    public BufferedImage setup(String imageName) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
         String imagePath =  "res/" + imageName + ".png";
+        File imageFile = new File(imagePath);
 
-        try (FileInputStream fis = new FileInputStream(new File(imagePath))) {
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
             image = ImageIO.read(fis);
             image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
 

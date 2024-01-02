@@ -12,7 +12,7 @@ public class OBJ_Rod extends Entity {
         super(gp);
         type = type_rod;
         name = "Rod";
-        down1 = setup("/Objects/rod", gp.tileSize, gp.tileSize);
+        down1 = setup("/Objects/rod");
         fishingValue = 1;
 //        fishingArea.width = 36;
 //        fishingArea.height = 36;
