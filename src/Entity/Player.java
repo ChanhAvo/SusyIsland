@@ -6,6 +6,7 @@ import Controls.UtilityTool;
 import Object.OBJ_Bait;
 import Object.OBJ_Rod;
 
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -49,10 +50,10 @@ public class Player extends Entity {
 
 
     public void setDefaultValues(){
-        worldX = 9 * gp.tileSize;
-        worldY = 1 * gp.tileSize;
+        worldX =  gp.tileSize;
+        worldY =  gp.tileSize;
         speed = 4;
-        direction = "down";
+        direction = "right";
 
         // PLAYER STATUS
         level = 1;
