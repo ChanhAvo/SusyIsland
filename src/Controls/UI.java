@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import Object.OBJ_Heart;
-import Object.OBJ_Coin_Bronze;
 import java.util.ArrayList;
 
 
@@ -26,7 +24,7 @@ public class UI {
     public String currentDialogue = "";
     ArrayList<String> message = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
-    public String currentDialogue = "";
+
     public int commandNum = 0;
     public int playerSlotCol = 0;
     public int playerSlotRow = 0;
