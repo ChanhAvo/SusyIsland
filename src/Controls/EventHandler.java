@@ -25,26 +25,32 @@ public class EventHandler {
 
 
     }
-
     public void checkEvent(){
         if(hit(4,24,"up") == true ){
             System.out.println("hit shop");
             speak(gp.npc[0]);
         }
+
+        if(hit(10,1,"up") == true) {
+            damagePit(gp.dialogueState);
+        }
     }
 
     public boolean hit (int eventCol, int eventRow, String reqDirection){
         boolean hit = false;
+        //Getting player's current solidArea positions
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
+        //Getting eventRect's solidArea positions
         eventRect.x = eventCol * gp.tileSize + eventRect.x;
         eventRect.y = eventRow * gp.tileSize + eventRect.y;
 
         if(gp.player.solidArea.intersects(eventRect)){
-            if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("up")){
+            if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")){
                 hit = true;
             }
         }
+        //Reset
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
         eventRect.x = eventRectDefaultX;
@@ -59,4 +65,10 @@ public class EventHandler {
         }
     }
 
+    public void damagePit(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You fall into a pit";
+        gp.player.life -= 1;
+    }
 }
+

@@ -68,7 +68,6 @@ public class Entity {
     public final int type_consumable =4;
 
 
-
     public Entity(GamePanel gp){
 
         this.gp = gp;
@@ -124,7 +123,6 @@ public class Entity {
         }
 
     }
-
     public void draw(Graphics g2){
 
         BufferedImage image = null;
