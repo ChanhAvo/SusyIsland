@@ -7,6 +7,6 @@ public class OBJ_Coin_Bronze extends Entity {
     public OBJ_Coin_Bronze(GamePanel gp){
         super(gp);
         name = "Coin";
-        down1 = setup("/Objects/coin");
+        down1 = setup("/Objects/coin",gp.tileSize, gp.tileSize);
     }
 }

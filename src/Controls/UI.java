@@ -107,6 +107,7 @@ public class UI {
             drawPlayerLife();
             drawTradeScreen();
         }
+        //GAME OVER STATE
         if(gp.gameState == gp.gameOverState){
             drawGameOverScreen();
         }

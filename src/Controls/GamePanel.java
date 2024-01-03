@@ -2,7 +2,7 @@ package Controls;
 
 import Entity.Entity;
 import Entity.Player;
-//import Environment.EnvironmentManager;
+import Environment.EnvironmentManager;
 import Tile.TileManager;
 
 import javax.swing.*;
@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 704 pixels
 
     //WORLD SETTING
-    public final int maxWorldCol = 40;
-    public final int maxWorldRow = 40;
+    public final int maxWorldCol = 41;
+    public final int maxWorldRow = 43;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI (this);
     public EventHandler eHandler = new EventHandler (this);
-//    EnvironmentManager eManager = new EnvironmentManager(this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
 
     Thread gameThread;
 
@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setCrab();
         playMusic(0);
-//        eManager.setup();
+        eManager.setup();
 
         gameState = titleState;
     }
@@ -138,7 +138,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
         if(gameState == playState){
             player.update();
-//            eManager.update();
+            eManager.update();
 
             for (int i = 0; i < npc.length; i++){
                 if(npc[i] != null){
@@ -221,7 +221,7 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.remove(i);
                 }
                 //ENVIRONMENT
-//                eManager.draw(g2);
+                eManager.draw(g2);
 
                 //UI
                 ui.draw(g2);

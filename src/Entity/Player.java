@@ -60,7 +60,6 @@ public class Player extends Entity {
     public void setDefaultValues(){
         worldX =  gp.tileSize;
         worldY =  gp.tileSize;
->>>>>>>>> Temporary merge branch 2
         speed = 4;
         direction = "right";
 
@@ -96,11 +95,6 @@ public class Player extends Entity {
     }
     public void setItems(){
         inventory.clear();
-        inventory.add(currentRod);
-
-        for (int i = 0; i < 9; i++){
-            inventory.add(currentBait);
-        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;

@@ -58,10 +58,9 @@ public class EventHandler {
                 System.out.println("hit");
                 welcomeMessage(0,0,gp.dialogueState);
             }
-        }
-
-        if(hit(10,1,"right") == true) {
-            damagePit(gp.dialogueState);
+            if(hit(10,1,"right") == true) {
+                damagePit(10,1,gp.dialogueState);
+            }
         }
     }
 
@@ -76,11 +75,8 @@ public class EventHandler {
         if(gp.player.solidArea.intersects(eventRect[col][row]) && eventRect[col][row].eventDone == false){
             if(gp.player.direction.contentEquals(reqDirection) || reqDirection.contentEquals("any")){
                 hit = true;
-
                 previousEventX = gp.player.worldX;
                 previousEventY = gp.player.worldY;
-
-
             }
         }
         //Reset
@@ -110,10 +106,11 @@ public class EventHandler {
 
     }
 
-    public void damagePit(int gameState) {
+    public void damagePit(int col, int row,int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You fall into a pit";
         gp.player.life -= 1;
+        eventRect[col][row].eventDone = true;
     }
 }
 
