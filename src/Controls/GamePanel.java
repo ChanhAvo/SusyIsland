@@ -2,6 +2,7 @@ package Controls;
 
 import Entity.Entity;
 import Entity.Player;
+import Environment.EnvironmentManager;
 import Tile.TileManager;
 
 import javax.swing.*;
@@ -39,6 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI (this);
     public EventHandler eHandler = new EventHandler (this);
+    EnvironmentManager eManager = new EnvironmentManager(this);
     Thread gameThread;
 
     // ENTITY & OBJECTS
@@ -70,6 +72,8 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNPC();
         playMusic(0);
+        eManager.setup();
+
         gameState = titleState;
     }
     public void startGameThread(){
@@ -112,6 +116,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
         if(gameState == playState){
             player.update();
+            eManager.update();
 
             for (int i = 0; i < npc.length; i++){
                 if(npc[i] != null){
@@ -178,6 +183,8 @@ public class GamePanel extends JPanel implements Runnable {
             for(int i = 0; i < entityList.size(); i++){
                 entityList.remove(i);
             }
+            //ENVIRONMENT
+            eManager.draw(g2);
             //UI
             ui.draw(g2);
         }

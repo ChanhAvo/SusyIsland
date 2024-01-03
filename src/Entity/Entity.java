@@ -42,6 +42,7 @@ public class Entity {
     public int coin;
     public Entity currentRod;
     public Entity currentBait;
+
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
