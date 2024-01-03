@@ -118,6 +118,7 @@ public class Entity {
         if(gp.player.worldY < gp.player.screenY) {
             screenY = worldY;
         }
+        // Stop moving the camera when the player is close to the world's right or bottom boundary
         int rightOffset = gp.screenWidth - gp.player.screenX;
         if(rightOffset > gp.worldWidth - gp.player.worldX) {
             screenX = gp.screenWidth - (gp.worldWidth - worldX);

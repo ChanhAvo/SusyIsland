@@ -1,16 +1,21 @@
 package Environment;
 
 import Controls.GamePanel;
+import Entity.Entity;
 
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.Font;
+import java.io.IOException;
+import java.io.InputStream;
 
 public class Lighting {
     GamePanel gp;
     BufferedImage darknessFilter;
+    Font customFont;
     int dayCounter;
     float filterAlpha = 0f;
 
@@ -22,6 +27,8 @@ public class Lighting {
 
     public Lighting(GamePanel gp) {
         this.gp = gp;
+        customFont = new Font("VT323", Font.PLAIN,40);
+        loadFont();
         setLightSource();
     }
 
@@ -39,8 +46,8 @@ public class Lighting {
         int centerY = gp.player.screenY + (gp.tileSize)/2;
 
         //Get the top left x and y of light circle
-        double x = centerX - 175;
-        double y = centerY - 175;
+        double x = centerX - 150;
+        double y = centerY - 150;
 
         //Create light circle shape
         Shape circleShape = new Ellipse2D.Double(x, y, 350, 350);
@@ -82,7 +89,7 @@ public class Lighting {
         fraction[11] = 1f;
 
         //Create a gradation paint settings for the light circle
-        RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, 175, fraction, color);
+        RadialGradientPaint gPaint = new RadialGradientPaint(centerX, centerY, 150, fraction, color);
 
         //Set the gradient data on g2
         g2.setPaint(gPaint);
@@ -152,10 +159,19 @@ public class Lighting {
             case night: situation = "Night"; break;
         }
         g2.setColor(Color.WHITE);
-        g2.setFont(g2.getFont().deriveFont(25f));
-        g2.drawString(situation, 650, 550);
+        //g2.setFont(g2.getFont().deriveFont(25f));
+
+        g2.setFont(customFont.deriveFont(Font.PLAIN, 50f));
+        g2.drawString(situation, 850, 650);
     }
 
+    public void loadFont() {
+        try (InputStream fontStream = getClass().getResourceAsStream("/Background/VT323-Regular.ttf")) {
+            customFont = Font.createFont(Font.TRUETYPE_FONT, fontStream);
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }
 
 
 
