@@ -47,6 +47,7 @@ public class Entity {
     public Entity currentRod;
     public Entity currentBait;
     public Entity currentCoconut;
+//    public int invincibleCounter = 0;
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;

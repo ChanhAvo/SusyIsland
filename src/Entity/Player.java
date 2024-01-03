@@ -231,7 +231,10 @@ public class Player extends Entity {
     }
     public void contactCrab(int i ){
         if(i != 999){
-            life -= 1;
+//            if(invincible == false){
+                life -= 1;
+//                invincible = true;
+//            }
         }
     }
     public void draw(Graphics2D g2){
