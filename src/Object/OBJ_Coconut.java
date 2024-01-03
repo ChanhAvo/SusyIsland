@@ -18,7 +18,7 @@ public class OBJ_Coconut extends Entity{
     }
     public void use(Entity entity){
         gp.gameState = gp.dialogueState;
-        gp.ui.currentDialogue = "You drink the" + name + "!\n" +
+        gp.ui.currentDialogue = "You drink the " + name + "!\n" +
                 "Your life has been recovered by " + value + ".";
         entity.life += value;
            if(gp.player.life < gp.player.maxLife) {

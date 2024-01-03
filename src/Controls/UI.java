@@ -481,7 +481,6 @@ public class UI {
                 else{
                     gp.player.coin -= npc.inventory.get(itemIndex).price;
                     gp.player.inventory.add(npc.inventory.get(itemIndex));
-
                 }
             }
         }

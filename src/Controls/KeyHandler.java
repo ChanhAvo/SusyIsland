@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed,spacePressed;
     boolean checkDrawTime = false;
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -47,7 +47,7 @@ public class KeyHandler implements KeyListener {
         }
 
         //PLAY STATE
-        if(gp.gameState == gp.playState){
+        else if(gp.gameState == gp.playState){
             if(code == KeyEvent.VK_W){
                 upPressed = true;
             }
@@ -71,6 +71,9 @@ public class KeyHandler implements KeyListener {
             }
             if (code == KeyEvent.VK_E) {
                 gp.gameState = gp.inventoryState;
+            }
+            if(code == KeyEvent.VK_SPACE) {
+                spacePressed = true;
             }
         }
         //PAUSE STATE
@@ -126,6 +129,12 @@ public class KeyHandler implements KeyListener {
                 if(code == KeyEvent.VK_ESCAPE){
                     gp.ui.subState = 0;
                 }
+            }
+        }
+        //FISHING STATE
+        else if(gp.gameState == gp.fishingState){
+            if(code == KeyEvent.VK_ENTER){
+                gp.gameState = gp.playState;
             }
         }
     }

@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Entity {
 
@@ -18,6 +19,8 @@ public class Entity {
     public int speed;
 
     public BufferedImage up1, up2, up3, down1, down2, down3, left1, left2, left3, right1, right2, right3, bait;
+    public BufferedImage fishingMove1, fishingMove2, fishingMove3, fishingMove4, fishingMove5, fishingMove6;
+
     public String direction = "down";
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -25,6 +28,8 @@ public class Entity {
     public Rectangle fishingArea = new Rectangle (0,0,0,0);
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
+    public boolean isFishing = false;
+    public int fishingLockCounter = 0;
     //    public int actionLockCounter = 0;
     public BufferedImage image, image2, image3;
     public String name;
@@ -32,6 +37,7 @@ public class Entity {
     public boolean collision = false;
     String dialogues[] = new String[20];
     int dialogueIndex = 0;
+
 
     //CHARACTER ATTRIBUTES
     public int maxLife;
@@ -47,6 +53,11 @@ public class Entity {
     public Entity currentRod;
     public Entity currentBait;
     public Entity currentCoconut;
+    public Entity currentHalibut;
+    public Entity currentTilapia;
+    public Entity currentSquid;
+    public Entity currentFlounder;
+    public Entity currentSardine;
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
@@ -63,7 +74,12 @@ public class Entity {
     public final int type_npc = 1;
     public final int type_rod = 2;
     public final int type_bait = 3;
-    public final int type_consumable =4;
+    public final int type_consumable = 4;
+    public final int type_flounder = 5;
+    public final int type_halibut = 6;
+    public final int type_sardine = 7;
+    public final int type_squid = 8;
+    public final int type_tilapia = 9;
 
 
 
@@ -80,8 +96,74 @@ public class Entity {
         gp.ui.currentDialogue = dialogues[dialogueIndex];
         dialogueIndex++;
     }
-    public void use(Entity entity){
+    public void use(Entity entity){}
+    public void fishingEvent(Entity entity){
+        int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
+        if(itemIndex < inventory.size()) {
+            Entity selectedItem = inventory.get(itemIndex);
+            if (selectedItem.type == type_bait) {
+                currentBait = selectedItem;
+            }
+        }
+        boolean hasBait = inventory.contains(currentBait);
+        if (hasBait){
+            Random rand = new Random();
+            int i = rand.nextInt(10);
+            switch(i) {
+                case 1:
 
+                case 2:
+                    inventory.add(currentHalibut);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 3:
+                case 4:
+                    inventory.add(currentTilapia);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 5:
+                    inventory.add(currentSquid);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 6:
+                case 7:
+                    inventory.add(currentSardine);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 8:
+                case 9:
+                    inventory.add(currentFlounder);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+            }
+        }
+        else{
+            isFishing = false;
+            gp.ui.currentDialogue = "Not enough bait to fish.\nCheck the shop for baits";
+            gp.gameState = gp.dialogueState;
+        }
+        if(gp.player.life == 1){
+            gp.ui.currentDialogue = "You are about to pass out. Be careful!!!";
+            gp.gameState = gp.dialogueState;
+        }
+        if(gp.player.life == 0){
+            //Game over
+        }
     }
     public void update(){
         //setAction();
@@ -142,49 +224,55 @@ public class Entity {
             screenY = gp.screenHeight - (gp.worldHeight - worldY);
         }
 
-        switch(direction) {
+        switch (direction) {
             case "up":
-                if(spriteNum == 1) {
-                    image = up1;
+                if(!isFishing){
+                    if(spriteNum == 1){image = up1;}
+                    if(spriteNum == 2){image = up2;}
+                    if(spriteNum == 3){image = up3;}
                 }
-                if(spriteNum == 2) {
-                    image = up2;
-                }
-                if(spriteNum == 3){
-                    image = up3;
+                if(isFishing){
+                    if(spriteNum == 1){image = fishingMove1;}
+                    if(spriteNum == 2){image = fishingMove2;}
+
                 }
                 break;
             case "down":
-                if(spriteNum == 1) {
+                if(!isFishing){
                     image = down1;
+                    if(spriteNum == 1){image = down1;}
+                    if(spriteNum == 2){image = down2;}
+                    if(spriteNum == 3){image = down3;}
                 }
-                if(spriteNum == 2) {
-                    image = down2;
-                }
-                if(spriteNum == 3){
-                    image = down3;
+                if(isFishing){
+                    if(spriteNum == 1){image = fishingMove1;}
+                    if(spriteNum == 2){image = fishingMove2;}
+
                 }
                 break;
             case "left":
-                if(spriteNum == 1) {
+                if(!isFishing){
                     image = left1;
+                    if(spriteNum == 1){image = left1;}
+                    if(spriteNum == 2){image = left2;}
+                    if(spriteNum == 3){image = left3;}
                 }
-                if(spriteNum == 2) {
-                    image = left2;
-                }
-                if(spriteNum == 3){
-                    image = left3;
+                if(isFishing){
+                    if(spriteNum == 1){image = fishingMove4;}
+                    if(spriteNum == 2){image = fishingMove3;}
+
                 }
                 break;
             case "right":
-                if(spriteNum == 1) {
+                if(!isFishing){
                     image = right1;
+                    if (spriteNum == 1){image = right1;}
+                    if (spriteNum == 2){image = right2;}
+                    if(spriteNum == 3){image = right3;}
                 }
-                if(spriteNum == 2) {
-                    image = right2;
-                }
-                if(spriteNum == 3){
-                    image = right3;
+                if(isFishing){
+                    if(spriteNum == 1){image = fishingMove6;}
+                    if(spriteNum == 2){image = fishingMove5;}
                 }
                 break;
         }
@@ -203,7 +291,7 @@ public class Entity {
             g2.drawImage(image, screenX, screenY, gp.tileSize, gp.tileSize, null);
         }
     }
-    public BufferedImage setup(String imageName, int tileSize, int size) {
+    public BufferedImage setup(String imageName, int width, int height) {
 
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
@@ -211,7 +299,7 @@ public class Entity {
 
         try (FileInputStream fis = new FileInputStream(new File(imagePath))) {
             image = ImageIO.read(fis);
-            image = uTool.scaleImage(image, gp.tileSize, gp.tileSize);
+            image = uTool.scaleImage(image, width, height);
 
         } catch(IOException e) {
             e.printStackTrace();

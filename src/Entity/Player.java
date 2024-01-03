@@ -6,6 +6,11 @@ import Controls.UtilityTool;
 import Object.OBJ_Bait;
 import Object.OBJ_Rod;
 import Object.OBJ_Coconut;
+import Object.OBJ_Halibut;
+import Object.OBJ_Flounder;
+import Object.OBJ_Squid;
+import Object.OBJ_Tilapia;
+import Object.OBJ_Sardine;
 
 
 import javax.imageio.ImageIO;
@@ -46,6 +51,7 @@ public class Player extends Entity {
 
         setDefaultValues();
         getPlayerImage();
+        getPlayerFishingImage();
         setItems();
     }
 
@@ -67,16 +73,16 @@ public class Player extends Entity {
         coin = 100;
         currentRod = new OBJ_Rod(gp);
         currentBait = new OBJ_Bait(gp);
+        currentHalibut = new OBJ_Halibut(gp);
+        currentSardine = new OBJ_Sardine(gp);
+        currentSquid = new OBJ_Squid(gp);
+        currentTilapia = new OBJ_Tilapia(gp);
+        currentFlounder = new OBJ_Flounder(gp);
         currentCoconut = new OBJ_Coconut(gp);
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
 
     }
     public void setItems(){
-        inventory.add(currentRod);
-
-        for (int i = 0; i < 9; i++){
-            inventory.add(currentBait);
-        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
@@ -97,6 +103,14 @@ public class Player extends Entity {
         right3 = setup("stand3", gp.tileSize, gp.tileSize);
         up3 = setup("stand4", gp.tileSize, gp.tileSize);
     }
+    public void getPlayerFishingImage(){
+        fishingMove1 = setup("fishing_move1",gp.tileSize,gp.tileSize*2);
+        fishingMove2 = setup("fishing_move2",gp.tileSize,gp.tileSize*2);
+        fishingMove3 = setup("fishing_move3",gp.tileSize*2,gp.tileSize);
+        fishingMove4 = setup("fishing_move4",gp.tileSize*2,gp.tileSize);
+        fishingMove5 = setup("fishing_move5",gp.tileSize*2,gp.tileSize);
+        fishingMove6 = setup("fishing_move6",gp.tileSize*2,gp.tileSize);
+    }
 
     public BufferedImage setup(String imageName, int tileSize, int size) {
 
@@ -116,7 +130,10 @@ public class Player extends Entity {
     }
 
     public void update(){
-        if(keyH.upPressed == true ||
+        if(isFishing){
+            fishing();
+        }
+        else if(keyH.upPressed == true ||
                 keyH.downPressed == true ||
                 keyH.leftPressed == true ||
                 keyH.rightPressed == true ||
@@ -149,7 +166,6 @@ public class Player extends Entity {
             //CHECK EVENT
             gp.eHandler.checkEvent();
 
-            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
@@ -189,13 +205,28 @@ public class Player extends Entity {
             }
         }
     }
+    public void fishing(){
+        spriteCounter++;
+
+        if(spriteCounter <= 20){
+            spriteNum = 1;
+        }
+        if(spriteCounter > 20 && spriteCounter <= 70){
+            spriteNum =2;
+        }
+        if(spriteCounter > 70){
+            spriteNum = 3;
+            spriteCounter = 0;
+            isFishing = false;
+        }
+    }
 
     public void interactNPC(int i) {
-        if(i != 999){
-            if(gp.keyH.enterPressed == true){
+        if(gp.keyH.enterPressed == true){
+            if(i != 999){
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
-            }
+            }else{isFishing = true;}
         }
     }
     public void pickUpObject(int i){
@@ -239,52 +270,31 @@ public class Player extends Entity {
 
         switch (direction) {
             case "up":
-                image = up3;
-                if(spriteNum == 1){
-                    image = up1;
-                }
-                if(spriteNum == 2){
-                    image = up2;
-                }
-                if(spriteNum == 3){
-                    image = up3;
-                }
+                if(spriteNum == 1){image = up1;}
+                if(spriteNum == 2){image = up2;}
+                if(spriteNum == 3){image = up3;}
+
                 break;
             case "down":
                 image = down1;
-                if(spriteNum == 1){
-                    image = down1;
-                }
-                if(spriteNum == 2){
-                    image = down2;
-                }
-                if(spriteNum == 3){
-                    image = down3;
-                }
+                if(spriteNum == 1){image = down1;}
+                if(spriteNum == 2){image = down2;}
+                if(spriteNum == 3){image = down3;}
+
                 break;
             case "left":
                 image = left1;
-                if(spriteNum == 1){
-                    image = left1;
-                }
-                if(spriteNum == 2){
-                    image = left2;
-                }
-                if(spriteNum == 3){
-                    image = left3;
-                }
+                if(spriteNum == 1){image = left1;}
+                if(spriteNum == 2){image = left2;}
+                if(spriteNum == 3){image = left3;}
+
                 break;
             case "right":
                 image = right1;
-                if (spriteNum == 1){
-                    image = right1;
-                }
-                if (spriteNum == 2){
-                    image = right2;
-                }
-                if(spriteNum == 3){
-                    image = right3;
-                }
+                if (spriteNum == 1){image = right1;}
+                if (spriteNum == 2){image = right2;}
+                if(spriteNum == 3){image = right3;}
+
                 break;
         }
         int x = screenX;
