@@ -85,11 +85,14 @@ public class Entity {
 
     }
     public void update(){
-        //setAction();
+        setAction();
+
         collisionOn = false;
         gp.cDetection.checkTile(this);
         gp.cDetection.checkObject(this, false);
         gp.cDetection.checkPlayer(this);
+        gp.cDetection.checkNPC(this,gp.npc);
+
 
         //If collision is false, player can move
         if(!collisionOn) {

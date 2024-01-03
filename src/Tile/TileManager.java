@@ -32,7 +32,7 @@ public class TileManager {
         setup(6,"shop",true);
         setup(7,"grass_with_sand",false);
         setup(8,"cactus",true);
-        setup(9,"tree",false);
+        setup(9,"tree",true);
         setup(10,"coral",true);
         setup(11,"down_pool",true);
         setup(12,"left_down_corner",true);

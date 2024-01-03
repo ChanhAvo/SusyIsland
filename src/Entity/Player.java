@@ -140,9 +140,9 @@ public class Player extends Entity {
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
-            //Check coconut collision
-//            int coconutIndex = gp.cDetection.checkCoconut(this, true);
-//            pickUpObject(coconutIndex);
+            //Check crab collision
+            int crabIndex = gp.cDetection.checkNPC(this,gp.crab);
+            contactCrab(crabIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -227,6 +227,11 @@ public class Player extends Entity {
 
             }
 
+        }
+    }
+    public void contactCrab(int i ){
+        if(i != 999){
+            life -= 1;
         }
     }
     public void draw(Graphics2D g2){

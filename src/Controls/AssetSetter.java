@@ -33,16 +33,41 @@ public class AssetSetter {
     public void setCrab(){
 
         gp.crab[0] = new Crab_Monster(gp);
-        gp.crab[0].worldX = gp.tileSize * 9;
-        gp.crab[0].worldY = gp.tileSize * 24;
+        gp.crab[0].worldX = gp.tileSize *11;
+        gp.crab[0].worldY = gp.tileSize * 2;
 
         gp.crab[1] = new Crab_Monster(gp);
-        gp.crab[1].worldX = gp.tileSize * 15;
-        gp.crab[1].worldY = gp.tileSize * 25;
+        gp.crab[1].worldX = gp.tileSize * 37;
+        gp.crab[1].worldY = gp.tileSize * 11;
 
         gp.crab[2] = new Crab_Monster(gp);
-        gp.crab[2].worldX = gp.tileSize * 10;
-        gp.crab[2].worldY = gp.tileSize * 22;
+        gp.crab[2].worldX = gp.tileSize * 15;
+        gp.crab[2].worldY = gp.tileSize * 8;
+
+        gp.crab[3] = new Crab_Monster(gp);
+        gp.crab[3].worldX = gp.tileSize * 15;
+        gp.crab[3].worldY = gp.tileSize * 13;
+
+        gp.crab[4] = new Crab_Monster(gp);
+        gp.crab[4].worldX = gp.tileSize * 8;
+        gp.crab[4].worldY = gp.tileSize * 14;
+
+        gp.crab[5] = new Crab_Monster(gp);
+        gp.crab[5].worldX = gp.tileSize * 21;
+        gp.crab[5].worldY = gp.tileSize * 12;
+
+        gp.crab[6] = new Crab_Monster(gp);
+        gp.crab[6].worldX = gp.tileSize * 37;
+        gp.crab[6].worldY = gp.tileSize * 15;
+
+        gp.crab[7] = new Crab_Monster(gp);
+        gp.crab[7].worldX = gp.tileSize * 38;
+        gp.crab[7].worldY = gp.tileSize * 2;
+
+        gp.crab[8] = new Crab_Monster(gp);
+        gp.crab[8].worldX = gp.tileSize * 19;
+        gp.crab[8].worldY = gp.tileSize * 1;
+
 
     }
 }
