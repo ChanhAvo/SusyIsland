@@ -126,6 +126,7 @@ public class CollisionDetection {
 
     public int checkNPC(Entity entity, Entity[] target) {
         int index = 999;
+        boolean contactPlayer = false;
         for (int i = 0; i < gp.obj.length; i++) {
             if (target[i] != null) {
                 //Get entity's solid area position
@@ -226,6 +227,7 @@ public class CollisionDetection {
 
 
     public void checkPlayer(Entity entity) {
+        boolean contactPlayer = false;
         entity.solidArea.x = entity.worldX + entity.solidArea.x;
         entity.solidArea.y = entity.worldY + entity.solidArea.y;
         //Get the object's solid area position
@@ -257,6 +259,7 @@ public class CollisionDetection {
                     entity.collisionOn = true;
                 }
                 break;
+
         }
         entity.solidArea.x = entity.solidAreaDefaultX;
         entity.solidArea.y = entity.solidAreaDefaultY;

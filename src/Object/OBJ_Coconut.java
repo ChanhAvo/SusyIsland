@@ -20,6 +20,7 @@ public class OBJ_Coconut extends Entity{
     }
     public void use(Entity entity){
         gp.gameState = gp.dialogueState;
+        gp.playSE(3);
         gp.ui.currentDialogue = "You drink the" + name + "!\n" +
                 "Your life has been recovered by " + value + ".";
         entity.life += value;

@@ -47,7 +47,8 @@ public class Entity {
     public Entity currentRod;
     public Entity currentBait;
     public Entity currentCoconut;
-//    public int invincibleCounter = 0;
+    public boolean  invincible = false;
+    public int invincibleCounter = 0;
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
@@ -66,6 +67,7 @@ public class Entity {
     public final int type_rod = 2;
     public final int type_bait = 3;
     public final int type_consumable =4;
+    public final int type_Crab = 5;
 
 
     public Entity(GamePanel gp){
@@ -93,7 +95,12 @@ public class Entity {
         gp.cDetection.checkPlayer(this);
         gp.cDetection.checkNPC(this,gp.npc);
 
-
+//        if(this.type == type_Crab && contactPlayer = true) {
+//            if(gp.player.invincible == false){
+//                gp.player.life -= 2;
+//                gp.player.invincible = true;
+//            }
+//        }
         //If collision is false, player can move
         if(!collisionOn) {
             switch(direction) {

@@ -31,7 +31,7 @@ public class EventHandler {
             speak(gp.npc[0]);
         }
 
-        if(hit(10,1,"up") == true) {
+        if(hit(10,1,"right") == true) {
             damagePit(gp.dialogueState);
         }
     }

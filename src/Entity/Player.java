@@ -66,7 +66,18 @@ public class Player extends Entity {
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
 
     }
+    public void setDefaultPosition(){
+        worldX =  gp.tileSize;
+        worldY =  gp.tileSize;
+        speed = 4;
+        direction = "right";
+    }
+    public void restoreLife(){
+        life = maxLife;
+        invincible = false;
+    }
     public void setItems(){
+        inventory.clear();
         inventory.add(currentRod);
 
         for (int i = 0; i < 9; i++){
@@ -187,6 +198,19 @@ public class Player extends Entity {
                 standCounter = 0;
             }
         }
+        // set timer for the crab to attack the char
+        if(invincible == true){
+            invincibleCounter++;
+            if(invincibleCounter > 15){
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+        if(life <=0 ){
+            gp.gameState = gp.gameOverState;
+            gp.playSE(7);
+
+        }
     }
 
     public void interactNPC(int i) {
@@ -201,6 +225,7 @@ public class Player extends Entity {
         if (i != 999) {
 
             String text;
+            gp.playSE(5);
             if(inventory.size() != maxInventorySize){
                 inventory.add(gp.obj[i]);
                 text = "Got a " + gp.obj[i].name + "!";
@@ -232,10 +257,11 @@ public class Player extends Entity {
     }
     public void contactCrab(int i ){
         if(i != 999){
-//            if(invincible == false){
-                life -= 1;
-//                invincible = true;
-//            }
+           if(invincible == false){
+                life -= 2;
+                gp.playSE(4);
+                invincible = true;
+           }
         }
     }
     public void draw(Graphics2D g2){

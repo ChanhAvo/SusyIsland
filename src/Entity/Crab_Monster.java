@@ -7,6 +7,7 @@ import java.util.Random;
 public class Crab_Monster extends Entity {
     public Crab_Monster(GamePanel gp){
         super(gp);
+        type = type_Crab;
         name = "Crab Monster";
         speed = 1;
         maxLife = 4;
