@@ -26,12 +26,22 @@ public class EventHandler {
 
     }
     public void checkEvent(){
-        if(hit(4,24,"up") == true ){
+        if(hit(4,24,"up") == true){
             System.out.println("hit shop");
             speak(gp.npc[0]);
         }
 
-        if(hit(10,1,"up") == true) {
+        //Hit damage pit
+        if(hit(22,0,"right") == true)   {
+            damagePit(gp.dialogueState);
+        }
+        if(hit(22,0,"up") == true) {
+            damagePit(gp.dialogueState);
+        }
+        if(hit(30,2,"down") == true) {
+            damagePit(gp.dialogueState);
+        }
+        if(hit(2,16,"left") == true) {
             damagePit(gp.dialogueState);
         }
     }
@@ -67,7 +77,7 @@ public class EventHandler {
 
     public void damagePit(int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You fall into a pit";
+        gp.ui.currentDialogue = "You fall into a pit!!!";
         gp.player.life -= 1;
     }
 }
