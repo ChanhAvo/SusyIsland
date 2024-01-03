@@ -6,6 +6,7 @@ import Controls.UtilityTool;
 import Object.OBJ_Bait;
 import Object.OBJ_Rod;
 
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -50,10 +51,10 @@ public class Player extends Entity {
 
 
     public void setDefaultValues(){
-        worldX = 9 * gp.tileSize;
-        worldY = 9 * gp.tileSize;
+        worldX =  gp.tileSize;
+        worldY =  gp.tileSize;
         speed = 4;
-        direction = "down";
+        direction = "right";
 
         // PLAYER STATUS
         level = 1;
@@ -138,7 +139,8 @@ public class Player extends Entity {
             gp.cDetection.checkTile(this);
 
             //Check object collision
-            //int objIndex = gp.cDetection.checkObject(this, true);
+            int objIndex = gp.cDetection.checkObject(this, true);
+            pickUpObject(objIndex);
 
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
@@ -194,6 +196,20 @@ public class Player extends Entity {
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
             }
+        }
+    }
+    public void pickUpObject(int i){
+        if (i != 999) {
+
+            String text;
+            if(inventory.size() != maxInventorySize){
+                inventory.add(gp.obj[i]);
+                text = "Got a " + gp.obj[i].name + "!";
+            } else {
+                text = "You cannot carry any more!";
+            }
+            gp.ui.addMessage(text);
+            gp.obj[i] = null;
         }
     }
     public void draw(Graphics2D g2){

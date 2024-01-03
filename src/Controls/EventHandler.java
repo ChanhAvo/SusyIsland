@@ -26,7 +26,7 @@ public class EventHandler {
 
     }
     public void checkEvent(){
-        if(hit(12,5,"up") == true ){
+        if(hit(4,24,"up") == true ){
             System.out.println("hit shop");
             speak(gp.npc[0]);
         }

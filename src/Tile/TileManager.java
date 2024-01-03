@@ -16,10 +16,10 @@ public class TileManager {
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
-        tile = new Tile[10];
+        tile = new Tile[20];
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
         getTileManager();
-        loadMap("res/Maps/worldmap.txt");
+        loadMap("res/Maps/newmap.txt");
     }
 
     public void getTileManager() {
@@ -29,8 +29,21 @@ public class TileManager {
         setup(2, "water", true);
         setup(3, "clam", true);
         setup(4, "cockle", true);
-        setup(5, "coral", true);
+        setup(5, "walking_path", false);
         setup(6,"shop",true);
+        setup(7,"grass_with_sand",false);
+        setup(8,"cactus",true);
+        setup(9,"tree",true);
+        setup(10,"coral",true);
+        setup(11,"down_pool",true);
+        setup(12,"left_down_corner",true);
+        setup(13,"left_pool",true);
+        setup(14,"left_up_corner",true);
+        setup(15,"right_down_corner",true);
+        setup(16,"right_pool",true);
+        setup(17,"right_up_corner",true);
+        setup(18,"up_pool",true);
+
 
     }
 
