@@ -58,11 +58,14 @@ public class Entity {
     public Entity currentSquid;
     public Entity currentFlounder;
     public Entity currentSardine;
+    public boolean  invincible = false;
+    public int invincibleCounter = 0;
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
     public final int maxInventorySize = 20;
     public int fishingValue;
     public int baitingValue;
+    public int actionLockCounter;
 
 
     public String description = "";
@@ -80,7 +83,7 @@ public class Entity {
     public final int type_sardine = 7;
     public final int type_squid = 8;
     public final int type_tilapia = 9;
-
+    public final int type_Crab = 10;
 
 
     public Entity(GamePanel gp){
@@ -88,7 +91,7 @@ public class Entity {
         this.gp = gp;
     }
 
-    //public void setAction(){}
+    public void setAction(){}
     public void speak(){
         if(dialogues[dialogueIndex] == null){
             dialogueIndex = 0;
@@ -166,12 +169,20 @@ public class Entity {
         }
     }
     public void update(){
-        //setAction();
+        setAction();
+
         collisionOn = false;
         gp.cDetection.checkTile(this);
         gp.cDetection.checkObject(this, false);
         gp.cDetection.checkPlayer(this);
+        gp.cDetection.checkNPC(this,gp.npc);
 
+//        if(this.type == type_Crab && contactPlayer = true) {
+//            if(gp.player.invincible == false){
+//                gp.player.life -= 2;
+//                gp.player.invincible = true;
+//            }
+//        }
         //If collision is false, player can move
         if(!collisionOn) {
             switch(direction) {
@@ -296,8 +307,9 @@ public class Entity {
         UtilityTool uTool = new UtilityTool();
         BufferedImage image = null;
         String imagePath =  "res/" + imageName + ".png";
+        File imageFile = new File(imagePath);
 
-        try (FileInputStream fis = new FileInputStream(new File(imagePath))) {
+        try (FileInputStream fis = new FileInputStream(imageFile)) {
             image = ImageIO.read(fis);
             image = uTool.scaleImage(image, width, height);
 

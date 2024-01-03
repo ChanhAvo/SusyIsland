@@ -12,7 +12,7 @@ public class OBJ_Bait extends Entity {
         super(gp);
         type = type_bait;
         name = "Bait";
-        down1 = setup("/Objects/bait", gp.tileSize, gp.tileSize);
+        down1 = setup("/Objects/bait");
         fishingValue = 1;
         description = "[" + name + "]\n a yummy bait for susy fish";
         price = 20;

@@ -31,6 +31,7 @@ public class Player extends Entity {
     public final int screenX;
     public final int screenY;
     int standCounter = 0;
+    public boolean lightUpdated = false;
 
 
     public Player(GamePanel gp, KeyHandler keyH) {
@@ -59,13 +60,14 @@ public class Player extends Entity {
     public void setDefaultValues(){
         worldX =  gp.tileSize;
         worldY =  gp.tileSize;
+>>>>>>>>> Temporary merge branch 2
         speed = 4;
         direction = "right";
 
         // PLAYER STATUS
         level = 1;
         maxLife = 20;
-        life = 7;
+        life = maxLife;
         strength = 1;
         dexterity = 1;
         exp = 0;
@@ -82,7 +84,23 @@ public class Player extends Entity {
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
 
     }
+    public void setDefaultPosition(){
+        worldX =  gp.tileSize;
+        worldY =  gp.tileSize;
+        speed = 4;
+        direction = "right";
+    }
+    public void restoreLife(){
+        life = maxLife;
+        invincible = false;
+    }
     public void setItems(){
+        inventory.clear();
+        inventory.add(currentRod);
+
+        for (int i = 0; i < 9; i++){
+            inventory.add(currentBait);
+        }
     }
     public int getFishing(){
         return fishing = strength * currentRod.fishingValue;
@@ -159,9 +177,13 @@ public class Player extends Entity {
             //Check object collision
             int objIndex = gp.cDetection.checkObject(this, true);
             pickUpObject(objIndex);
+
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
+            //Check crab collision
+            int crabIndex = gp.cDetection.checkNPC(this,gp.crab);
+            contactCrab(crabIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -204,6 +226,19 @@ public class Player extends Entity {
                 standCounter = 0;
             }
         }
+        // set timer for the crab to attack the char
+        if(invincible == true){
+            invincibleCounter++;
+            if(invincibleCounter > 15){
+                invincible = false;
+                invincibleCounter = 0;
+            }
+        }
+        if(life <=0 ){
+            gp.gameState = gp.gameOverState;
+            gp.playSE(7);
+
+        }
     }
     public void fishing(){
         spriteCounter++;
@@ -233,6 +268,7 @@ public class Player extends Entity {
         if (i != 999) {
 
             String text;
+            gp.playSE(5);
             if(inventory.size() != maxInventorySize){
                 inventory.add(gp.obj[i]);
                 text = "Got a " + gp.obj[i].name + "!";
@@ -260,6 +296,15 @@ public class Player extends Entity {
 
             }
 
+        }
+    }
+    public void contactCrab(int i ){
+        if(i != 999){
+           if(invincible == false){
+                life -= 2;
+                gp.playSE(4);
+                invincible = true;
+           }
         }
     }
     public void draw(Graphics2D g2){

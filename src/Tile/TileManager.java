@@ -6,7 +6,6 @@ import Controls.UtilityTool;
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.io.*;
-import Controls.UtilityTool;
 
 public class TileManager {
     GamePanel gp;

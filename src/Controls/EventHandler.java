@@ -59,10 +59,15 @@ public class EventHandler {
                 welcomeMessage(0,0,gp.dialogueState);
             }
         }
+
+        if(hit(10,1,"right") == true) {
+            damagePit(gp.dialogueState);
+        }
     }
 
     public boolean hit (int col, int row, String reqDirection){
         boolean hit = false;
+        //Getting player's current solidArea positions
         gp.player.solidArea.x = gp.player.worldX + gp.player.solidArea.x;
         gp.player.solidArea.y = gp.player.worldY + gp.player.solidArea.y;
         eventRect[col][row].x = col * gp.tileSize + eventRect[col][row].x;
@@ -78,6 +83,7 @@ public class EventHandler {
 
             }
         }
+        //Reset
         gp.player.solidArea.x = gp.player.solidAreaDefaultX;
         gp.player.solidArea.y = gp.player.solidAreaDefaultY;
         eventRect[col][row].x = eventRect[col][row].eventRectDefaultX;
@@ -104,4 +110,10 @@ public class EventHandler {
 
     }
 
+    public void damagePit(int gameState) {
+        gp.gameState = gameState;
+        gp.ui.currentDialogue = "You fall into a pit";
+        gp.player.life -= 1;
+    }
 }
+
