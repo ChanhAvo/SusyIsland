@@ -185,7 +185,7 @@ public class Player extends Entity {
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
-
+            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
@@ -232,7 +232,7 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
-        if(life <=0 ){
+        if(life <= 0 ){
             gp.gameState = gp.gameOverState;
             gp.playSE(7);
         }
@@ -272,6 +272,7 @@ public class Player extends Entity {
                 }
             }
         }
+        //gp.keyH.enterPressed = false;
     }
     public void pickUpObject(int i){
         if (i != 999) {

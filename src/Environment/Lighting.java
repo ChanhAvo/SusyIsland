@@ -119,18 +119,9 @@ public class Lighting {
 
             if(dayCounter > 600) {
                 filterAlpha = 0;
-                dayState = day;
-                //dayCounter = 0;
+                gp.gameState = gp.gameOverState;
             }
         }
-        //if(dayState == dawn) {
-            //filterAlpha -= 0.001f;
-
-            //if(filterAlpha < 0f) {
-                //filterAlpha = 0;
-                //dayState = day;
-            //}
-        //}
     }
 
     public void draw(Graphics2D g2) {
@@ -147,9 +138,8 @@ public class Lighting {
             case dusk: situation = "Dusk"; break;
             case night: situation = "Night"; break;
         }
-        g2.setColor(Color.WHITE);
-        //g2.setFont(g2.getFont().deriveFont(25f));
 
+        g2.setColor(Color.WHITE);
         g2.setFont(customFont.deriveFont(Font.PLAIN, 50f));
         g2.drawString(situation, 850, 650);
     }
@@ -161,7 +151,6 @@ public class Lighting {
             e.printStackTrace();
         }
     }
-
 
 
 }

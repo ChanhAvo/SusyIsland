@@ -81,16 +81,17 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_P){
                 gp.gameState = gp.playState;
             }
-        }//GAME OVER STATE
-
+        }
+        //GAME OVER STATE
         else if(gp.gameState == gp.gameOverState){
             gameOverState(code);
         }
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState){
-            if(code == KeyEvent.VK_ENTER){
+            if(code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE){
                 gp.gameState = gp.playState;
             }
+
         }
         //CHARACTER STATE
         else if(gp.gameState == gp.characterState){
