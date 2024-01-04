@@ -119,7 +119,7 @@ public class Lighting {
 
             if(dayCounter > 600) {
                 filterAlpha = 0;
-                dayState = day;
+                gp.gameState = gp.gameOverState;
                 //dayCounter = 0;
             }
         }

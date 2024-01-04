@@ -81,8 +81,8 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_P){
                 gp.gameState = gp.playState;
             }
-        }//GAME OVER STATE
-
+        }
+        //GAME OVER STATE
         else if(gp.gameState == gp.gameOverState){
             gameOverState(code);
         }
