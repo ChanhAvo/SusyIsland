@@ -120,17 +120,8 @@ public class Lighting {
             if(dayCounter > 600) {
                 filterAlpha = 0;
                 gp.gameState = gp.gameOverState;
-                //dayCounter = 0;
             }
         }
-        //if(dayState == dawn) {
-            //filterAlpha -= 0.001f;
-
-            //if(filterAlpha < 0f) {
-                //filterAlpha = 0;
-                //dayState = day;
-            //}
-        //}
     }
 
     public void draw(Graphics2D g2) {

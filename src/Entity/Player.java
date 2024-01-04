@@ -185,7 +185,7 @@ public class Player extends Entity {
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
-            gp.keyH.spacePressed = false;
+            gp.keyH.enterPressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
