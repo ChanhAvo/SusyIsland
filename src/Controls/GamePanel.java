@@ -23,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 704 pixels
 
     //WORLD SETTING
-    public final int maxWorldCol = 40;
-    public final int maxWorldRow = 42;
+    public final int maxWorldCol = 41;
+    public final int maxWorldRow = 43;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -61,6 +61,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int characterState = 4;
     public final int inventoryState = 5;
     public final int tradeState = 6;
+    public final int fishingState = 7;
+    public final int gameOverState = 8;
 
 
     public GamePanel() {
@@ -80,7 +82,22 @@ public class GamePanel extends JPanel implements Runnable {
 
         gameState = titleState;
     }
-
+    public void retry(){
+        player.setDefaultPosition();
+        player.restoreLife();
+        aSetter.setCrab();
+        aSetter.setObject();
+    }
+    public void restart(){
+        player.setDefaultPosition();
+        player.setDefaultValues();
+        player.restoreLife();
+        player.setItems();
+        aSetter.setNPC();
+        aSetter.setObject();
+        aSetter.setCrab();
+        playMusic(0);
+    }
     public void startGameThread() {
 
         gameThread = new Thread(this);

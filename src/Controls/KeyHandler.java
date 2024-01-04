@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed,spacePressed;
     boolean checkDrawTime = false;
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -47,7 +47,7 @@ public class KeyHandler implements KeyListener {
         }
 
         //PLAY STATE
-        if(gp.gameState == gp.playState){
+        else if(gp.gameState == gp.playState){
             if(code == KeyEvent.VK_W){
                 upPressed = true;
             }
@@ -72,12 +72,18 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_E) {
                 gp.gameState = gp.inventoryState;
             }
+            if(code == KeyEvent.VK_SPACE) {
+                spacePressed = true;
+            }
         }
         //PAUSE STATE
         else if(gp.gameState == gp.pauseState){
             if(code == KeyEvent.VK_P){
                 gp.gameState = gp.playState;
             }
+        }
+        else if(gp.gameState == gp.gameOverState){
+            gameOverState(code);
         }
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState){
@@ -126,6 +132,12 @@ public class KeyHandler implements KeyListener {
                 if(code == KeyEvent.VK_ESCAPE){
                     gp.ui.subState = 0;
                 }
+            }
+        }
+        //FISHING STATE
+        else if(gp.gameState == gp.fishingState){
+            if(code == KeyEvent.VK_ENTER){
+                gp.gameState = gp.playState;
             }
         }
     }
@@ -184,6 +196,32 @@ public class KeyHandler implements KeyListener {
 //            if(selectedItem.type == type_consumable){
 //                gp.player.life = gp.player.maxLife;
 
+        }
+    }
+    public void gameOverState(int code) {
+        if(code == KeyEvent.VK_W){
+            gp.ui.commandNum--;
+            if(gp.ui.commandNum < 0 ){
+                gp.ui.commandNum = 1;
+            }
+            gp.playSE(6);
+        }
+        if(code == KeyEvent.VK_S) {
+            gp.ui.commandNum++;
+            if (gp.ui.commandNum > 0) {
+                gp.ui.commandNum = 1;
+            }
+            gp.playSE(6);
+        }
+        if(code == KeyEvent.VK_ENTER){
+            if(gp.ui.commandNum ==0){
+                gp.gameState = gp.playState;
+                gp.retry();
+            }
+            else if(gp.ui.commandNum == 1){
+                gp.gameState = gp.titleState;
+                gp.restart();
+            }
         }
     }
 

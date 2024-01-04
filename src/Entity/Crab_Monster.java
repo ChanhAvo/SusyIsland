@@ -7,6 +7,7 @@ import java.util.Random;
 public class Crab_Monster extends Entity {
     public Crab_Monster(GamePanel gp){
         super(gp);
+        type = type_Crab;
         name = "Crab Monster";
         speed = 1;
         maxLife = 4;
@@ -43,14 +44,14 @@ public class Crab_Monster extends Entity {
 //            e.printStackTrace();
 //        }
 //    }
-        left1 = setup("Crab/crab1");
-        left2 = setup("Crab/crab2");
-        right1 = setup("Crab/crab1");
-        right2 = setup("Crab/crab2");
-        down1 = setup("Crab/crab1");
-        down2 = setup("Crab/crab2");
-        up1 = setup("Crab/crab1");
-        up2 = setup("Crab/crab2");
+        left1 = setup("Crab/crab1",gp.tileSize, gp.tileSize);
+        left2 = setup("Crab/crab2",gp.tileSize, gp.tileSize);
+        right1 = setup("Crab/crab1",gp.tileSize, gp.tileSize);
+        right2 = setup("Crab/crab2",gp.tileSize, gp.tileSize);
+        down1 = setup("Crab/crab1",gp.tileSize, gp.tileSize);
+        down2 = setup("Crab/crab2",gp.tileSize, gp.tileSize);
+        up1 = setup("Crab/crab1",gp.tileSize, gp.tileSize);
+        up2 = setup("Crab/crab2",gp.tileSize, gp.tileSize);
 
     }
     public void setAction() {
