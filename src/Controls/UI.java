@@ -111,7 +111,9 @@ public class UI {
         if(gp.gameState == gp.gameOverState){
             drawGameOverScreen();
         }
-
+        if(gp.gameState == gp.gameDoneState){
+            drawGameDoneScreen();
+        }
     }
     public void drawPlayerLife() {
 
@@ -571,6 +573,28 @@ public class UI {
                 gp.player.coin += price;
             }
         }
+    }
+    public void drawGameDoneScreen(){
+        g2.setColor(new Color(0,0,0,150));
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        //TITLE NAME
+        g2.setFont(customFont.deriveFont(Font.BOLD, 70f));
+        String text = "CONGRATULATIONS.";
+        String text1 = "YOU CAUGHT ALL THE FISH OF THIS ISLAND!";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+//        g2.drawString(text,x,y);
+//        g2.drawString(text1,x + 50, y + 50);
+
+        //SHADOW
+//        g2.setColor(Color.white);
+//        g2.drawString(text,x + 5,y + 5);
+        //MAIN COLOR +
+        g2.setColor(new Color(1, 30, 54));
+        g2.drawString(text, x, y);
+        g2.drawString(text1,x - 70 , y + 100);
+        //MENU
+        //g2.setFont(customFont.deriveFont(Font.BOLD, 90f));
     }
     public int getItemIndexOnSlot(int slotCol, int slotRow){
         int itemIndex = slotCol + (slotRow*5);

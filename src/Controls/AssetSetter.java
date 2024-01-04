@@ -1,7 +1,7 @@
 package Controls;
 import Entity.Crab_Monster;
 import Entity.NPC_Merchant;
-import Object.OBJ_Coconut;
+import Object.*;
 public class AssetSetter {
     GamePanel gp;
 
@@ -11,17 +11,16 @@ public class AssetSetter {
     public void setObject(){
 
         gp.obj[0] = new OBJ_Coconut(gp);
-        gp.obj[0].worldX = 5 * gp.tileSize;
-        gp.obj[0].worldY = 8 * gp.tileSize;
+        gp.obj[0].worldX = 17 * gp.tileSize;
+        gp.obj[0].worldY = 34 * gp.tileSize;
 
         gp.obj[1] = new OBJ_Coconut(gp);
-        gp.obj[1].worldX = 14 * gp.tileSize;
-        gp.obj[1].worldY = 12 * gp.tileSize;
+        gp.obj[1].worldX = 20 * gp.tileSize;
+        gp.obj[1].worldY = 27 * gp.tileSize;
 
         gp.obj[2] = new OBJ_Coconut(gp);
-        gp.obj[2].worldX = 28 * gp.tileSize;
-        gp.obj[2].worldY = 16 * gp.tileSize;
-
+        gp.obj[2].worldX = 11 * gp.tileSize;
+        gp.obj[2].worldY = 28 * gp.tileSize;
 
     }
     public void setNPC(){
@@ -57,7 +56,7 @@ public class AssetSetter {
         gp.crab[5].worldY = gp.tileSize * 12;
 
         gp.crab[6] = new Crab_Monster(gp);
-        gp.crab[6].worldX = gp.tileSize * 37;
+        gp.crab[6].worldX = gp.tileSize * 34;
         gp.crab[6].worldY = gp.tileSize * 15;
 
         gp.crab[7] = new Crab_Monster(gp);
@@ -69,5 +68,10 @@ public class AssetSetter {
         gp.crab[8].worldY = gp.tileSize * 1;
 
 
+    }
+    public void setTreasure(){
+        gp.tre[0] = new OBJ_Treasure(gp);
+        gp.tre[0].worldX = 30 * gp.tileSize;
+        gp.tre[0].worldY = 22 * gp.tileSize;
     }
 }

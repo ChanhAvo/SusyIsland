@@ -40,7 +40,7 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI (this);
     public EventHandler eHandler = new EventHandler (this);
-    EnvironmentManager eManager = new EnvironmentManager(this);
+    public EnvironmentManager eManager = new EnvironmentManager(this);
 
     Thread gameThread;
 
@@ -49,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
     public Entity[] crab = new Entity[20];
+    public Entity[] tre = new Entity[10];
 
     ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -63,6 +64,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 6;
     public final int fishingState = 7;
     public final int gameOverState = 8;
+    public final int gameDoneState = 9;
 
 
     public GamePanel() {
@@ -77,6 +79,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setCrab();
+        aSetter.setTreasure();
         playMusic(0);
         eManager.setup();
 
@@ -197,6 +200,11 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < crab.length; i++) {
                 if (crab[i] != null) {
                     entityList.add(crab[i]);
+                }
+            }
+            for (int i = 0; i < tre.length; i++) {
+                if (tre[i] != null) {
+                    entityList.add(tre[i]);
                 }
             }
 //            for (int i = 0; i < coconut.length; i++) {

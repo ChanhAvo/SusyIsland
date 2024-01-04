@@ -30,7 +30,6 @@ public class Entity {
     public boolean collisionOn = false;
     public boolean isFishing = false;
     public int fishingLockCounter = 0;
-    //    public int actionLockCounter = 0;
     public BufferedImage image, image2, image3;
     public String name;
     public String imagePath;
@@ -90,7 +89,6 @@ public class Entity {
 
         this.gp = gp;
     }
-
     public void setAction(){}
     public void speak(){
         if(dialogues[dialogueIndex] == null){
@@ -107,9 +105,15 @@ public class Entity {
             if (selectedItem.type == type_bait) {
                 currentBait = selectedItem;
             }
+        }else if(itemIndex < inventory.size()) {
+            Entity selectedItem = inventory.get(itemIndex);
+            if (selectedItem.type == type_rod) {
+                currentRod = selectedItem;
+            }
         }
         boolean hasBait = inventory.contains(currentBait);
-        if (hasBait){
+        boolean hasRod = inventory.contains(currentRod);
+        if (hasBait && hasRod){
             Random rand = new Random();
             int i = rand.nextInt(10);
             switch(i) {
@@ -155,9 +159,14 @@ public class Entity {
                     break;
             }
         }
-        else{
+        if(!hasBait){
             isFishing = false;
             gp.ui.currentDialogue = "Not enough bait to fish.\nCheck the shop for baits";
+            gp.gameState = gp.dialogueState;
+        }
+        if(!hasRod){
+            isFishing = false;
+            gp.ui.currentDialogue = "No fishing rod!!!\nYou need to find one";
             gp.gameState = gp.dialogueState;
         }
         if(gp.player.life == 1){
@@ -168,6 +177,7 @@ public class Entity {
             //Game over
         }
     }
+
     public void update(){
         setAction();
 
@@ -212,7 +222,6 @@ public class Entity {
         }
 
     }
-
     public void draw(Graphics g2){
 
         BufferedImage image = null;
