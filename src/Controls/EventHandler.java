@@ -61,17 +61,47 @@ public class EventHandler {
 
             //Hit damage pit
             if(hit(22,0,"right") == true)   {
-                damagePit(gp.dialogueState);
+                damagePit(22,0,gp.dialogueState);
             }
             if(hit(22,0,"up") == true) {
-                damagePit(gp.dialogueState);
+                damagePit(22,0,gp.dialogueState);
             }
             if(hit(30,2,"down") == true) {
-                damagePit(gp.dialogueState);
+                damagePit(30,2,gp.dialogueState);
             }
             if(hit(2,16,"left") == true) {
-                damagePit(gp.dialogueState);
+                damagePit(2,16,gp.dialogueState);
             }
+            if(hit(13,6,"left") == true) {
+                damagePit(13,6,gp.dialogueState);
+            }
+            if(hit(30,18,"down") == true) {
+                damagePit(30,18,gp.dialogueState);
+            }
+            if(hit(17,25,"left") == true) {
+                damagePit(17,25,gp.dialogueState);
+            }
+            if(hit(28,28,"down") == true) {
+                damagePit(28,28,gp.dialogueState);
+            }
+            if(hit(15,32,"left") == true) {
+                damagePit(17,25,gp.dialogueState);
+            }
+            if(hit(30,34,"down") == true) {
+                damagePit(30,34,gp.dialogueState);
+            }
+            if(hit(11,33,"down") == true) {
+                damagePit(11,33,gp.dialogueState);
+            }
+
+            //Hit healing pool
+            if(hit(28,7,"right") == true) {
+                healingPool(28,7,gp.dialogueState);
+            }
+            if(hit(29,8,"right") == true) {
+                healingPool(29,8, gp.dialogueState);
+            }
+
         }
     }
 
@@ -117,11 +147,24 @@ public class EventHandler {
 
     }
 
-    public void damagePit(int col, int row,int gameState) {
+    public void damagePit(int col, int row, int gameState) {
         gp.gameState = gameState;
         gp.ui.currentDialogue = "You fall into a pit!!!";
         gp.player.life -= 1;
         eventRect[col][row].eventDone = true;
+    }
+
+    public void healingPool(int col, int row, int gameState) {
+        //gp.gameState = gameState;
+        if(gp.gameState != gp.fishingState) {
+            if(gp.keyH.spacePressed == true) {
+                gp.gameState = gameState;
+                gp.ui.currentDialogue = "You drink the water.\n Your life has been recovered.";
+                gp.player.life = gp.player.maxLife;
+            }
+        }
+
+       // gp.keyH.spacePressed = false;
     }
 }
 

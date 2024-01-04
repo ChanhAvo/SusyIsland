@@ -181,7 +181,7 @@ public class Player extends Entity {
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
-
+            gp.keyH.spacePressed = false;
 
             //If collision is false, player can move
             if(!collisionOn && !keyH.enterPressed) {
@@ -257,6 +257,7 @@ public class Player extends Entity {
                 gp.npc[i].speak();
             }else{isFishing = true;}
         }
+        //gp.keyH.enterPressed = false;
     }
     public void pickUpObject(int i){
         if (i != 999) {
