@@ -1,14 +1,11 @@
 package Environment;
 
 import Controls.GamePanel;
-import Entity.Entity;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -115,14 +112,14 @@ public class Lighting {
             }
         }
         if(dayState == night) {
-            dayCounter++;
+            gp.player.life = 0;
+            dayCounter = 0;
+            filterAlpha = 0f;
+            dayState = day;
 
-            if(dayCounter > 600) {
-                filterAlpha = 0;
-                gp.gameState = gp.gameOverState;
-            }
         }
     }
+
 
     public void draw(Graphics2D g2) {
 

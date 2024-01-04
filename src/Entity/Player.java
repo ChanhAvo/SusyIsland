@@ -3,15 +3,7 @@ package Entity;
 import Controls.GamePanel;
 import Controls.KeyHandler;
 import Controls.UtilityTool;
-import Object.OBJ_Bait;
-import Object.OBJ_Rod;
-import Object.OBJ_Coconut;
-import Object.OBJ_Halibut;
-import Object.OBJ_Flounder;
-import Object.OBJ_Squid;
-import Object.OBJ_Tilapia;
-import Object.OBJ_Sardine;
-
+import Object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,10 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import Controls.UtilityTool;
-import java.io.*;
 
 
 public class Player extends Entity {

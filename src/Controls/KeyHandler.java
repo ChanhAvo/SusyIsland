@@ -37,7 +37,7 @@ public class KeyHandler implements KeyListener {
             if(code == KeyEvent.VK_ENTER){
                 if(gp.ui.commandNum == 0){
                     gp.gameState = gp.playState;
-                    gp.sound.stop();
+                    gp.stopMusic();
                     gp.playMusic(1);
                 }
                 if(gp.ui.commandNum == 1){
@@ -85,6 +85,7 @@ public class KeyHandler implements KeyListener {
         //GAME OVER STATE
         else if(gp.gameState == gp.gameOverState){
             gameOverState(code);
+            gp.stopMusic();
         }
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState){
@@ -210,18 +211,22 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_S) {
             gp.ui.commandNum++;
-            if (gp.ui.commandNum > 0) {
-                gp.ui.commandNum = 1;
+            if (gp.ui.commandNum > 1) {
+                gp.ui.commandNum = 0;
             }
             gp.playSE(6);
         }
         if(code == KeyEvent.VK_ENTER){
+
             if(gp.ui.commandNum ==0){
+                gp.stopMusic();
+
                 gp.gameState = gp.playState;
                 gp.retry();
             }
             else if(gp.ui.commandNum == 1){
                 gp.gameState = gp.titleState;
+                gp.stopMusic();
                 gp.restart();
             }
         }
