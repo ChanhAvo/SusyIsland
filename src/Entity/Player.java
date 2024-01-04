@@ -172,12 +172,16 @@ public class Player extends Entity {
             int objIndex = gp.cDetection.checkObject(this, true);
             pickUpObject(objIndex);
 
+
             //Check NPC collision
             int npcIndex = gp.cDetection.checkNPC(this, gp.npc);
             interactNPC(npcIndex);
             //Check crab collision
             int crabIndex = gp.cDetection.checkNPC(this,gp.crab);
             contactCrab(crabIndex);
+            //Check treasure collision
+            int treasureIndex = gp.cDetection.checkNPC(this,gp.tre);
+            pickUpTreasure(treasureIndex);
 
             //CHECK EVENT
             gp.eHandler.checkEvent();
@@ -231,7 +235,14 @@ public class Player extends Entity {
         if(life <=0 ){
             gp.gameState = gp.gameOverState;
             gp.playSE(7);
-
+        }
+        if(inventory.contains(currentSquid) &&
+                inventory.contains(currentHalibut) &&
+                inventory.contains(currentSardine) &&
+                inventory.contains(currentTilapia) &&
+                inventory.contains(currentFlounder) &&
+                gp.eManager.lighting.dayState != 2 ){
+            gp.gameState = gp.gameDoneState;
         }
     }
     public void fishing(){
@@ -255,7 +266,11 @@ public class Player extends Entity {
             if(i != 999){
                 gp.gameState = gp.dialogueState;
                 gp.npc[i].speak();
-            }else{isFishing = true;}
+            }else{
+                if(inventory.contains(currentRod)){
+                    isFishing = true;
+                }
+            }
         }
     }
     public void pickUpObject(int i){
@@ -266,11 +281,31 @@ public class Player extends Entity {
             if(inventory.size() != maxInventorySize){
                 inventory.add(gp.obj[i]);
                 text = "Got a " + gp.obj[i].name + "!";
+                gp.ui.currentDialogue = "Yum yum coconut.\nCan I drink it?";
+                gp.gameState = gp.dialogueState;
             } else {
                 text = "You cannot carry any more!";
             }
             gp.ui.addMessage(text);
             gp.obj[i] = null;
+        }
+    }
+    public void pickUpTreasure(int i){
+        if (i != 999) {
+
+            String text;
+            gp.playSE(5);
+            if(inventory.size() != maxInventorySize){
+                inventory.remove(gp.tre[i]);
+                inventory.add(currentRod);
+                text = "Got a " + gp.tre[i].name + "!";
+                gp.ui.currentDialogue = "Wow, a treasure!\nPress E to check what you have in your bag";
+                gp.gameState = gp.dialogueState;
+            } else {
+                text = "You cannot carry any more!";
+            }
+            gp.ui.addMessage(text);
+            gp.tre[i] = null;
         }
     }
     public void selectItem() {
@@ -295,11 +330,16 @@ public class Player extends Entity {
     public void contactCrab(int i ){
         if(i != 999){
            if(invincible == false){
+               gp.ui.currentDialogue = "Ouch, this crabie.\nWhy you pierce me !!?";
+               gp.gameState = gp.dialogueState;
                 life -= 2;
                 gp.playSE(4);
                 invincible = true;
            }
         }
+    }
+    public void checkFish(){
+        
     }
     public void draw(Graphics2D g2){
         BufferedImage image = null;

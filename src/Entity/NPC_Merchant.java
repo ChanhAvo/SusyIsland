@@ -56,9 +56,7 @@ public class NPC_Merchant extends Entity {
         dialogues[0] = "Hello, welcome to my small shop!\nI have some good stuffs here\nYou have anything?";
     }
     public void setItems(){
-
         inventory.add(new OBJ_Bait(gp));
-        inventory.add(new OBJ_Rod(gp));
     }
     public void speak(){
         super.speak();
