@@ -61,6 +61,15 @@ public class EventHandler {
             if(hit(10,1,"right") == true) {
                 damagePit(10,1,gp.dialogueState);
             }
+            if(hit(22,0,"right") == true)   {
+                damagePit(22,0,gp.dialogueState);
+            }
+            if(hit(30,2,"down") == true) {
+                damagePit(30,2,gp.dialogueState);
+            }
+            if(hit(2,16,"left") == true) {
+                damagePit(2,16,gp.dialogueState);
+            }
         }
     }
 
@@ -108,7 +117,7 @@ public class EventHandler {
 
     public void damagePit(int col, int row,int gameState) {
         gp.gameState = gameState;
-        gp.ui.currentDialogue = "You fall into a pit";
+        gp.ui.currentDialogue = "You fall into a pit!!!";
         gp.player.life -= 1;
         eventRect[col][row].eventDone = true;
     }
