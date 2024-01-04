@@ -83,13 +83,14 @@ public class GamePanel extends JPanel implements Runnable {
         playMusic(0);
         eManager.setup();
 
-        gameState = titleState;
     }
     public void retry(){
+        gameState = playState;
         player.setDefaultPosition();
         player.restoreLife();
         aSetter.setCrab();
         aSetter.setObject();
+
     }
     public void restart(){
         player.setDefaultPosition();

@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 public class KeyHandler implements KeyListener {
 
     GamePanel gp;
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed,spacePressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed,healPressed;
     boolean checkDrawTime = false;
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -72,8 +72,8 @@ public class KeyHandler implements KeyListener {
             if (code == KeyEvent.VK_E) {
                 gp.gameState = gp.inventoryState;
             }
-            if(code == KeyEvent.VK_SPACE) {
-                spacePressed = true;
+            if(code == KeyEvent.VK_H) {
+                healPressed = true;
             }
         }
         //PAUSE STATE
@@ -88,7 +88,7 @@ public class KeyHandler implements KeyListener {
         }
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState){
-            if(code == KeyEvent.VK_ENTER || code == KeyEvent.VK_SPACE){
+            if(code == KeyEvent.VK_ENTER){
                 gp.gameState = gp.playState;
             }
 

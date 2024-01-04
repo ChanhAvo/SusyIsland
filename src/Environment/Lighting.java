@@ -106,7 +106,7 @@ public class Lighting {
                 dayCounter = 0;
             }
         }
-        if(dayState == dusk) {
+        else if(dayState == dusk) {
             filterAlpha += 0.001f;
 
             if(filterAlpha > 1f) {
@@ -114,13 +114,12 @@ public class Lighting {
                 dayState = night;
             }
         }
-        if(dayState == night) {
-            dayCounter++;
-
-            if(dayCounter > 600) {
-                filterAlpha = 0;
-                gp.gameState = gp.gameOverState;
-            }
+        else if(dayState == night) {
+            gp.player.life = 0;
+            dayCounter = 0;
+            filterAlpha = 0f;
+            dayState = day;
+            gp.playSE(7);
         }
     }
 

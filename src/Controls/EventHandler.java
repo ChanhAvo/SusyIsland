@@ -60,12 +60,12 @@ public class EventHandler {
             }
 
             //Hit damage pit
-            if(hit(22,0,"right") == true)   {
-                damagePit(22,0,gp.dialogueState);
-            }
-            if(hit(22,0,"up") == true) {
-                damagePit(22,0,gp.dialogueState);
-            }
+//            if(hit(22,0,"right") == true)   {
+//                damagePit(22,0,gp.dialogueState);
+//            }
+//            if(hit(22,0,"up") == true) {
+//                damagePit(22,0,gp.dialogueState);
+//            }
             if(hit(30,2,"down") == true) {
                 damagePit(30,2,gp.dialogueState);
             }
@@ -95,13 +95,18 @@ public class EventHandler {
             }
 
             //Hit healing pool
-            if(hit(28,7,"right") == true) {
-                healingPool(28,7,gp.dialogueState);
+            if(hit(27,6,"right") == true){
+                System.out.println("hit pool");
+                healingPool(27,5,gp.dialogueState);
             }
-            if(hit(29,8,"right") == true) {
-                healingPool(29,8, gp.dialogueState);
+            if(hit(27,7,"right") == true){
+                System.out.println("hit pool");
+                healingPool(27,5,gp.dialogueState);
             }
-
+            if(hit(27,5,"right") == true){
+                System.out.println("hit pool");
+                healingPool(27,5,gp.dialogueState);
+            }
         }
     }
 
@@ -155,16 +160,12 @@ public class EventHandler {
     }
 
     public void healingPool(int col, int row, int gameState) {
-        //gp.gameState = gameState;
-        if(gp.gameState != gp.fishingState) {
-            if(gp.keyH.enterPressed == true) {
-                gp.gameState = gameState;
-                gp.ui.currentDialogue = "You drink the water.\n Your life has been recovered.";
-                gp.player.life = gp.player.maxLife;
-            }
+        if(gp.keyH.enterPressed == true){
+            gp.player.isFishing = false;
+            gp.gameState = gameState;
+            gp.ui.currentDialogue = "You drink the water.\n Your life has been recovered.";
+            gp.player.life = gp.player.maxLife;
         }
-
-       // gp.keyH.spacePressed = false;
     }
 }
 
