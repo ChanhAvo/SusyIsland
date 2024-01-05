@@ -180,7 +180,7 @@ public class GamePanel extends JPanel implements Runnable {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        //TITLE SCREEN OR GAME OVER
+        //TITLE SCREEN
         if (gameState == titleState ) {
             ui.draw(g2);
         }

@@ -90,7 +90,7 @@ public class EventHandler {
             if(hit(30,34,"any") == true) {
                 damagePit(30,34,gp.dialogueState);
             }
-            if(hit(11,33,"down") == true) {
+            if(hit(11,33,"any") == true) {
                 damagePit(11,33,gp.dialogueState);
             }
 
@@ -231,7 +231,7 @@ public class EventHandler {
         if(gp.keyH.enterPressed == true) {
             gp.player.isFishing = false;
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "Yeah you've drunk the healing water.";
+            gp.ui.currentDialogue = "Yeah you've drunk the healing water.\nRecover 1 heart.";
             if (gp.player.life >= 19) {
                 gp.player.life = gp.player.maxLife;
             } else {
@@ -244,7 +244,7 @@ public class EventHandler {
         if(gp.keyH.enterPressed == true){
             gp.player.isFishing = false;
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "Oh no you've drunk the poisoned water.\nMinus 2 points.";
+            gp.ui.currentDialogue = "Oh no you've drunk the poisoned water.\nMinus 2 hearts.";
             gp.player.life -= 4;
         }
     }
