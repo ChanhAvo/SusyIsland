@@ -34,8 +34,11 @@ public class KeyHandler implements KeyListener {
                 if(gp.ui.commandNum > 2){
                     gp.ui.commandNum = 0;
                 }
+
+
             }
             if(code == KeyEvent.VK_ENTER){
+
                 if(gp.ui.commandNum == 0){
                     gp.gameState = gp.playState;
                     gp.stopMusic();
@@ -215,24 +218,25 @@ public class KeyHandler implements KeyListener {
             if(gp.ui.commandNum < 0 ){
                 gp.ui.commandNum = 1;
             }
+            gp.playSE(6);
         }
         if(code == KeyEvent.VK_S) {
             gp.ui.commandNum++;
             if (gp.ui.commandNum > 1) {
                 gp.ui.commandNum = 0;
             }
+            gp.playSE(6);
         }
         if(code == KeyEvent.VK_ENTER){
-            gp.stopMusic();
             if(gp.ui.commandNum == 0){
+                gp.stopMusic();
                 gp.gameState = gp.playState;
                 gp.retry();
             }
             else if(gp.ui.commandNum == 1){
-                gp.gameState = gp.titleState;
                 gp.stopMusic();
+                gp.gameState = gp.titleState;
                 gp.restart();
-
             }
 
         }

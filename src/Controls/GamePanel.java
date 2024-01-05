@@ -92,6 +92,8 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setCrab();
         aSetter.setObject();
         eManager.lighting.resetDay();
+
+
     }
     public void restart(){
         gameState = titleState;
@@ -102,10 +104,10 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setCrab();
-        stopMusic();
         playMusic(0);
     }
     public void startGameThread() {
+
         gameThread = new Thread(this);
         gameThread.start();
     }
