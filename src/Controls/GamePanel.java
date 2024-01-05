@@ -94,6 +94,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
     public void restart(){
+        gameState = titleState;
         player.setDefaultPosition();
         player.setDefaultValues();
         player.restoreLife();
@@ -101,10 +102,10 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setCrab();
+        stopMusic();
         playMusic(0);
     }
     public void startGameThread() {
-
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -179,10 +180,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D)g;
 
-        //TITLE SCREEN OR GAME OVER
-        if (gameState == titleState ) {
+        //TITLE SCREEN
+        if(gameState == titleState){
             ui.draw(g2);
         }
 
@@ -217,28 +218,28 @@ public class GamePanel extends JPanel implements Runnable {
 //                    entityList.add(coconut[i]);
 //                }
 //            }
-            // sort
-            Collections.sort(entityList, new Comparator<Entity>() {
-                @Override
-                public int compare(Entity e1, Entity e2) {
-                    int result = Integer.compare(e1.worldY, e2.worldY);
-                    return result;
+                // sort
+                Collections.sort(entityList, new Comparator<Entity>() {
+                    @Override
+                    public int compare(Entity e1, Entity e2) {
+                        int result = Integer.compare(e1.worldY, e2.worldY);
+                        return result;
+                    }
+                });
+                //DRAW ENTITY
+                for (int i = 0; i < entityList.size(); i++) {
+                    entityList.get(i).draw(g2);
                 }
-            });
-            //DRAW ENTITY
-            for (int i = 0; i < entityList.size(); i++) {
-                entityList.get(i).draw(g2);
-            }
-            //EMPTY ENTITY LIST
-            for (int i = 0; i < entityList.size(); i++) {
-                entityList.remove(i);
-            }
-            //ENVIRONMENT
-            eManager.draw(g2);
+                //EMPTY ENTITY LIST
+                for (int i = 0; i < entityList.size(); i++) {
+                    entityList.remove(i);
+                }
+                //ENVIRONMENT
+                eManager.draw(g2);
 
-            //UI
-            ui.draw(g2);
+                //UI
+                ui.draw(g2);
+            }
+            g2.dispose();
         }
-        g2.dispose();
     }
-}

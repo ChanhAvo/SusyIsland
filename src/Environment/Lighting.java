@@ -106,7 +106,7 @@ public class Lighting {
                 dayCounter = 0;
             }
         }
-        else if(dayState == dusk) {
+        if(dayState == dusk) {
             filterAlpha += 0.001f;
 
             if(filterAlpha > 1f) {
@@ -114,12 +114,18 @@ public class Lighting {
                 dayState = night;
             }
         }
-        else if(dayState == night) {
+        if(dayState == night) {
             gp.player.life = 0;
             resetDay();
-            gp.playSE(7);
+            gp.stopMusic();
         }
     }
+    public void resetDay() {
+        dayCounter = 0;
+        filterAlpha = 0f;
+        dayState = day;
+    }
+
 
     public void draw(Graphics2D g2) {
 
