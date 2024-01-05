@@ -222,6 +222,7 @@ public class Player extends Entity {
         }
         if(life <= 0){
             gp.gameState = gp.gameOverState;
+            gp.stopMusic();
             gp.playSE(7);
         }
         if(inventory.contains(currentSquid) &&

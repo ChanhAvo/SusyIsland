@@ -83,6 +83,7 @@ public class GamePanel extends JPanel implements Runnable {
         playMusic(0);
         eManager.setup();
 
+        gameState = titleState;
     }
     public void retry(){
         gameState = playState;
@@ -91,9 +92,9 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setCrab();
         aSetter.setObject();
         eManager.lighting.resetDay();
-
     }
     public void restart(){
+        gameState = titleState;
         player.setDefaultPosition();
         player.setDefaultValues();
         player.restoreLife();
@@ -106,6 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
         playMusic(0);
     }
     public void startGameThread() {
+
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -182,8 +184,8 @@ public class GamePanel extends JPanel implements Runnable {
         //TITLE SCREEN
         if(gameState == titleState){
             ui.draw(g2);
-        }
 
+        }
         //OTHERS
         else {
             //TILE
