@@ -91,12 +91,10 @@ public class GamePanel extends JPanel implements Runnable {
         player.restoreLife();
         aSetter.setCrab();
         aSetter.setObject();
-
-
+        eManager.lighting.resetDay();
     }
     public void restart(){
         gameState = titleState;
-        stopMusic();
         player.setDefaultPosition();
         player.setDefaultValues();
         player.restoreLife();
@@ -104,10 +102,10 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setCrab();
+        stopMusic();
         playMusic(0);
     }
     public void startGameThread() {
-
         gameThread = new Thread(this);
         gameThread.start();
     }

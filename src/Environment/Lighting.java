@@ -113,11 +113,14 @@ public class Lighting {
         }
         if(dayState == night) {
             gp.player.life = 0;
-            dayCounter = 0;
-            filterAlpha = 0f;
-            dayState = day;
-
+            resetDay();
+            gp.stopMusic();
         }
+    }
+    public void resetDay() {
+        dayCounter = 0;
+        filterAlpha = 0f;
+        dayState = day;
     }
 
 
