@@ -146,11 +146,6 @@ public class Lighting {
         g2.setFont(customFont.deriveFont(Font.PLAIN, 50f));
         g2.drawString(situation, 850, 650);
     }
-    public void resetDay(){
-        dayCounter = 0;
-        filterAlpha = 0f;
-        dayState = day;
-    }
 
     public void loadFont() {
         try (InputStream fontStream = getClass().getResourceAsStream("/Background/VT323-Regular.ttf")) {

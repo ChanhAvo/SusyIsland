@@ -94,7 +94,6 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
     public void restart(){
-        gameState = titleState;
         player.setDefaultPosition();
         player.setDefaultValues();
         player.restoreLife();
@@ -102,6 +101,7 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setNPC();
         aSetter.setObject();
         aSetter.setCrab();
+        aSetter.setTreasure();
         stopMusic();
         playMusic(0);
     }
@@ -159,9 +159,6 @@ public class GamePanel extends JPanel implements Runnable {
         }
         if(gameState == pauseState){
             //nothing
-        }
-        if(gameState == gameOverState) {
-
         }
     }
 
