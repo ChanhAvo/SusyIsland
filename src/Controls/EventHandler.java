@@ -99,28 +99,28 @@ public class EventHandler {
                 healingPool(27,5,gp.dialogueState);
             }
             if(hit(27,7,"right") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(27,7,gp.dialogueState);
             }
             if(hit(27,5,"right") == true){
                 healingPool(27,5,gp.dialogueState);
             }
             if(hit(28,9,"up") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(28,9,gp.dialogueState);
             }
             if(hit(29,9,"up") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(29,9,gp.dialogueState);
             }
             if(hit(30,9,"up") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(30,9,gp.dialogueState);
             }
             if(hit(31,9,"up") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(31,9,gp.dialogueState);
             }
             if(hit(32,9,"up") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(32,9,gp.dialogueState);
             }
             if(hit(33,9,"up") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(33,9,gp.dialogueState);
             }
             if(hit(30,4,"down") == true){
                 healingPool(30,4,gp.dialogueState);
@@ -143,13 +143,13 @@ public class EventHandler {
             if(hit(36,4,"down") == true){
                 healingPool(36,4,gp.dialogueState);
             }
-            if(hit(37,4,"down") == true){
+            if(hit(37,5,"down") == true){
                 healingPool(37,5,gp.dialogueState);
             }
-            if(hit(37,4,"down") == true){
+            if(hit(37,6,"down") == true){
                 healingPool(37,6,gp.dialogueState);
             }
-            if(hit(37,4,"down") == true){
+            if(hit(37,7,"down") == true){
                 healingPool(37,7,gp.dialogueState);
             }
 
