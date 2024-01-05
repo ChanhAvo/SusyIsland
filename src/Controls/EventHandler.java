@@ -59,53 +59,121 @@ public class EventHandler {
                 welcomeMessage(0,0,gp.dialogueState);
             }
 
-            //Hit damage pit
-//            if(hit(22,0,"right") == true)   {
-//                damagePit(22,0,gp.dialogueState);
-//            }
-//            if(hit(22,0,"up") == true) {
-//                damagePit(22,0,gp.dialogueState);
-//            }
-            if(hit(30,2,"down") == true) {
+            //HIT DAMAGE PIT
+            if(hit(22,0,"any") == true)   {
+                damagePit(22,0,gp.dialogueState);
+            }
+            if(hit(10,1,"any") == true)   {
+                damagePit(10,1,gp.dialogueState);
+            }
+            if(hit(30,2,"any") == true) {
                 damagePit(30,2,gp.dialogueState);
             }
-            if(hit(2,16,"left") == true) {
+            if(hit(2,16,"any") == true) {
                 damagePit(2,16,gp.dialogueState);
             }
-            if(hit(13,6,"left") == true) {
+            if(hit(13,6,"any") == true) {
                 damagePit(13,6,gp.dialogueState);
             }
-            if(hit(30,18,"down") == true) {
+            if(hit(30,18,"any") == true) {
                 damagePit(30,18,gp.dialogueState);
             }
-            if(hit(17,25,"left") == true) {
+            if(hit(17,25,"any") == true) {
                 damagePit(17,25,gp.dialogueState);
             }
-            if(hit(28,28,"down") == true) {
+            if(hit(28,28,"any") == true) {
                 damagePit(28,28,gp.dialogueState);
             }
-            if(hit(15,32,"left") == true) {
+            if(hit(15,32,"any") == true) {
                 damagePit(17,25,gp.dialogueState);
             }
-            if(hit(30,34,"down") == true) {
+            if(hit(30,34,"any") == true) {
                 damagePit(30,34,gp.dialogueState);
             }
             if(hit(11,33,"down") == true) {
                 damagePit(11,33,gp.dialogueState);
             }
 
-            //Hit healing pool
+            //HIT HEALING POOL
             if(hit(27,6,"right") == true){
-                System.out.println("hit pool");
                 healingPool(27,5,gp.dialogueState);
             }
             if(hit(27,7,"right") == true){
-                System.out.println("hit pool");
                 healingPool(27,5,gp.dialogueState);
             }
             if(hit(27,5,"right") == true){
-                System.out.println("hit pool");
                 healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(28,9,"up") == true){
+                healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(29,9,"up") == true){
+                healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(30,9,"up") == true){
+                healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(31,9,"up") == true){
+                healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(32,9,"up") == true){
+                healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(33,9,"up") == true){
+                healingPool(27,5,gp.dialogueState);
+            }
+            if(hit(30,4,"down") == true){
+                healingPool(30,4,gp.dialogueState);
+            }
+            if(hit(31,4,"down") == true){
+                healingPool(31,4,gp.dialogueState);
+            }
+            if(hit(32,4,"down") == true){
+                healingPool(32,4,gp.dialogueState);
+            }
+            if(hit(33,4,"down") == true){
+                healingPool(33,4,gp.dialogueState);
+            }
+            if(hit(34,4,"down") == true){
+                healingPool(34,4,gp.dialogueState);
+            }
+            if(hit(35,4,"down") == true){
+                healingPool(35,4,gp.dialogueState);
+            }
+            if(hit(36,4,"down") == true){
+                healingPool(36,4,gp.dialogueState);
+            }
+            if(hit(37,4,"down") == true){
+                healingPool(37,5,gp.dialogueState);
+            }
+            if(hit(37,4,"down") == true){
+                healingPool(37,6,gp.dialogueState);
+            }
+            if(hit(37,4,"down") == true){
+                healingPool(37,7,gp.dialogueState);
+            }
+
+            //HIT DAMAGE POOL
+            if(hit(6,12,"left") == true){
+                damagePool(6,12,gp.dialogueState);
+            }
+            if(hit(6,13,"left") == true){
+                damagePool(6,13,gp.dialogueState);
+            }
+            if(hit(6,14,"left") == true){
+                damagePool(6,14,gp.dialogueState);
+            }
+            if(hit(6,15,"left") == true){
+                damagePool(6,15,gp.dialogueState);
+            }
+            if(hit(5,16,"up") == true){
+                damagePool(5,16,gp.dialogueState);
+            }
+            if(hit(4,16,"up") == true){
+                damagePool(4,16,gp.dialogueState);
+            }
+            if(hit(3,16,"up") == true){
+                damagePool(3,16,gp.dialogueState);
             }
         }
     }
@@ -160,11 +228,24 @@ public class EventHandler {
     }
 
     public void healingPool(int col, int row, int gameState) {
+        if(gp.keyH.enterPressed == true) {
+            gp.player.isFishing = false;
+            gp.gameState = gameState;
+            gp.ui.currentDialogue = "Yeah you've drunk the healing water.";
+            if (gp.player.life >= 19) {
+                gp.player.life = gp.player.maxLife;
+            } else {
+                gp.player.life += 2;
+            }
+        }
+    }
+
+    public void damagePool(int col, int row, int gameState) {
         if(gp.keyH.enterPressed == true){
             gp.player.isFishing = false;
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "You drink the water.\n Your life has been recovered.";
-            gp.player.life = gp.player.maxLife;
+            gp.ui.currentDialogue = "Oh no you've drunk the poisoned water.\nMinus 2 points.";
+            gp.player.life -= 4;
         }
     }
 }
