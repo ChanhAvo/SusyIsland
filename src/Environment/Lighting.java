@@ -116,9 +116,7 @@ public class Lighting {
         }
         else if(dayState == night) {
             gp.player.life = 0;
-            dayCounter = 0;
-            filterAlpha = 0f;
-            dayState = day;
+            resetDay();
             gp.playSE(7);
         }
     }
@@ -141,6 +139,11 @@ public class Lighting {
         g2.setColor(Color.WHITE);
         g2.setFont(customFont.deriveFont(Font.PLAIN, 50f));
         g2.drawString(situation, 850, 650);
+    }
+    public void resetDay(){
+        dayCounter = 0;
+        filterAlpha = 0f;
+        dayState = day;
     }
 
     public void loadFont() {

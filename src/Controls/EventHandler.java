@@ -95,10 +95,6 @@ public class EventHandler {
             }
 
             //Hit healing pool
-            if(hit(27,6,"right") == true){
-                System.out.println("hit pool");
-                healingPool(27,5,gp.dialogueState);
-            }
             if(hit(27,7,"right") == true){
                 System.out.println("hit pool");
                 healingPool(27,5,gp.dialogueState);
@@ -107,7 +103,12 @@ public class EventHandler {
                 System.out.println("hit pool");
                 healingPool(27,5,gp.dialogueState);
             }
+            if(hit(30,4,"down") == true){
+                System.out.println("hit pool");
+                healingPool(30,4,gp.dialogueState);
+            }
         }
+
     }
 
     public boolean hit (int col, int row, String reqDirection){
@@ -163,7 +164,7 @@ public class EventHandler {
         if(gp.keyH.enterPressed == true){
             gp.player.isFishing = false;
             gp.gameState = gameState;
-            gp.ui.currentDialogue = "You drink the water.\n Your life has been recovered.";
+            gp.ui.currentDialogue = "You drink the water.\nYour life has been recovered.";
             gp.player.life = gp.player.maxLife;
         }
     }

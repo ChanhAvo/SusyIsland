@@ -90,6 +90,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.restoreLife();
         aSetter.setCrab();
         aSetter.setObject();
+        eManager.lighting.resetDay();
 
     }
     public void restart(){
