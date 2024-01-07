@@ -237,6 +237,7 @@ public class KeyHandler implements KeyListener {
                 gp.stopMusic();
                 gp.gameState = gp.titleState;
                 gp.restart();
+
             }
 
         }

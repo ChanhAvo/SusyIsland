@@ -68,6 +68,9 @@ public class Player extends Entity {
         currentTilapia = new OBJ_Tilapia(gp);
         currentFlounder = new OBJ_Flounder(gp);
         currentCoconut = new OBJ_Coconut(gp);
+        currentTrash = new OBJ_Trash(gp);
+        currentPage = new OBJ_Page(gp);
+        currentCD = new OBJ_CD(gp);
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
 
     }
@@ -220,10 +223,11 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
-        if(life <= 0){
+        if(life == 0){
             gp.gameState = gp.gameOverState;
             gp.stopMusic();
             gp.playSE(7);
+
         }
         if(inventory.contains(currentSquid) &&
                 inventory.contains(currentHalibut) &&

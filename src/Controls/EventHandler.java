@@ -107,6 +107,22 @@ public class EventHandler {
                 System.out.println("hit pool");
                 healingPool(30,4,gp.dialogueState);
             }
+            if(hit(31,4,"down") == true){
+                System.out.println("hit pool");
+                healingPool(30,4,gp.dialogueState);
+            }
+            if(hit(32,4,"down") == true){
+                System.out.println("hit pool");
+                healingPool(30,4,gp.dialogueState);
+            }
+            if(hit(33,4,"down") == true){
+                System.out.println("hit pool");
+                healingPool(30,4,gp.dialogueState);
+            }
+            if(hit(34,4,"down") == true){
+                System.out.println("hit pool");
+                healingPool(30,4,gp.dialogueState);
+            }
         }
 
     }

@@ -103,7 +103,6 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setCrab();
         aSetter.setTreasure();
-        stopMusic();
         playMusic(0);
     }
     public void startGameThread() {
@@ -167,7 +166,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void playMusic(int i) {
         sound.setFile(i);
         sound.play();
-        sound.loop();
+        //sound.loop();
     }
     public void stopMusic(){
         sound.stop();
