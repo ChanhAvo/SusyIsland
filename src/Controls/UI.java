@@ -1,6 +1,8 @@
 package Controls;
 
 import Entity.Entity;
+import Object.OBJ_Coin_Bronze;
+import Object.OBJ_Heart;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -9,8 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import Object.OBJ_Heart;
-import Object.OBJ_Coin_Bronze;
+import java.util.ArrayList;
 
 
 public class UI {
@@ -21,6 +22,9 @@ public class UI {
     BufferedImage house;
     BufferedImage heart_full, heart_half, heart_blank;
     public String currentDialogue = "";
+    ArrayList<String> message = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
+
     public int commandNum = 0;
     public int playerSlotCol = 0;
     public int playerSlotRow = 0;
@@ -42,6 +46,10 @@ public class UI {
         heart_full = heart.down1;
         heart_half = heart.down2;
         heart_blank = heart.down3;
+    }
+    public void addMessage(String text) {
+        message.add(text);
+        messageCounter.add(0);
     }
     public void loadFont() {
         try (InputStream fontStream = getClass().getResourceAsStream("/Background/VT323-Regular.ttf")) {
@@ -71,6 +79,7 @@ public class UI {
         //PLAY STATE
         if (gp.gameState == gp.playState){
             drawPlayerLife();
+            drawMessage();
         }
         //PAUSE STATE
         if(gp.gameState == gp.pauseState){
@@ -98,11 +107,17 @@ public class UI {
             drawPlayerLife();
             drawTradeScreen();
         }
-
+        //GAME OVER STATE
+        if(gp.gameState == gp.gameOverState){
+            drawGameOverScreen();
+        }
+        if(gp.gameState == gp.gameDoneState){
+            drawGameDoneScreen();
+        }
     }
     public void drawPlayerLife() {
 
-        gp.player.life = 7;
+        //gp.player.life = 7;
 
         int x = gp.tileSize / 2;
         int y = gp.tileSize / 2;
@@ -131,6 +146,27 @@ public class UI {
             x += gp.tileSize;
         }
     }
+    public void drawMessage() {
+        int messageX = gp.tileSize;
+        int messageY = gp.tileSize*4;
+        g2.setFont(customFont.deriveFont(Font.BOLD, 32f));
+
+        for(int i = 0; i < message.size(); i++){
+            if(message.get(i) != null){
+                g2.setColor(Color.white);
+                g2.drawString(message.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1; //messageCounter++
+                messageCounter.set(i, counter); //set counter to the array
+                messageY += 50;
+
+                if(messageCounter.get(i) > 180){
+                    message.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
+        }
+    }
     public void drawTitleScreen() {
         //TITLE IMAGE
         g2.drawImage(house,0,0, gp.screenWidth, gp.screenHeight, null);
@@ -140,7 +176,7 @@ public class UI {
 
         //TITLE NAME
         g2.setFont(customFont.deriveFont(Font.BOLD, 150f));
-        String text = "SUSY FISHY";
+        String text = "SUSY ISLAND";
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3;
         //SHADOW
@@ -200,6 +236,42 @@ public class UI {
             g2.drawString(line, x, y);
             y += 40;
         }
+    }
+    public void drawGameOverScreen(){
+        g2.setColor(new Color(0,0,0,150));
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        int x;
+        int y;
+        String text;
+        g2.setFont(customFont.deriveFont(Font.BOLD, 150f));
+        text = "GAME OVER";
+        g2.setColor(Color.black);
+        x = getXforCenteredText(text);
+        y = gp.tileSize*4;
+        g2.drawString(text,x,y);
+        g2.setColor(Color.white);
+        g2.drawString(text,x-4,y-4);
+
+
+        // Retry
+        g2.setFont(customFont.deriveFont(Font.BOLD, 50f));
+        text = "Retry";
+        x = getXforCenteredText(text);
+        y += gp.tileSize*4;
+        g2.drawString(text,x,y );
+        if(commandNum == 0){
+            g2.drawString(">", x-40,y);
+        }
+
+        //Back to the title screen
+        text = "Quit";
+        x = getXforCenteredText(text);
+        y += 55;
+        g2.drawString(text,x,y );
+        if(commandNum == 1){
+            g2.drawString(">", x-40,y);
+        }
+
     }
     //CHARACTER STATE
     public void drawCharacterScreen(){
@@ -361,7 +433,7 @@ public class UI {
         }
         gp.keyH.enterPressed = false;
     }
-    public void trade_select(){
+    public void trade_select() {
         drawDialogueScreen();
 
         //DRAW WINDOW
@@ -447,12 +519,11 @@ public class UI {
                 else if(gp.player.inventory.size() == gp.player.maxInventorySize){
                     subState = 0;
                     gp.gameState = gp.dialogueState;
-                    currentDialogue = "Not space to add this item";
+                    currentDialogue = "No space to add this item";
                 }
                 else{
                     gp.player.coin -= npc.inventory.get(itemIndex).price;
                     gp.player.inventory.add(npc.inventory.get(itemIndex));
-
                 }
             }
         }
@@ -502,6 +573,28 @@ public class UI {
                 gp.player.coin += price;
             }
         }
+    }
+    public void drawGameDoneScreen(){
+        g2.setColor(new Color(0,0,0,150));
+        g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
+        //TITLE NAME
+        g2.setFont(customFont.deriveFont(Font.BOLD, 70f));
+        String text = "CONGRATULATIONS.";
+        String text1 = "YOU CAUGHT ALL THE FISH OF THIS ISLAND!";
+        int x = getXforCenteredText(text);
+        int y = gp.tileSize * 3;
+//        g2.drawString(text,x,y);
+//        g2.drawString(text1,x + 50, y + 50);
+
+        //SHADOW
+//        g2.setColor(Color.white);
+//        g2.drawString(text,x + 5,y + 5);
+        //MAIN COLOR +
+        g2.setColor(new Color(1, 30, 54));
+        g2.drawString(text, x, y);
+        g2.drawString(text1,x - 70 , y + 100);
+        //MENU
+        //g2.setFont(customFont.deriveFont(Font.BOLD, 90f));
     }
     public int getItemIndexOnSlot(int slotCol, int slotRow){
         int itemIndex = slotCol + (slotRow*5);

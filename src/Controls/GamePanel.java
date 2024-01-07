@@ -2,6 +2,7 @@ package Controls;
 
 import Entity.Entity;
 import Entity.Player;
+import Environment.EnvironmentManager;
 import Tile.TileManager;
 
 import javax.swing.*;
@@ -22,8 +23,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int screenHeight = tileSize * maxScreenRow; // 704 pixels
 
     //WORLD SETTING
-    public final int maxWorldCol = 20;
-    public final int maxWorldRow = 20;
+    public final int maxWorldCol = 41;
+    public final int maxWorldRow = 43;
     public final int worldWidth = tileSize * maxWorldCol;
     public final int worldHeight = tileSize * maxWorldRow;
 
@@ -39,12 +40,17 @@ public class GamePanel extends JPanel implements Runnable {
     public AssetSetter aSetter = new AssetSetter(this);
     public UI ui = new UI (this);
     public EventHandler eHandler = new EventHandler (this);
+    public EnvironmentManager eManager = new EnvironmentManager(this);
+
     Thread gameThread;
 
     // ENTITY & OBJECTS
-    public Player player = new Player (this, keyH);
+    public Player player = new Player(this, keyH);
     public Entity obj[] = new Entity[10];
     public Entity npc[] = new Entity[10];
+    public Entity[] crab = new Entity[20];
+    public Entity[] tre = new Entity[10];
+
     ArrayList<Entity> entityList = new ArrayList<>();
 
     //GAME STATE
@@ -56,23 +62,47 @@ public class GamePanel extends JPanel implements Runnable {
     public final int characterState = 4;
     public final int inventoryState = 5;
     public final int tradeState = 6;
+    public final int fishingState = 7;
+    public final int gameOverState = 8;
+    public final int gameDoneState = 9;
 
 
-
-    public GamePanel(){
-        this.setPreferredSize(new Dimension (screenWidth, screenHeight));
+    public GamePanel() {
+        this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
     }
-    public void setupGame(){
-        aSetter.setObject();
+
+    public void setupGame() {
         aSetter.setNPC();
+        aSetter.setObject();
+        aSetter.setCrab();
+        aSetter.setTreasure();
         playMusic(0);
-        gameState = titleState;
+        eManager.setup();
+
     }
-    public void startGameThread(){
+    public void retry(){
+        gameState = playState;
+        player.setDefaultPosition();
+        player.restoreLife();
+        aSetter.setCrab();
+        aSetter.setObject();
+
+    }
+    public void restart(){
+        player.setDefaultPosition();
+        player.setDefaultValues();
+        player.restoreLife();
+        player.setItems();
+        aSetter.setNPC();
+        aSetter.setObject();
+        aSetter.setCrab();
+        playMusic(0);
+    }
+    public void startGameThread() {
 
         gameThread = new Thread(this);
         gameThread.start();
@@ -81,14 +111,14 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run(){
 
-        double drawInterval = 1000000000/FPS;
+        double drawInterval = 1000000000 / FPS;
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
         int drawCount = 0;
 
-        while(gameThread != null){
+        while (gameThread != null) {
 
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
@@ -112,15 +142,24 @@ public class GamePanel extends JPanel implements Runnable {
     public void update(){
         if(gameState == playState){
             player.update();
+            eManager.update();
 
             for (int i = 0; i < npc.length; i++){
                 if(npc[i] != null){
                     npc[i].update();
                 }
             }
+            for (int i = 0; i < crab.length; i++) {
+                if (crab[i] != null) {
+                    crab[i].update();
+                }
+            }
         }
         if(gameState == pauseState){
             //nothing
+        }
+        if(gameState == gameOverState) {
+
         }
     }
 
@@ -137,15 +176,15 @@ public class GamePanel extends JPanel implements Runnable {
         sound.play();
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
-        //TITLE SCREEN
-        if(gameState == titleState){
+        //TITLE SCREEN OR GAME OVER
+        if (gameState == titleState ) {
             ui.draw(g2);
-
         }
+
         //OTHERS
         else {
             //TILE
@@ -158,10 +197,25 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             for (int i = 0; i < obj.length; i++) {
-                if (npc[i] != null) {
+                if (obj[i] != null) {
                     entityList.add(obj[i]);
                 }
             }
+            for (int i = 0; i < crab.length; i++) {
+                if (crab[i] != null) {
+                    entityList.add(crab[i]);
+                }
+            }
+            for (int i = 0; i < tre.length; i++) {
+                if (tre[i] != null) {
+                    entityList.add(tre[i]);
+                }
+            }
+//            for (int i = 0; i < coconut.length; i++) {
+//                if (coconut[i] != null) {
+//                    entityList.add(coconut[i]);
+//                }
+//            }
             // sort
             Collections.sort(entityList, new Comparator<Entity>() {
                 @Override
@@ -171,13 +225,16 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             });
             //DRAW ENTITY
-            for(int i = 0; i < entityList.size(); i++){
+            for (int i = 0; i < entityList.size(); i++) {
                 entityList.get(i).draw(g2);
             }
             //EMPTY ENTITY LIST
-            for(int i = 0; i < entityList.size(); i++){
+            for (int i = 0; i < entityList.size(); i++) {
                 entityList.remove(i);
             }
+            //ENVIRONMENT
+            eManager.draw(g2);
+
             //UI
             ui.draw(g2);
         }
