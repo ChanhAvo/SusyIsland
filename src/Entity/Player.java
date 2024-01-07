@@ -223,7 +223,7 @@ public class Player extends Entity {
                 invincibleCounter = 0;
             }
         }
-        if(life == 0){
+        if(life <= 0){
             gp.gameState = gp.gameOverState;
             gp.stopMusic();
             gp.playSE(7);
