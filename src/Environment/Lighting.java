@@ -126,6 +126,12 @@ public class Lighting {
             }
         }
     }
+    public void resetDay() {
+        dayCounter = 0;
+        filterAlpha = 0f;
+        dayState = day;
+    }
+
 
     public void draw(Graphics2D g2) {
 

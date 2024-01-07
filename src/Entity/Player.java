@@ -3,15 +3,7 @@ package Entity;
 import Controls.GamePanel;
 import Controls.KeyHandler;
 import Controls.UtilityTool;
-import Object.OBJ_Bait;
-import Object.OBJ_Rod;
-import Object.OBJ_Coconut;
-import Object.OBJ_Halibut;
-import Object.OBJ_Flounder;
-import Object.OBJ_Squid;
-import Object.OBJ_Tilapia;
-import Object.OBJ_Sardine;
-
+import Object.*;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -19,10 +11,6 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Objects;
-import Controls.UtilityTool;
-import java.io.*;
 
 
 public class Player extends Entity {
@@ -80,6 +68,9 @@ public class Player extends Entity {
         currentTilapia = new OBJ_Tilapia(gp);
         currentFlounder = new OBJ_Flounder(gp);
         currentCoconut = new OBJ_Coconut(gp);
+        currentTrash = new OBJ_Trash(gp);
+        currentPage = new OBJ_Page(gp);
+        currentCD = new OBJ_CD(gp);
         fishing = getFishing(); // the total fishing value is decided by strengt and rob
 
     }
@@ -234,7 +225,9 @@ public class Player extends Entity {
         }
         if(life <= 0){
             gp.gameState = gp.gameOverState;
+            gp.stopMusic();
             gp.playSE(7);
+
         }
         if(inventory.contains(currentSquid) &&
                 inventory.contains(currentHalibut) &&

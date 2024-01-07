@@ -96,7 +96,7 @@ public class EventHandler {
 
             //HIT HEALING POOL
             if(hit(27,6,"right") == true){
-                healingPool(27,5,gp.dialogueState);
+                healingPool(27,6,gp.dialogueState);
             }
             if(hit(27,7,"right") == true){
                 healingPool(27,7,gp.dialogueState);
@@ -104,55 +104,21 @@ public class EventHandler {
             if(hit(27,5,"right") == true){
                 healingPool(27,5,gp.dialogueState);
             }
-            if(hit(28,9,"up") == true){
-                healingPool(28,9,gp.dialogueState);
-            }
-            if(hit(29,9,"up") == true){
-                healingPool(29,9,gp.dialogueState);
-            }
-            if(hit(30,9,"up") == true){
-                healingPool(30,9,gp.dialogueState);
-            }
-            if(hit(31,9,"up") == true){
-                healingPool(31,9,gp.dialogueState);
-            }
-            if(hit(32,9,"up") == true){
-                healingPool(32,9,gp.dialogueState);
-            }
-            if(hit(33,9,"up") == true){
-                healingPool(33,9,gp.dialogueState);
-            }
             if(hit(30,4,"down") == true){
                 healingPool(30,4,gp.dialogueState);
             }
             if(hit(31,4,"down") == true){
-                healingPool(31,4,gp.dialogueState);
+                healingPool(30,4,gp.dialogueState);
             }
             if(hit(32,4,"down") == true){
-                healingPool(32,4,gp.dialogueState);
+                healingPool(30,4,gp.dialogueState);
             }
             if(hit(33,4,"down") == true){
-                healingPool(33,4,gp.dialogueState);
+                healingPool(30,4,gp.dialogueState);
             }
             if(hit(34,4,"down") == true){
-                healingPool(34,4,gp.dialogueState);
+                healingPool(30,4,gp.dialogueState);
             }
-            if(hit(35,4,"down") == true){
-                healingPool(35,4,gp.dialogueState);
-            }
-            if(hit(36,4,"down") == true){
-                healingPool(36,4,gp.dialogueState);
-            }
-            if(hit(37,5,"down") == true){
-                healingPool(37,5,gp.dialogueState);
-            }
-            if(hit(37,6,"down") == true){
-                healingPool(37,6,gp.dialogueState);
-            }
-            if(hit(37,7,"down") == true){
-                healingPool(37,7,gp.dialogueState);
-            }
-
             //HIT DAMAGE POOL
             if(hit(6,12,"left") == true){
                 damagePool(6,12,gp.dialogueState);
@@ -176,6 +142,7 @@ public class EventHandler {
                 damagePool(3,16,gp.dialogueState);
             }
         }
+
     }
 
     public boolean hit (int col, int row, String reqDirection){
