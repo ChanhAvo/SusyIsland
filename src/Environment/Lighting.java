@@ -101,23 +101,29 @@ public class Lighting {
         if(dayState == day) {
             dayCounter++;
 
-            if(dayCounter > 1000) {
+            if(dayCounter > 3600) { //18000 = 5 minutes, 3600 = 1 minutes
                 dayState = dusk;
                 dayCounter = 0;
             }
         }
-        if(dayState == dusk) {
-            filterAlpha += 0.001f;
+        else if(dayState == dusk) {
+            filterAlpha += 0.001f; // 0.001f ~ 16s
 
             if(filterAlpha > 1f) {
                 filterAlpha = 1f;
                 dayState = night;
             }
         }
-        if(dayState == night) {
-            gp.player.life = 0;
-            resetDay();
-            gp.stopMusic();
+        else if(dayState == night) {
+            dayCounter++;
+
+            if(dayCounter > 600) { // 600 = 10 seconds
+                gp.player.life = 0;
+                dayCounter = 0;
+                filterAlpha = 0f;
+                dayState = day;
+                gp.playSE(7);
+            }
         }
     }
     public void resetDay() {
