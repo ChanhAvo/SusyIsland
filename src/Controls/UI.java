@@ -578,9 +578,10 @@ public class UI {
         g2.setColor(new Color(0,0,0,150));
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
         //TITLE NAME
-        g2.setFont(customFont.deriveFont(Font.BOLD, 55f));
+        g2.setFont(customFont.deriveFont(Font.BOLD, 90f));
         String text = "CONGRATULATIONS.";
-        String text1 = "YOU CAUGHT ALL THE FISH OF THIS ISLAND!";
+        String text1 = "YOU CAUGHT ALL THE FISH";
+        String text2 =  "OF THIS ISLAND!";
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3;
 //        g2.drawString(text,x,y);
@@ -590,9 +591,10 @@ public class UI {
 //        g2.setColor(Color.white);
 //        g2.drawString(text,x + 5,y + 5);
         //MAIN COLOR +
-        g2.setColor(new Color(1, 30, 54));
-        g2.drawString(text, x, y);
-        g2.drawString(text1,x - 70 , y + 100);
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y+ 50 );
+        g2.drawString(text1,x - 120, y + 180);
+        g2.drawString(text2,x + 15  , y + 280);
         //MENU
         //g2.setFont(customFont.deriveFont(Font.BOLD, 90f));
     }

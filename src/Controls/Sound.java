@@ -18,6 +18,7 @@ public class Sound {
         soundURL[5] = getClass().getResource("/Sound/pick_up_obj.wav");
         soundURL[6] = getClass().getResource("/Sound/pointer.wav");
         soundURL[7] = getClass().getResource("/Sound/GameOverSound.wav");
+        soundURL[8] = getClass().getResource("/Sound/win.wav");
 
 
     }

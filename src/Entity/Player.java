@@ -235,6 +235,7 @@ public class Player extends Entity {
                 inventory.contains(currentFlounder) &&
                 gp.eManager.lighting.dayState != 2 ){
             gp.gameState = gp.gameDoneState;
+            gp.playSE(8);
         }
     }
     public void fishing(){
