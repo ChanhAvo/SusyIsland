@@ -96,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     }
     public void restart(){
+        stopMusic();
         gameState = titleState;
         player.setDefaultPosition();
         player.setDefaultValues();

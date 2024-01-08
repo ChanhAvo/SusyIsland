@@ -578,7 +578,7 @@ public class UI {
         g2.setColor(new Color(0,0,0,150));
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
         //TITLE NAME
-        g2.setFont(customFont.deriveFont(Font.BOLD, 70f));
+        g2.setFont(customFont.deriveFont(Font.BOLD, 55f));
         String text = "CONGRATULATIONS.";
         String text1 = "YOU CAUGHT ALL THE FISH OF THIS ISLAND!";
         int x = getXforCenteredText(text);

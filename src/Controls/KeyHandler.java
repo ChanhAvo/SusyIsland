@@ -85,9 +85,7 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.pauseState){
             if(code == KeyEvent.VK_P){
                 gp.gameState = gp.playState;
-
             }
-
         }
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState){
@@ -228,6 +226,7 @@ public class KeyHandler implements KeyListener {
             gp.playSE(6);
         }
         if(code == KeyEvent.VK_ENTER){
+            gp.stopMusic();
             if(gp.ui.commandNum == 0){
                 gp.stopMusic();
                 gp.gameState = gp.playState;
@@ -238,7 +237,6 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.titleState;
                 gp.restart();
             }
-
         }
     }
 
