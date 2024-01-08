@@ -118,6 +118,7 @@ public class EventHandler {
             if(hit(34,4,"down") == true){
                 healingPool(34,4,gp.dialogueState);
             }
+
             //HIT DAMAGE POOL
             if(hit(6,12,"left") == true){
                 damagePool(6,12,gp.dialogueState);
