@@ -75,7 +75,7 @@ public class EventHandler {
             if(hit(13,6,"any") == true) {
                 damagePit(13,6,gp.dialogueState);
             }
-            if(hit(30,18,"any") == true) {
+            if(hit(30,18,"down") == true) {
                 damagePit(30,18,gp.dialogueState);
             }
             if(hit(17,25,"any") == true) {
@@ -84,10 +84,10 @@ public class EventHandler {
             if(hit(28,28,"any") == true) {
                 damagePit(28,28,gp.dialogueState);
             }
-            if(hit(15,32,"any") == true) {
-                damagePit(17,25,gp.dialogueState);
+            if(hit(15,32,"down") == true) {
+                damagePit(15,32,gp.dialogueState);
             }
-            if(hit(30,34,"any") == true) {
+            if(hit(30,34,"down") == true) {
                 damagePit(30,34,gp.dialogueState);
             }
             if(hit(11,33,"any") == true) {
