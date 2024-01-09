@@ -85,7 +85,7 @@ public class EventHandler {
                 damagePit(28,28,gp.dialogueState);
             }
             if(hit(15,32,"any") == true) {
-                damagePit(17,25,gp.dialogueState);
+                damagePit(15,32,gp.dialogueState);
             }
             if(hit(30,34,"any") == true) {
                 damagePit(30,34,gp.dialogueState);
@@ -108,16 +108,16 @@ public class EventHandler {
                 healingPool(30,4,gp.dialogueState);
             }
             if(hit(31,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(31,4,gp.dialogueState);
             }
             if(hit(32,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(32,4,gp.dialogueState);
             }
             if(hit(33,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(33,4,gp.dialogueState);
             }
             if(hit(34,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(34,4,gp.dialogueState);
             }
             //HIT DAMAGE POOL
             if(hit(6,12,"left") == true){
