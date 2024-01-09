@@ -91,7 +91,10 @@ public class GamePanel extends JPanel implements Runnable {
         player.restoreLife();
         aSetter.setCrab();
         aSetter.setObject();
+
         eManager.lighting.resetDay();
+
+
     }
     public void restart(){
         gameState = titleState;
@@ -178,13 +181,16 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2 = (Graphics2D)g;
 
-        //TITLE SCREEN OR GAME OVER
+        //TITLE SCREEN
+
+
         if (gameState == titleState ) {
-            ui.draw(g2);
-        }
 
+            ui.draw(g2);
+
+        }
         //OTHERS
         else {
             //TILE

@@ -225,7 +225,6 @@ public class Player extends Entity {
         }
         if(life <= 0){
             gp.gameState = gp.gameOverState;
-            gp.stopMusic();
             gp.playSE(7);
 
         }
@@ -236,6 +235,7 @@ public class Player extends Entity {
                 inventory.contains(currentFlounder) &&
                 gp.eManager.lighting.dayState != 2 ){
             gp.gameState = gp.gameDoneState;
+            gp.playSE(8);
         }
     }
     public void fishing(){
@@ -331,6 +331,7 @@ public class Player extends Entity {
            }
         }
     }
+
     public void draw(Graphics2D g2){
         BufferedImage image = null;
 

@@ -1,14 +1,11 @@
 package Environment;
 
 import Controls.GamePanel;
-import Entity.Entity;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -101,7 +98,7 @@ public class Lighting {
         if(dayState == day) {
             dayCounter++;
 
-            if(dayCounter > 3600) { //18000 = 5 minutes, 3600 = 1 minutes
+            if(dayCounter > 18000) { //18000 = 5 minutes, 3600 = 1 minutes
                 dayState = dusk;
                 dayCounter = 0;
             }
