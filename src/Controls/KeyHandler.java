@@ -55,15 +55,19 @@ public class KeyHandler implements KeyListener {
 
             if(code == KeyEvent.VK_W){
                 upPressed = true;
+
             }
             if(code == KeyEvent.VK_S){
                 downPressed = true;
+
             }
             if(code == KeyEvent.VK_A){
                 leftPressed = true;
+
             }
             if(code == KeyEvent.VK_D){
                 rightPressed = true;
+
             }
             if(code == KeyEvent.VK_P){
                 gp.gameState = gp.pauseState;
@@ -109,6 +113,7 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.tradeState){
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
+                gp.playSE(9);
             }
             if(gp.ui.subState == 0){
                 if(code == KeyEvent.VK_W){
@@ -140,6 +145,7 @@ public class KeyHandler implements KeyListener {
         //FISHING STATE
         else if(gp.gameState == gp.fishingState){
             if(code == KeyEvent.VK_ENTER){
+                gp.playSE(10);
                 gp.gameState = gp.playState;
             }
         }
