@@ -22,6 +22,18 @@ public class AssetSetter {
         gp.obj[2].worldX = 11 * gp.tileSize;
         gp.obj[2].worldY = 28 * gp.tileSize;
 
+        gp.obj[3] = new OBJ_Coconut(gp);
+        gp.obj[3].worldX = 25 * gp.tileSize;
+        gp.obj[3].worldY = 30 * gp.tileSize;
+
+        gp.obj[4] = new OBJ_Coconut(gp);
+        gp.obj[4].worldX = 37 * gp.tileSize;
+        gp.obj[4].worldY = 25 * gp.tileSize;
+
+        gp.obj[5] = new OBJ_Coconut(gp);
+        gp.obj[5].worldX = 3 * gp.tileSize;
+        gp.obj[5].worldY = 33 * gp.tileSize;
+
     }
     public void setNPC(){
 

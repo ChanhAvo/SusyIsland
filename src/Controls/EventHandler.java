@@ -55,7 +55,6 @@ public class EventHandler {
                 }
             }
             if(hit(0,0,"right") == true){
-                System.out.println("hit");
                 welcomeMessage(0,0,gp.dialogueState);
             }
 
@@ -75,7 +74,7 @@ public class EventHandler {
             if(hit(13,6,"any") == true) {
                 damagePit(13,6,gp.dialogueState);
             }
-            if(hit(30,18,"any") == true) {
+            if(hit(30,18,"down") == true) {
                 damagePit(30,18,gp.dialogueState);
             }
             if(hit(17,25,"any") == true) {
@@ -84,10 +83,10 @@ public class EventHandler {
             if(hit(28,28,"any") == true) {
                 damagePit(28,28,gp.dialogueState);
             }
-            if(hit(15,32,"any") == true) {
-                damagePit(17,25,gp.dialogueState);
+            if(hit(15,32,"down") == true) {
+                damagePit(15,32,gp.dialogueState);
             }
-            if(hit(30,34,"any") == true) {
+            if(hit(30,34,"down") == true) {
                 damagePit(30,34,gp.dialogueState);
             }
             if(hit(11,33,"any") == true) {
@@ -108,17 +107,18 @@ public class EventHandler {
                 healingPool(30,4,gp.dialogueState);
             }
             if(hit(31,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(31,4,gp.dialogueState);
             }
             if(hit(32,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(32,4,gp.dialogueState);
             }
             if(hit(33,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(33,4,gp.dialogueState);
             }
             if(hit(34,4,"down") == true){
-                healingPool(30,4,gp.dialogueState);
+                healingPool(34,4,gp.dialogueState);
             }
+
             //HIT DAMAGE POOL
             if(hit(6,12,"left") == true){
                 damagePool(6,12,gp.dialogueState);
