@@ -130,6 +130,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 3:
                 case 4:
@@ -138,6 +139,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 5:
                     inventory.add(currentSquid);
@@ -145,6 +147,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 6:
                 case 7:
@@ -153,6 +156,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 8:
                 case 9:
@@ -161,6 +165,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
 //                case 10:
 //                case 11:
