@@ -84,12 +84,21 @@ public class AssetSetter {
         gp.crab[9].worldY = gp.tileSize * 16;
 
         gp.crab[10] = new Crab_Monster(gp);
-        gp.crab[10].worldX = gp.tileSize * 25;
+        gp.crab[10].worldX = gp.tileSize * 20;
         gp.crab[10].worldY = gp.tileSize * 15;
 
         gp.crab[11] = new Crab_Monster(gp);
-        gp.crab[11].worldX = gp.tileSize * 21;
-        gp.crab[11].worldY = gp.tileSize * 24;
+        gp.crab[11].worldX = gp.tileSize * 10;
+        gp.crab[11].worldY = gp.tileSize * 1;
+
+        gp.crab[12] = new Crab_Monster(gp);
+        gp.crab[12].worldX = gp.tileSize * 20;
+        gp.crab[12].worldY = gp.tileSize * 1;
+
+        gp.crab[13] = new Crab_Monster(gp);
+        gp.crab[13].worldX = gp.tileSize * 25;
+        gp.crab[13].worldY = gp.tileSize * 2;
+
 
 
     }
