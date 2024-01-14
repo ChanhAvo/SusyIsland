@@ -1,14 +1,11 @@
 package Environment;
 
 import Controls.GamePanel;
-import Entity.Entity;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.awt.Font;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -101,13 +98,13 @@ public class Lighting {
         if(dayState == day) {
             dayCounter++;
 
-            if(dayCounter > 600) {
+            if(dayCounter > 18000) { //18000 = 5 minutes, 3600 = 1 minutes
                 dayState = dusk;
                 dayCounter = 0;
             }
         }
         else if(dayState == dusk) {
-            filterAlpha += 0.001f;
+            filterAlpha += 0.001f; // 0.001f ~ 16s
 
             if(filterAlpha > 1f) {
                 filterAlpha = 1f;
@@ -115,13 +112,23 @@ public class Lighting {
             }
         }
         else if(dayState == night) {
-            gp.player.life = 0;
-            dayCounter = 0;
-            filterAlpha = 0f;
-            dayState = day;
-            gp.playSE(7);
+            dayCounter++;
+
+            if(dayCounter > 600) { // 600 = 10 seconds
+                gp.player.life = 0;
+                dayCounter = 0;
+                filterAlpha = 0f;
+                dayState = day;
+                gp.playSE(7);
+            }
         }
     }
+    public void resetDay() {
+        dayCounter = 0;
+        filterAlpha = 0f;
+        dayState = day;
+    }
+
 
     public void draw(Graphics2D g2) {
 

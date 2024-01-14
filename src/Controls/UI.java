@@ -578,21 +578,41 @@ public class UI {
         g2.setColor(new Color(0,0,0,150));
         g2.fillRect(0,0,gp.screenWidth,gp.screenHeight);
         //TITLE NAME
-        g2.setFont(customFont.deriveFont(Font.BOLD, 70f));
+        g2.setFont(customFont.deriveFont(Font.BOLD, 90f));
         String text = "CONGRATULATIONS.";
-        String text1 = "YOU CAUGHT ALL THE FISH OF THIS ISLAND!";
+        String text1 = "YOU CAUGHT ALL THE FISH";
+        String text2 =  "OF THIS ISLAND!";
+
+
         int x = getXforCenteredText(text);
         int y = gp.tileSize * 3;
 //        g2.drawString(text,x,y);
 //        g2.drawString(text1,x + 50, y + 50);
-
+        // Credit
+        //Back to the title screen
         //SHADOW
 //        g2.setColor(Color.white);
 //        g2.drawString(text,x + 5,y + 5);
-        //MAIN COLOR +
-        g2.setColor(new Color(1, 30, 54));
-        g2.drawString(text, x, y);
-        g2.drawString(text1,x - 70 , y + 100);
+        //MAIN COLOR
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y+ 50 );
+        g2.drawString(text1,x - 120, y + 180);
+        g2.drawString(text2,x + 15  , y + 280);
+
+        // Source
+        g2.setFont(customFont.deriveFont(Font.BOLD, 45f));
+        text = "Nguyen Xuan Tram Anh ITDSIU22177";
+        g2.drawString(text,x,y + 350 );
+
+        g2.setFont(customFont.deriveFont(Font.BOLD, 45f));
+        text = "Dang Phuong Mai ITDSIU22172";
+        g2.drawString(text,x + 50,y + 400 );
+
+        g2.setFont(customFont.deriveFont(Font.BOLD, 45f));
+        text = "Lam Thi Bao Ngoc ITDSIU22169";
+        g2.drawString(text,x+ 40,y + 450 );
+
+
         //MENU
         //g2.setFont(customFont.deriveFont(Font.BOLD, 90f));
     }

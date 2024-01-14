@@ -29,15 +29,19 @@ public class KeyHandler implements KeyListener {
                 }
             }
             if(code == KeyEvent.VK_S){
+
                 gp.ui.commandNum++;
                 if(gp.ui.commandNum > 2){
                     gp.ui.commandNum = 0;
                 }
+
+
             }
             if(code == KeyEvent.VK_ENTER){
+
                 if(gp.ui.commandNum == 0){
                     gp.gameState = gp.playState;
-                    gp.sound.stop();
+                    gp.stopMusic();
                     gp.playMusic(1);
                 }
                 if(gp.ui.commandNum == 1){
@@ -48,17 +52,22 @@ public class KeyHandler implements KeyListener {
 
         //PLAY STATE
         else if(gp.gameState == gp.playState){
+
             if(code == KeyEvent.VK_W){
                 upPressed = true;
+
             }
             if(code == KeyEvent.VK_S){
                 downPressed = true;
+
             }
             if(code == KeyEvent.VK_A){
                 leftPressed = true;
+
             }
             if(code == KeyEvent.VK_D){
                 rightPressed = true;
+
             }
             if(code == KeyEvent.VK_P){
                 gp.gameState = gp.pauseState;
@@ -82,10 +91,6 @@ public class KeyHandler implements KeyListener {
                 gp.gameState = gp.playState;
             }
         }
-        //GAME OVER STATE
-        else if(gp.gameState == gp.gameOverState){
-            gameOverState(code);
-        }
         //DIALOGUE STATE
         else if(gp.gameState == gp.dialogueState){
             if(code == KeyEvent.VK_ENTER){
@@ -108,6 +113,7 @@ public class KeyHandler implements KeyListener {
         else if(gp.gameState == gp.tradeState){
             if(code == KeyEvent.VK_ENTER){
                 enterPressed = true;
+                gp.playSE(9);
             }
             if(gp.ui.subState == 0){
                 if(code == KeyEvent.VK_W){
@@ -139,8 +145,14 @@ public class KeyHandler implements KeyListener {
         //FISHING STATE
         else if(gp.gameState == gp.fishingState){
             if(code == KeyEvent.VK_ENTER){
+                gp.playSE(10);
                 gp.gameState = gp.playState;
             }
+        }
+        //GAME OVER STATE
+
+        else if(gp.gameState == gp.gameOverState) {
+            gameOverState(code);
         }
     }
     public void npcInventory(int code){
@@ -175,23 +187,27 @@ public class KeyHandler implements KeyListener {
             if(gp.ui.playerSlotRow != 0 ){
                 gp.ui.playerSlotRow--;
             }
+            gp.playSE(6);
 
         }
         if(code == KeyEvent.VK_A){
             if(gp.ui.playerSlotCol != 0){
                 gp.ui.playerSlotCol--;
             }
+            gp.playSE(6);
         }
         if(code == KeyEvent.VK_S){
             if(gp.ui.playerSlotRow != 3){
                 gp.ui.playerSlotRow++;
             }
+            gp.playSE(6);
 
         }
         if(code == KeyEvent.VK_D){
             if(gp.ui.playerSlotCol != 4){
                 gp.ui.playerSlotCol++;
             }
+            gp.playSE(6);
         }
         if(code == KeyEvent.VK_N){
             gp.player.selectItem();
@@ -210,19 +226,23 @@ public class KeyHandler implements KeyListener {
         }
         if(code == KeyEvent.VK_S) {
             gp.ui.commandNum++;
-            if (gp.ui.commandNum > 0) {
-                gp.ui.commandNum = 1;
+            if (gp.ui.commandNum > 1) {
+                gp.ui.commandNum = 0;
             }
             gp.playSE(6);
         }
         if(code == KeyEvent.VK_ENTER){
-            if(gp.ui.commandNum ==0){
+            gp.stopMusic();
+            if(gp.ui.commandNum == 0){
+                gp.stopMusic();
                 gp.gameState = gp.playState;
                 gp.retry();
             }
             else if(gp.ui.commandNum == 1){
+                gp.stopMusic();
                 gp.gameState = gp.titleState;
                 gp.restart();
+
             }
         }
     }

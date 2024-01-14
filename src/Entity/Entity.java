@@ -57,6 +57,9 @@ public class Entity {
     public Entity currentSquid;
     public Entity currentFlounder;
     public Entity currentSardine;
+    public Entity currentTrash;
+    public Entity currentCD;
+    public Entity currentPage;
     public boolean  invincible = false;
     public int invincibleCounter = 0;
     // ITEM ATTRIBUTES
@@ -83,6 +86,9 @@ public class Entity {
     public final int type_squid = 8;
     public final int type_tilapia = 9;
     public final int type_Crab = 10;
+    public final int type_trash = 11;
+    public final int type_page = 12;
+    public final int type_CD = 13;
 
 
     public Entity(GamePanel gp){
@@ -115,16 +121,16 @@ public class Entity {
         boolean hasRod = inventory.contains(currentRod);
         if (hasBait && hasRod){
             Random rand = new Random();
-            int i = rand.nextInt(10);
+            int i = rand.nextInt(15);
             switch(i) {
                 case 1:
-
                 case 2:
                     inventory.add(currentHalibut);
                     gp.player.life--;
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 3:
                 case 4:
@@ -133,6 +139,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 5:
                     inventory.add(currentSquid);
@@ -140,6 +147,7 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 6:
                 case 7:
@@ -148,10 +156,36 @@ public class Entity {
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
                     gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
                     break;
                 case 8:
                 case 9:
                     inventory.add(currentFlounder);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    gp.playSE(10);
+                    break;
+                case 10:
+                case 11:
+                    inventory.add(currentTrash);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 12:
+                case 13:
+                    inventory.add(currentCD);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 14:
+                case 15:
+                    inventory.add(currentPage);
                     gp.player.life--;
                     inventory.remove(currentBait);
                     gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";

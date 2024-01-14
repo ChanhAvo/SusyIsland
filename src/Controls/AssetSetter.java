@@ -22,6 +22,18 @@ public class AssetSetter {
         gp.obj[2].worldX = 11 * gp.tileSize;
         gp.obj[2].worldY = 28 * gp.tileSize;
 
+        gp.obj[3] = new OBJ_Coconut(gp);
+        gp.obj[3].worldX = 25 * gp.tileSize;
+        gp.obj[3].worldY = 30 * gp.tileSize;
+
+        gp.obj[4] = new OBJ_Coconut(gp);
+        gp.obj[4].worldX = 37 * gp.tileSize;
+        gp.obj[4].worldY = 25 * gp.tileSize;
+
+        gp.obj[5] = new OBJ_Coconut(gp);
+        gp.obj[5].worldX = 3 * gp.tileSize;
+        gp.obj[5].worldY = 33 * gp.tileSize;
+
     }
     public void setNPC(){
 
@@ -66,6 +78,18 @@ public class AssetSetter {
         gp.crab[8] = new Crab_Monster(gp);
         gp.crab[8].worldX = gp.tileSize * 19;
         gp.crab[8].worldY = gp.tileSize * 1;
+
+        gp.crab[9] = new Crab_Monster(gp);
+        gp.crab[9].worldX = gp.tileSize * 8;
+        gp.crab[9].worldY = gp.tileSize * 16;
+
+        gp.crab[10] = new Crab_Monster(gp);
+        gp.crab[10].worldX = gp.tileSize * 20;
+        gp.crab[10].worldY = gp.tileSize * 15;
+
+        gp.crab[11] = new Crab_Monster(gp);
+        gp.crab[11].worldX = gp.tileSize * 21;
+        gp.crab[11].worldY = gp.tileSize * 24;
 
 
     }
