@@ -30,7 +30,7 @@ Susy Island aims to guide players through challenges in the forest, help them na
 
 - Trading with NPC_Merchant:
   + Purchase: The players can only buy baits
-  + Selling: The players can sell fishes caught, trashes and baits for a price
+  + Selling: The players can sell fishes, and baits for a price. Selling trash items and coconuts does not make any profits. 
   + Note: Once the players sell the fishing rod, fishing is no longer available and game restart is required.
 
 - Forest: There are some creatures and objects that the players can encounter in the forest
