@@ -3,7 +3,7 @@ package Environment;
 import Controls.GamePanel;
 import java.awt.Graphics2D;
 
-public class EnvironmentManager {
+public class EnvironmentManager extends EnvironmentSystem {
 
     GamePanel gp;
     public Lighting lighting;
@@ -16,6 +16,7 @@ public class EnvironmentManager {
         lighting = new Lighting(gp);
     }
 
+    @Override
     public void update() {
         lighting.update();
     }
@@ -23,5 +24,4 @@ public class EnvironmentManager {
     public void draw(Graphics2D g2) {
         lighting.draw(g2);
     }
-
 }
