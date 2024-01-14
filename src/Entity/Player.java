@@ -331,9 +331,7 @@ public class Player extends Entity {
            }
         }
     }
-    public void checkFish(){
-        
-    }
+
     public void draw(Graphics2D g2){
         BufferedImage image = null;
 
