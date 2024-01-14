@@ -10,7 +10,7 @@ public class OBJ_Page extends Entity {
         type = type_page;
         name = "Page";
         down1 = setup("/Objects/page",gp.tileSize, gp.tileSize);
-        description = "[" + name + "]\nThat looks like an old page from a book...";
+        description = "[" + name + "]\nThat looks like an old \npage from a book...";
         price = 0;
     }
 }

@@ -10,7 +10,7 @@ public class OBJ_CD extends Entity {
         type = type_CD;
         name = "A broken CD";
         down1 = setup("/Objects/broken_CD",gp.tileSize, gp.tileSize);
-        description = "[" + name + "]\nThis broken CD seems\nnon-reusable";
+        description = "[" + name + "]\nThis broken CD \nseems non-reusable";
         price = 0;
     }
 }

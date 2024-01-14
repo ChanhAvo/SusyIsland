@@ -92,11 +92,11 @@ public class UI {
             drawDialogueScreen();
         }
         // CHARACTER STATE
-        if(gp.gameState == gp.characterState) {
-            drawPlayerLife();
-            drawCharacterScreen();
-
-        }
+//        if(gp.gameState == gp.characterState) {
+//            drawPlayerLife();
+//            drawCharacterScreen();
+//
+//        }
         //INVENTORY
         if(gp.gameState == gp.inventoryState) {
             drawPlayerLife();
@@ -274,77 +274,77 @@ public class UI {
 
     }
     //CHARACTER STATE
-    public void drawCharacterScreen(){
-        //CREAT A FRAME
-        final int frameX = gp.tileSize*2;
-        final int frameY = gp.tileSize;
-        final int frameWidth = gp.tileSize*5;
-        final int frameHeight = gp.tileSize*6;
-        drawSubWindow(frameX, frameY, frameWidth,frameHeight);
-        //TEXT
-        g2.setColor(Color.white);
-        g2.setFont(customFont.deriveFont(Font.PLAIN, 40f));
-        int textX = frameX + 20;
-        int textY  = frameY + gp.tileSize;
-        final int lineHeight = 32;
-        // NAME
-        g2.drawString("Strength",textX,textY);
-        textY += lineHeight;
-        g2.drawString("Dexterity",textX,textY);
-        textY += lineHeight;
-
-        g2.drawString("EXP",textX,textY);
-        textY += lineHeight;
-        g2.drawString("Next Level",textX,textY);
-        textY += lineHeight;
-        g2.drawString("Coin",textX,textY);
-        textY += lineHeight;
-        g2.drawString("Rob",textX,textY);
-        textY += lineHeight;
-        g2.drawString("Bait",textX,textY);
-        textY += lineHeight;
-
-        // VALUE
-        int tailX = (frameX + frameWidth) -30;
-        // rest textY
-        textY = frameY +gp.tileSize;
-        String value;
-
-
-
-        value = String.valueOf(gp.player.strength);
-        textX = getXforAlignToRightText(value, tailX);
-        g2.drawString(value,textX, textY);
-        textY += lineHeight;
-
-        value = String.valueOf(gp.player.dexterity);
-        textX = getXforAlignToRightText(value, tailX);
-        g2.drawString(value,textX, textY);
-        textY += lineHeight;
-
-
-
-        value = String.valueOf(gp.player.exp);
-        textX = getXforAlignToRightText(value, tailX);
-        g2.drawString(value,textX, textY);
-        textY += lineHeight;
-
-        value = String.valueOf(gp.player.nextLevelExp);
-        textX = getXforAlignToRightText(value, tailX);
-        g2.drawString(value,textX, textY);
-        textY += lineHeight;
-
-        value = String.valueOf(gp.player.coin);
-        textX = getXforAlignToRightText(value, tailX);
-        g2.drawString(value,textX, textY);
-        textY += lineHeight;
-
-        g2.drawImage(gp.player.currentRod.down1,tailX - gp.tileSize, textY,null);
-        textY += gp.tileSize;
-
-        g2.drawImage(gp.player.currentBait.down1,tailX - gp.tileSize, textY,null);
-
-    }
+//    public void drawCharacterScreen(){
+//        //CREAT A FRAME
+//        final int frameX = gp.tileSize*2;
+//        final int frameY = gp.tileSize;
+//        final int frameWidth = gp.tileSize*5;
+//        final int frameHeight = gp.tileSize*6;
+//        drawSubWindow(frameX, frameY, frameWidth,frameHeight);
+//        //TEXT
+//        g2.setColor(Color.white);
+//        g2.setFont(customFont.deriveFont(Font.PLAIN, 40f));
+//        int textX = frameX + 20;
+//        int textY  = frameY + gp.tileSize;
+//        final int lineHeight = 32;
+//        // NAME
+//        g2.drawString("Strength",textX,textY);
+//        textY += lineHeight;
+//        g2.drawString("Dexterity",textX,textY);
+//        textY += lineHeight;
+//
+//        g2.drawString("EXP",textX,textY);
+//        textY += lineHeight;
+//        g2.drawString("Next Level",textX,textY);
+//        textY += lineHeight;
+//        g2.drawString("Coin",textX,textY);
+//        textY += lineHeight;
+//        g2.drawString("Rob",textX,textY);
+//        textY += lineHeight;
+//        g2.drawString("Bait",textX,textY);
+//        textY += lineHeight;
+//
+//        // VALUE
+//        int tailX = (frameX + frameWidth) -30;
+//        // rest textY
+//        textY = frameY +gp.tileSize;
+//        String value;
+//
+//
+//
+//        value = String.valueOf(gp.player.strength);
+//        textX = getXforAlignToRightText(value, tailX);
+//        g2.drawString(value,textX, textY);
+//        textY += lineHeight;
+//
+//        value = String.valueOf(gp.player.dexterity);
+//        textX = getXforAlignToRightText(value, tailX);
+//        g2.drawString(value,textX, textY);
+//        textY += lineHeight;
+//
+//
+//
+//        value = String.valueOf(gp.player.exp);
+//        textX = getXforAlignToRightText(value, tailX);
+//        g2.drawString(value,textX, textY);
+//        textY += lineHeight;
+//
+//        value = String.valueOf(gp.player.nextLevelExp);
+//        textX = getXforAlignToRightText(value, tailX);
+//        g2.drawString(value,textX, textY);
+//        textY += lineHeight;
+//
+//        value = String.valueOf(gp.player.coin);
+//        textX = getXforAlignToRightText(value, tailX);
+//        g2.drawString(value,textX, textY);
+//        textY += lineHeight;
+//
+//        g2.drawImage(gp.player.currentRod.down1,tailX - gp.tileSize, textY,null);
+//        textY += gp.tileSize;
+//
+//        g2.drawImage(gp.player.currentBait.down1,tailX - gp.tileSize, textY,null);
+//
+//    }
     public void drawInventory(Entity entity, boolean cursor) {
 
         int frameX = 0 ;
