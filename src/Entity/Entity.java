@@ -167,30 +167,30 @@ public class Entity {
                     gp.gameState = gp.dialogueState;
                     gp.playSE(10);
                     break;
-//                case 10:
-//                case 11:
-//                    inventory.add(currentTrash);
-//                    gp.player.life--;
-//                    inventory.remove(currentBait);
-//                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
-//                    gp.gameState = gp.dialogueState;
-//                    break;
-//                case 12:
-//                case 13:
-//                    inventory.add(currentCD);
-//                    gp.player.life--;
-//                    inventory.remove(currentBait);
-//                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
-//                    gp.gameState = gp.dialogueState;
-//                    break;
-//                case 14:
-//                case 15:
-//                    inventory.add(currentPage);
-//                    gp.player.life--;
-//                    inventory.remove(currentBait);
-//                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
-//                    gp.gameState = gp.dialogueState;
-//                    break;
+                case 10:
+                case 11:
+                    inventory.add(currentTrash);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 12:
+                case 13:
+                    inventory.add(currentCD);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
+                case 14:
+                case 15:
+                    inventory.add(currentPage);
+                    gp.player.life--;
+                    inventory.remove(currentBait);
+                    gp.ui.currentDialogue = "You are fishing.\nCheck your inventory when everything\nis done";
+                    gp.gameState = gp.dialogueState;
+                    break;
             }
         }
         if(!hasBait){

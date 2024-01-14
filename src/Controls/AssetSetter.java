@@ -84,7 +84,7 @@ public class AssetSetter {
         gp.crab[9].worldY = gp.tileSize * 16;
 
         gp.crab[10] = new Crab_Monster(gp);
-        gp.crab[10].worldX = gp.tileSize * 25;
+        gp.crab[10].worldX = gp.tileSize * 20;
         gp.crab[10].worldY = gp.tileSize * 15;
 
         gp.crab[11] = new Crab_Monster(gp);
